@@ -1,5 +1,9 @@
 <?php
 
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+// header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -8,7 +12,7 @@
  */
 
 $uri = urldecode(
-    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? ''
+    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );
 
 // This file allows us to emulate Apache's "mod_rewrite" functionality from the

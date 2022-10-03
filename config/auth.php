@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session"
+    | Supported: "session", "token"
     |
     */
 
@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+
     ],
 
     /*
@@ -64,11 +70,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -80,7 +81,7 @@ return [
     | than one user table or model in the application and you want to have
     | separate password reset settings based on the specific user types.
     |
-    | The expire time is the number of minutes that each reset token will be
+    | The expire time is the number of minutes that the reset token should be
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |
@@ -89,6 +90,18 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'teachers' => [
+            'provider' => 'teachers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'students' => [
+            'provider' => 'students',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
