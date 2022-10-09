@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/get_collage_by_role_id/{id}', 'Admin\UsersController@get_collage_by_role_id');
     Route::get('users/{id}/delete', 'Admin\UsersController@destroy');
     Route::post('users/actived', 'Admin\UsersController@update_Actived')->name('users.actived');
+
     //user permissions and roles
     Route::resource('roles', 'Admin\RoleController');
     // Route::post('/store_permission', 'Admin\RoleController@store_permission')->name('store_permission');
@@ -35,5 +36,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('roles/store_permission', 'Admin\RoleController@store_permission')->name('roles.store_permission');
     Route::get('/roles/destroy/{id}', 'Admin\RoleController@destroy')->name('roles.destroy');
 
+    //owner_types  routes
+    Route::resource('owner_types', 'Admin\OwnerTypesController');
 });
 Route::get('lang/{lang}', 'HomeController@lang')->name('home.lang');

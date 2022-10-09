@@ -6,6 +6,10 @@ return [
 
 
 
+    'restaurant_categories' => 'اقسام المطاعم',
+    'owners_types' => 'انواع الملاك',
+    'restaurants' => 'المطاعم',
+    'delivery_men' => 'رجال التوصيل',
     'join_wait_turn_s' => 'تم الانضمام للحلقة بنجاح - يرجى انتظار دورك',
     'not_allow_to_give_absence' => 'غير مسموح بغياب طالب تم تقييمه من قبل في هذه الحلقة',
     'this_is_last_turn' => 'لا يمكن التقدم في الدور اكثر من الادوار الموجوده بالحلقة',
