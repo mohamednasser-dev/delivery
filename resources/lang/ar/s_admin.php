@@ -6,7 +6,7 @@ return [
 
 
 
-    'restaurant_categories' => 'اقسام المطاعم',
+    'restaurant_types' => 'اقسام المطاعم',
     'owners_types' => 'انواع الملاك',
     'restaurants' => 'المطاعم',
     'delivery_men' => 'رجال التوصيل',

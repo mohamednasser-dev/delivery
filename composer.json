@@ -21,6 +21,7 @@
         "realrashid/sweet-alert": "^3.2",
         "spatie/laravel-permission": "^4.2",
         "spatie/laravel-translation-loader": "^2.7",
+        "teckwei1993/laravel-otp": "^1.0",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

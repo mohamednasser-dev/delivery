@@ -5,11 +5,11 @@
             <span class="menu-text">{{trans('s_admin.nav_home')}}</span>
         </a>
     </li>
-    <li class="menu-item @if( request()->segment(1) == 'restaurant_categories' ) menu-item-active @endif "
+    <li class="menu-item @if( request()->segment(1) == 'restaurant_types' ) menu-item-active @endif "
         aria-haspopup="true">
-        <a href="{{url('/restaurant_categories')}}" class="menu-link">
+        <a href="{{url('/restaurant_types')}}" class="menu-link">
             <i class="menu-icon flaticon2-user"></i>
-            <span class="menu-text">{{trans('s_admin.restaurant_categories')}}</span>
+            <span class="menu-text">{{trans('lang.restaurant_types')}}</span>
         </a>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'owner_types' ) menu-item-active @endif "

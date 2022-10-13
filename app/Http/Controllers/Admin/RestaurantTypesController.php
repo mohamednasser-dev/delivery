@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OwnerTypesRequest;
-use App\Models\OwnerType;
+use App\Http\Requests\RestaurantTypeRequest;
+use App\Models\RestaurantType;
 use Exception;
 
-class OwnerTypesController extends Controller
+class RestaurantTypesController extends Controller
 {
-    protected $viewPath = 'admin.owner_types.';
-    private $route = 'owner_types';
+    protected $viewPath = 'admin.restaurant_types.';
+    private $route = 'restaurant_types';
     protected $paginate = 30;
     public $objectName;
 
-    public function __construct(OwnerType $model)
+    public function __construct(RestaurantType $model)
     {
         $this->objectName = $model;
     }
@@ -31,7 +30,7 @@ class OwnerTypesController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(OwnerTypesRequest $request)
+    public function store(RestaurantTypeRequest $request)
     {
         $data = $request->validated();
         $this->objectName::create($data);
@@ -47,7 +46,7 @@ class OwnerTypesController extends Controller
     }
 
 
-    public function update(OwnerTypesRequest $request, $id)
+    public function update(RestaurantTypeRequest $request, $id)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($id)->update($data);

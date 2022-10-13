@@ -1,6 +1,6 @@
 @extends('admin_temp')
 @php
-    $route = 'owner_types';
+    $route = 'restaurant_types';
 @endphp
 @section('title')
     <div class="d-flex align-items-center flex-wrap mr-2">

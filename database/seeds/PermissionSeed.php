@@ -15,11 +15,11 @@ class PermissionSeed extends Seeder
     public function run()
     {
 
-        $permission = Permission::create([
+        $permission = Permission::updateOrCreate([
             'name' => "User settings",//can value
             'name_ar' => "اعدادات المستخدمين",//name_ar
         ]);
-        $permission = Permission::create([
+        $permission = Permission::updateOrCreate([
             'name' => "Managing tasks and powers",//can value
             'name_ar' => "إدارة المهام و الصلاحيات",//name_ar
         ]);

@@ -38,5 +38,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //owner_types  routes
     Route::resource('owner_types', 'Admin\OwnerTypesController');
+    Route::get('/owner_types/{id}/delete_ew', 'Admin\OwnerTypesController@destroy')->name('owner_types.destroy');
+
+    //owner_types  routes
+    Route::resource('restaurant_types', 'Admin\RestaurantTypesController');
+    Route::get('/restaurant_types/{id}/delete_ew', 'Admin\RestaurantTypesController@destroy')->name('restaurant_types.destroy');
+
 });
 Route::get('lang/{lang}', 'HomeController@lang')->name('home.lang');
