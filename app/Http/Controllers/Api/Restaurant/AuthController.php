@@ -18,23 +18,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-
-//        else out of egypt use email
-        $otp = \Otp::generate($data['email']);
-        $details = [
-            'title' => 'Verification',
-            'body' => 'Thank you for registering on LimaZola app;your code is :' . $otp,
-        ];
-
-//            try {
-//                Mail::to($data['email'])->send(new CodeMail($details));
-//                $msg = __('lang.verify_email');
-//            } catch (\Exception $e) {
-//                return response()->json(msg($request, failed(), trans('lang.send_valid_email')));
-//            }
-
-        $result['otp'] = $otp;
-        return $this->sendResponse(__('lang.verify_email'), $result, 200);
+        $restaurant = Restaurant::create($data);
+        return $this->sendResponse(__('lang.restaurant_created_wait_approve'), (object)[], 200);
     }
 
 

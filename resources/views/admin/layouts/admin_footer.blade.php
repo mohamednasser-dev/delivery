@@ -63,7 +63,7 @@
                             <span class="navi-text text-muted text-hover-primary">{{auth::user()->email}}</span>
                         </span>
                     </a>
-                    <a href="{{ route('logout') }}"  class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">{{trans('admin.logout')}}</a>
+                    <a href="{{ route('admin.logout') }}"  class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">{{trans('admin.logout')}}</a>
                 </div>
             </div>
         </div>

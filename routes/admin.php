@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
-Route::get('logout', 'Admin\LoginController@logout')->name('logout');
 
 //    inboxes
 
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
+
+    Route::get('logout/manual', 'Admin\LoginController@logout')->name('admin.logout');
 
     Route::get('/home', 'Admin\HomeController@index')->name('home');
     //profile
@@ -40,9 +41,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('owner_types', 'Admin\OwnerTypesController');
     Route::get('/owner_types/{id}/delete_ew', 'Admin\OwnerTypesController@destroy')->name('owner_types.destroy');
 
-    //owner_types  routes
+    //restaurant_types  routes
     Route::resource('restaurant_types', 'Admin\RestaurantTypesController');
     Route::get('/restaurant_types/{id}/delete_ew', 'Admin\RestaurantTypesController@destroy')->name('restaurant_types.destroy');
+
+    //nationalities  routes
+    Route::resource('nationalities', 'Admin\NationalitiesController');
+    Route::get('/nationalities/{id}/delete_ew', 'Admin\NationalitiesController@destroy')->name('nationalities.destroy');
+
+    //restaurants  routes
+    Route::resource('restaurants', 'Admin\RestaurantsController');
+    Route::get('/restaurants/{id}/delete_ew', 'Admin\RestaurantsController@destroy')->name('restaurants.destroy');
+    Route::get('/restaurants/change_status/{id}/{status}', 'Admin\RestaurantsController@change_status')->name('restaurants.change_status');
 
 });
 Route::get('lang/{lang}', 'HomeController@lang')->name('home.lang');

@@ -1,8 +1,17 @@
 <?php
 return [
+    'restaurant_name' => 'اسم المطعم',
     'verify_email' => 'تم ارسال كود التحقق الى بريدك الالكترونى',
     'data_shown_s'=>'تم اظهار البيانات بنجاح',
+    'restaurant_type'=>'قسم المطعم',
     'restaurant_types'=>'اقسام المطاعم',
+    'approval'=>'الموافقة',
+    'nationalities'=>'الجنسيات',
+    'owner_type'=>'الدور',
+    'nationality'=>'الجنسية',
+    'restaurants'=>'المطاعم',
+    'restaurant_created_wait_approve'=>'تم إنشاء الحساب بنجاح , يرجى إنتظار الإدارة للموافقة',
+    'basic_info'=>'البيانات الاساسية',
     'owner_types'=>'أنواع الملاك',
     'name_ar'=>'الاسم بالعربية',
     'name_en'=>'الاسم بالانجليزية',

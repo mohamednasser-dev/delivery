@@ -51,5 +51,14 @@ class HomeController extends Controller
     {
         return redirect()->route('login');
     }
+    public function cache()
+    {
+        Artisan::call('config:cache');
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        return 'success';
+    }
 
 }

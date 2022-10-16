@@ -5,12 +5,29 @@
             <span class="menu-text">{{trans('s_admin.nav_home')}}</span>
         </a>
     </li>
-    <li class="menu-item @if( request()->segment(1) == 'restaurant_types' ) menu-item-active @endif "
+
+    <li class="menu-section">
+        <h4 class="menu-text">{{trans('lang.restaurants')}}</h4>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+    <li class="menu-item @if( request()->segment(1) == 'restaurants' ) menu-item-active @endif "
         aria-haspopup="true">
-        <a href="{{url('/restaurant_types')}}" class="menu-link">
+        <a href="{{route('restaurants.index')}}" class="menu-link">
             <i class="menu-icon flaticon2-user"></i>
-            <span class="menu-text">{{trans('lang.restaurant_types')}}</span>
+            <span class="menu-text">{{trans('lang.restaurants')}}</span>
         </a>
+    </li>
+    <li class="menu-item @if( request()->segment(1) == 'delivery_men' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="#" class="menu-link">
+            <i class="menu-icon flaticon2-user"></i>
+            <span class="menu-text">{{trans('s_admin.delivery_men')}}</span>
+        </a>
+    </li>
+    {{--    basic_info--}}
+    <li class="menu-section">
+        <h4 class="menu-text">{{trans('lang.basic_info')}}</h4>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'owner_types' ) menu-item-active @endif "
         aria-haspopup="true">
@@ -19,19 +36,24 @@
             <span class="menu-text">{{trans('lang.owner_types')}}</span>
         </a>
     </li>
-    <li class="menu-item @if( request()->segment(1) == 'restaurants' ) menu-item-active @endif "
+    <li class="menu-item @if( request()->segment(1) == 'restaurant_types' ) menu-item-active @endif "
         aria-haspopup="true">
-        <a href="{{url('/restaurants')}}" class="menu-link">
+        <a href="{{url('/restaurant_types')}}" class="menu-link">
             <i class="menu-icon flaticon2-user"></i>
-            <span class="menu-text">{{trans('s_admin.restaurants')}}</span>
+            <span class="menu-text">{{trans('lang.restaurant_types')}}</span>
         </a>
     </li>
-    <li class="menu-item @if( request()->segment(1) == 'delivery_men' ) menu-item-active @endif "
+    <li class="menu-item @if( request()->segment(1) == 'nationalities' ) menu-item-active @endif "
         aria-haspopup="true">
-        <a href="{{url('/delivery_men')}}" class="menu-link">
+        <a href="{{route('nationalities.index')}}" class="menu-link">
             <i class="menu-icon flaticon2-user"></i>
-            <span class="menu-text">{{trans('s_admin.delivery_men')}}</span>
+            <span class="menu-text">{{trans('lang.nationalities')}}</span>
         </a>
+    </li>
+
+    <li class="menu-section">
+        <h4 class="menu-text">{{trans('s_admin.view_users')}}</h4>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'users' ) menu-item-active @endif "
         aria-haspopup="true">
@@ -46,6 +68,17 @@
         <a href="{{url('/roles')}}" class="menu-link">
             <i class="menu-icon flaticon-interface-1"></i>
             <span class="menu-text">{{trans('s_admin.nav_permissions')}}</span>
+        </a>
+    </li>
+
+    <li class="menu-section">
+        <h4 class="menu-text">{{trans('lang.settings')}}</h4>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+    <li class="menu-item @if(request()->segment(1) == 'settings') menu-item-active  @endif" aria-haspopup="true">
+        <a href="#" class="menu-link">
+            <i class="menu-icon flaticon2-settings"></i>
+            <span class="menu-text">{{trans('lang.settings')}}</span>
         </a>
     </li>
 </ul>
