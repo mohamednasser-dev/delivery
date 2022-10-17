@@ -14,7 +14,7 @@ trait JsonResponseTrait{
     {
         $result = [
             'status'  => true,
-            'message' => $message,
+            'message' == $message,
             'data' => $payload,
         ];
 

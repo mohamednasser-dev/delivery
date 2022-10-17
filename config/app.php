@@ -178,7 +178,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Teckwei1993\Otp\OtpServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -232,7 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
-        'Otp' => Teckwei1993\Otp\OtpFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
