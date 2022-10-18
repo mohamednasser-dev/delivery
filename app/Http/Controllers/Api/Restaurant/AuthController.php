@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Api\Restaurant;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\Restaurant\LoginRequest;
 use App\Http\Requests\Restaurant\RegisterRequest;
-
 use App\Models\Restaurant;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 
 class AuthController extends Controller
@@ -19,7 +16,29 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         $restaurant = Restaurant::create($data);
-        return $this->sendResponse(__('lang.restaurant_created_wait_approve'), (object)[], 200);
+
+        return $this->sendResponse(__('lang.restaurant_created_wait_approve'), false, 200);
+    }
+
+    public function login(LoginRequest $request)
+    {
+
+        $data = $request->validated();
+        $restaurant = Restaurant::where('email', $data['email'])->first();
+        $token = $restaurant->createToken("TOKEN")->plainTextToken;
+
+        $response = [
+            'admin' => $restaurant,
+            'admin_token' => $token
+        ];
+        return response($response, 201);
+    }
+
+    public function logout()
+    {
+        auth('sanctum')->user()->tokens()->delete();
+
+        return $this->sendResponse('تم تسجيل الخروج بنجاح', false, 200);
     }
 
 

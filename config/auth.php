@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Restaurant;
+
 return [
 
     /*
@@ -70,6 +72,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'restaurant' => [
+            'driver' => 'eloquent',
+            'model' => Restaurant::class,
+        ],
     ],
 
     /*
@@ -94,18 +100,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'teachers' => [
-            'provider' => 'teachers',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'students' => [
-            'provider' => 'students',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+
     ],
 
     /*

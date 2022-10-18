@@ -3,13 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\HasApiTokens;
 
-class Restaurant extends Model
+class Restaurant extends Authenticatable
 {
+
+    use HasFactory, Notifiable, HasApiTokens;
+
     protected $guarded = [''];
     protected $hidden = ['password'] ;
-
     protected $appends = ['name'];
+
+
 
     public function getNameAttribute()
     {
@@ -17,6 +27,13 @@ class Restaurant extends Model
             return $this->name_ar;
         } else {
             return $this->name_en;
+        }
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        if (!empty($password)) {
+            $this->attributes['password'] = Hash::make($password);
         }
     }
 

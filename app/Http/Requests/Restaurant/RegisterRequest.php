@@ -23,6 +23,7 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'logo' => 'required|image',
             'name_ar' => 'required|string|min:2|max:255',
