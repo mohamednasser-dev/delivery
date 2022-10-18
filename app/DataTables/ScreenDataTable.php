@@ -14,7 +14,7 @@ class ScreenDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->editColumn('image', '<img class="img-thumbnail" src="{{$image}}" style="height: 75px; width: 75px;">')
-            ->addColumn('action', 'dashboard.screen.parts.action')
+            ->addColumn('action', 'admin.screen.parts.action')
             ->rawColumns(['action', 'image']);
     }
 
