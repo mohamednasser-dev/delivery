@@ -7,11 +7,13 @@ use App\Http\Requests\Restaurant\LoginRequest;
 use App\Http\Requests\Restaurant\RegisterRequest;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
+use App\Traits\JsonResponseTrait;
 use Illuminate\Support\Facades\Auth;
 
 
 class AuthController extends Controller
 {
+    use JsonResponseTrait;
 
     public function register(RegisterRequest $request)
     {
@@ -28,11 +30,17 @@ class AuthController extends Controller
         $restaurant = Restaurant::where('email', $data['email'])->first();
 
         $token = $restaurant->createToken("TOKEN")->plainTextToken;
-        $response = [
-            'restaurant' => new RestaurantResource($restaurant),
-            'admin_token' => $token
-        ];
-        return response($response, 201);
+
+        $auth =  Auth::guard('restaurant')->attempt($data);
+        if ($auth) {
+            $response = [
+                'restaurant' => new RestaurantResource($restaurant),
+                'admin_token' => $token
+            ];
+            return response($response, 201);
+        }
+
+        return $this->respondWithFail('Wrong credentials');
     }
 
     public function logout()

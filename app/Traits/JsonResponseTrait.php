@@ -41,4 +41,25 @@ trait JsonResponseTrait{
     }
 
 
+    public function respondWithSuccess($msg="",$status=200)
+    {
+        $responseArray = [
+            'status' =>$status,
+            'messages' => $msg,
+        ];
+
+        return response()->json($responseArray,$status);
+    }
+
+
+    public function respondWithFail($msg="",$status=400)
+    {
+        $responseArray = [
+            'status' =>$status,
+            'messages' => $msg,
+        ];
+
+        return response()->json($responseArray,$status);
+    }
+
 }
