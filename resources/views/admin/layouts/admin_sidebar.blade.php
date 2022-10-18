@@ -97,7 +97,7 @@
         </a>
     </li>
     <li class="menu-item @if(request()->segment(1) == 'settings') menu-item-active  @endif" aria-haspopup="true">
-        <a href="#" class="menu-link">
+        <a href="{{route('settings')}}" class="menu-link">
             <i class="menu-icon flaticon2-settings"></i>
             <span class="menu-text">{{trans('lang.settings')}}</span>
         </a>

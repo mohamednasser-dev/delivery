@@ -2,6 +2,7 @@
 
 use App\Models\Page;
 use App\Models\Screen;
+use App\Models\Setting;
 use App\Models\SocialLink;
 use Illuminate\Database\Seeder;
 use App\Models\OwnerType;
@@ -146,5 +147,22 @@ class InsertedDataSeeder extends Seeder
         foreach ($data as $get) {
             SocialLink::updateOrCreate($get);
         }
+
+        $data = [
+            'site_name_ar' => 'ليما',
+            'site_name_en' => 'lima',
+            'phone' => '8484858845855',
+            'email' => 'info@lima.com',
+            'logo' => 'uploads/setting/web_logo.png',
+            'login_pg' => 'uploads/setting/login_pg.png',
+            'logo_login' => 'uploads/setting/login_page_logo.png',
+            'location' => null,
+            'address_ar' => 'المنوفية',
+            'address_en' => 'al mnofia',
+            'app_gif' => null,
+            'android_version' => 1,
+            'ios_version' => 1,
+        ];
+        Setting::setMany($data);
     }
 }

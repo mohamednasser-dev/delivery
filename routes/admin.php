@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ScreenController;
 use App\Http\Controllers\Admin\SocialLinkController;
+use App\Http\Controllers\Admin\SettingController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -92,6 +93,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('update/{id}', [SocialLinkController::class, 'update'])->name('links.update');
         Route::post('deletes', [SocialLinkController::class, 'deletes'])->name('links.deletes');
         Route::get('delete/{id}', [SocialLinkController::class, 'delete'])->name('links.delete');
+    });
+
+    //settings
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', [SettingController::class, 'index'])->name('settings');
+        Route::post('/update', [SettingController::class, 'update'])->name('settings.update');
     });
 });
 Route::get('lang/{lang}', 'HomeController@lang')->name('home.lang');
