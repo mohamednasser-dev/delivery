@@ -22,13 +22,13 @@ class RestaurantResource extends JsonResource
             'name'=>$this->name,
             'status'=>$this->status,
             'crn'=>$this->crn,
-            'restaurant_type'=>new RestaurantTypeResource($this->type) ,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,
             'full_name'=>$this->full_name,
+            'created_at'=>$this->created_at->diffForHumans(),
             'nationally'=>new NationalityResource($this->nationality),
             'owner_type'=>new OwnerTypeResource($this->owner_type),
-            'created_at'=>$this->created_at->diffForHumans(),
+            'restaurant_type'=>new RestaurantTypeResource($this->type) ,
         ];
     }
 }
