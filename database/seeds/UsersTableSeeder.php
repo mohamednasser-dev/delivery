@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -13,13 +14,16 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $role = Role::first();
-        User::updateOrCreate([
-            'id' => 1,
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'email_verified_at' => \Carbon\Carbon::now(),
-            'password' => '123456',
-            'role_id' => $role->id,
-        ]);
+        if (!User::find(1)) {
+            User::updateOrCreate([
+                'id' => 1,
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'email_verified_at' => \Carbon\Carbon::now(),
+                'password' => '123456',
+                'role_id' => $role->id,
+            ]);
+        }
+
     }
 }

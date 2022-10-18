@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ScreenController;
+use App\Http\Controllers\Admin\SocialLinkController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -54,5 +57,41 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/restaurants/{id}/delete_ew', 'Admin\RestaurantsController@destroy')->name('restaurants.destroy');
     Route::get('/restaurants/change_status/{id}/{status}', 'Admin\RestaurantsController@change_status')->name('restaurants.change_status');
 
+
+    //pages
+    Route::group(['prefix' => 'pages'], function () {
+        $permission = 'pages';
+        Route::get('/', [PageController::class, 'index'])->name('pages');
+        Route::get('create', [PageController::class, 'create'])->name('pages.create');
+        Route::post('store', [PageController::class, 'store'])->name('pages.store');
+        Route::get('edit/{id}', [PageController::class, 'edit'])->name('pages.edit');
+        Route::post('update/{id}', [PageController::class, 'update'])->name('pages.update');
+        Route::post('deletes', [PageController::class, 'deletes'])->name('pages.deletes');
+        Route::get('delete/{id}', [PageController::class, 'delete'])->name('pages.delete');
+    });
+
+    //screens
+    Route::group(['prefix' => 'screens'], function () {
+        $permission = 'screens';
+        Route::get('/', [ScreenController::class, 'index'])->name('screens');
+        Route::get('create', [ScreenController::class, 'create'])->name('screens.create');
+        Route::post('store', [ScreenController::class, 'store'])->name('screens.store');
+        Route::get('edit/{id}', [ScreenController::class, 'edit'])->name('screens.edit');
+        Route::post('update/{id}', [ScreenController::class, 'update'])->name('screens.update');
+        Route::post('deletes', [ScreenController::class, 'deletes'])->name('screens.deletes');
+        Route::get('delete/{id}', [ScreenController::class, 'delete'])->name('screens.delete');
+    });
+
+    //links
+    Route::group(['prefix' => 'links'], function () {
+        $permission = 'links';
+        Route::get('/', [SocialLinkController::class, 'index'])->name('links');
+        Route::get('create', [SocialLinkController::class, 'create'])->name('links.create');
+        Route::post('store', [SocialLinkController::class, 'store'])->name('links.store');
+        Route::get('edit/{id}', [SocialLinkController::class, 'edit'])->name('links.edit');
+        Route::post('update/{id}', [SocialLinkController::class, 'update'])->name('links.update');
+        Route::post('deletes', [SocialLinkController::class, 'deletes'])->name('links.deletes');
+        Route::get('delete/{id}', [SocialLinkController::class, 'delete'])->name('links.delete');
+    });
 });
 Route::get('lang/{lang}', 'HomeController@lang')->name('home.lang');

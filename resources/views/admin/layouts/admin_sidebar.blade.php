@@ -75,6 +75,27 @@
         <h4 class="menu-text">{{trans('lang.settings')}}</h4>
         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
     </li>
+    <li class="menu-item menu-item-submenu @if( Request::segment(1)== 'pages' ) menu-item-open @endif"
+        aria-haspopup="true" data-menu-toggle="hover">
+        <a href="{{route('pages')}}" class="menu-link menu-toggle">
+            <i class="menu-icon flaticon2-paper"></i>
+            <span class="menu-text">صفحات التطبيق</span>
+        </a>
+    </li>
+    <li class="menu-item menu-item-submenu @if( Request::segment(1)== 'screens' ) menu-item-open @endif"
+        aria-haspopup="true" data-menu-toggle="hover">
+        <a href="{{route('screens')}}" class="menu-link menu-toggle">
+            <i class="menu-icon flaticon2-browser"></i>
+            <span class="menu-text">الشاشات الترحيبية</span>
+        </a>
+    </li>
+    <li class="menu-item menu-item-submenu @if( Request::segment(1)== 'links' ) menu-item-open @endif"
+        aria-haspopup="true" data-menu-toggle="hover">
+        <a href="{{route('links')}}" class="menu-link menu-toggle">
+            <i class="menu-icon flaticon-tool-1"></i>
+            <span class="menu-text">الروابط</span>
+        </a>
+    </li>
     <li class="menu-item @if(request()->segment(1) == 'settings') menu-item-active  @endif" aria-haspopup="true">
         <a href="#" class="menu-link">
             <i class="menu-icon flaticon2-settings"></i>

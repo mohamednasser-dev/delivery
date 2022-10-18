@@ -179,6 +179,7 @@ return [
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*

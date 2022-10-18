@@ -53,6 +53,7 @@
     49 => 'Meneses\\LaravelMpdf\\LaravelMpdfServiceProvider',
     50 => 'Barryvdh\\Debugbar\\ServiceProvider',
     51 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    52 => 'Yajra\\DataTables\\DataTablesServiceProvider',
   ),
   'eager' => 
   array (
@@ -91,6 +92,7 @@
     32 => 'Meneses\\LaravelMpdf\\LaravelMpdfServiceProvider',
     33 => 'Barryvdh\\Debugbar\\ServiceProvider',
     34 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    35 => 'Yajra\\DataTables\\DataTablesServiceProvider',
   ),
   'deferred' => 
   array (
