@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Restaurant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Restaurant\LoginRequest;
 use App\Http\Requests\Restaurant\RegisterRequest;
+use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,10 +26,10 @@ class AuthController extends Controller
 
         $data = $request->validated();
         $restaurant = Restaurant::where('email', $data['email'])->first();
-        $token = $restaurant->createToken("TOKEN")->plainTextToken;
 
+        $token = $restaurant->createToken("TOKEN")->plainTextToken;
         $response = [
-            'admin' => $restaurant,
+            'restaurant' => new RestaurantResource($restaurant),
             'admin_token' => $token
         ];
         return response($response, 201);
