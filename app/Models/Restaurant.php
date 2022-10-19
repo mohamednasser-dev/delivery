@@ -52,4 +52,6 @@ class Restaurant extends Authenticatable
     {
         return $this->belongsTo(OwnerType::class, 'owner_type_id');
     }
+
+
 }

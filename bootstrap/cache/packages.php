@@ -129,6 +129,17 @@
       0 => 'Spatie\\TranslationLoader\\TranslationServiceProvider',
     ),
   ),
+  'teckwei1993/laravel-otp' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Teckwei1993\\Otp\\OtpServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Otp' => 'Teckwei1993\\Otp\\OtpFacade',
+    ),
+  ),
   'yajra/laravel-datatables-buttons' => 
   array (
     'providers' => 

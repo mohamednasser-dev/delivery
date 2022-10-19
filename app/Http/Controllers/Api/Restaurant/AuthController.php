@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Api\Restaurant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Restaurant\EmailCheckCodeRequest;
 use App\Http\Requests\Restaurant\LoginRequest;
 use App\Http\Requests\Restaurant\RegisterRequest;
+use App\Http\Requests\Restaurant\SendEmailCheckCodeRequest;
 use App\Http\Resources\RestaurantResource;
+use App\Mail\CodeMail;
+use App\Models\Phone_check;
 use App\Models\Restaurant;
 use App\Traits\JsonResponseTrait;
+use Ghanem\LaravelSmsmisr\Facades\Smsmisr;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 
 class AuthController extends Controller
@@ -31,7 +39,7 @@ class AuthController extends Controller
 
         $token = $restaurant->createToken("TOKEN")->plainTextToken;
 
-        $auth =  Auth::guard('restaurant')->attempt($data);
+        $auth = Auth::guard('restaurant')->attempt($data);
         if ($auth) {
             $response = [
                 'restaurant' => new RestaurantResource($restaurant),
@@ -50,28 +58,34 @@ class AuthController extends Controller
         return $this->sendResponse('تم تسجيل الخروج بنجاح', false, 200);
     }
 
+    public function send_email_check_code(SendEmailCheckCodeRequest $request)
+    {
+        $data = $request->validated();
+        //generate random 4 numbers
+        $otp = \Otp::generate($data['email']);
+        $details = [
+            'title' => 'Verification',
+            'body' => 'Thank you for registering on LimaZola app;your code is :' . $otp,
+        ];
+        try {
+            //Mail::to($data['email'])->send(new CodeMail($details));
 
-    public function verify_email(RegisterRequest $request)
+        } catch (\Exception $e) {
+            return $this->sendError(trans('lang.send_valid_email'), null, 401);
+        }
+        $result['otp'] = $otp;
+        return $this->sendResponse(trans('lang.verify_email'), $result, 200);
+
+    }
+
+    public function verify_email(EmailCheckCodeRequest $request)
     {
         $data = $request->validated();
         $validated_otp = \Otp::validate($data['email'], $data['otp']);
         if ($validated_otp->status == true) {
-            unset($data['otp']);
-            $created_user = Restaurant::create($data);
-            if ($created_user) {
-                $credentials = $request->only(['phone', 'password']);
-                $token = Auth::guard('api')->attempt($credentials);
-                if (!$token) {
-                    return $this->errorLoginResponse(__('lang.login_data_not_correct'), null, failed());
-                } else {
-                    $logined_user = Auth::guard('api')->user();
-                    $logined_user->token_api = $token;
-
-                    return $this->sendResponse($logined_user, __('lang.login_s'), success());
-                }
-            }
+            return $this->sendResponse(__('lang.code_checked_s'));
         } else {
-            return $this->errorLoginResponse(__('lang.otp_invalid'), null, failed());
+            return $this->sendError(__('lang.otp_invalid'));
         }
     }
 }

@@ -1,6 +1,9 @@
 <?php
 return [
+    'code_checked_s' => 'تم التحقق بنجاح',
     'restaurant_name' => 'اسم المطعم',
+    'otp_invalid' => 'لم يتم التحقق - كود التحقق خطأ',
+    'verify_phone' => 'تم ارسال كود التحقق الى هاتفك',
     'verify_email' => 'تم ارسال كود التحقق الى بريدك الالكترونى',
     'data_shown_s'=>'تم اظهار البيانات بنجاح',
     'restaurant_type'=>'قسم المطعم',

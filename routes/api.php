@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/restaurant/auth/register', 'Api\Restaurant\AuthController@register');
+Route::post('/restaurant/auth/register/send_email_check_code', 'Api\Restaurant\AuthController@send_email_check_code');
 Route::post('/restaurant/auth/register/verify_email', 'Api\Restaurant\AuthController@verify_email');
 Route::post('/restaurant/auth/login', [AuthController::class, 'login']);
 
