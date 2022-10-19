@@ -26,6 +26,12 @@ class HomeController extends Controller
 
     public function __construct()
     {
+        if (auth()->user()){
+
+            return redirect()->route('home');
+        }
+
+
         if (session()->has('lang')) {
         } else {
             session()->put('lang', 'ar');
@@ -49,6 +55,7 @@ class HomeController extends Controller
 
     public function home()
     {
+
         return redirect()->route('login');
     }
     public function cache()

@@ -16,10 +16,11 @@ class Restaurant extends Authenticatable
     use HasFactory, Notifiable, HasApiTokens;
 
     protected $guarded = [''];
-    protected $hidden = ['password'] ;
+    protected $hidden = ['password'];
     protected $appends = ['name'];
 
-
+    const STATUS_REJECTED = 'rejected';
+    const STATUS_ACCEPTED = 'accepted';
 
     public function getNameAttribute()
     {

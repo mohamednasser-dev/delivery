@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurantTypeRequest;
+use App\Mail\RestaurantPasswordMail;
 use App\Models\Restaurant;
 use App\Models\RestaurantType;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 
 class RestaurantsController extends Controller
 {
@@ -57,7 +59,19 @@ class RestaurantsController extends Controller
 
     public function change_status($id, $status)
     {
-        $this->objectName::findOrFail($id)->update(['status' => $status]);
+        $restaurant = $this->objectName::findOrFail($id);
+
+        $restaurant->update(['status' => $status]);
+        if (!$restaurant->password && $status == Restaurant::STATUS_ACCEPTED) {
+            $password = rand(1, 999999);
+            $restaurant->update(['password' => $password]);
+            $mailData = [
+                'title' => 'A New Password For Your Restaurant',
+                'body' => 'Your Password is' . $password
+            ];
+            Mail::to($restaurant->email)->send(new RestaurantPasswordMail($mailData));
+
+        }
         session()->flash('success', trans('lang.updatSuccess'));
         return redirect()->route($this->route . '.index');
     }

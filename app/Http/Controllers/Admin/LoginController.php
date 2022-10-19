@@ -12,6 +12,7 @@ class   LoginController extends Controller
 {
     public function __construct()
     {
+
         if (\Auth::guard('web')->check()) {
             return redirect('/home');
         }

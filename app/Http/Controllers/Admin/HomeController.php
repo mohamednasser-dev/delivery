@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Controller;
@@ -13,15 +11,23 @@ use Exception;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+
+
+    }
 
     public function index()
     {
+
+
         return view('admin.home');
     }
 
     public function profile()
     {
         $data = User::where('id', auth()->user()->id)->first();
+
         return view('admin.profile.index', compact('data'));
     }
 

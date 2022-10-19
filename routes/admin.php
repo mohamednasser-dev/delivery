@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //restaurants  routes
     Route::resource('restaurants', 'Admin\RestaurantsController');
     Route::get('/restaurants/{id}/delete_ew', 'Admin\RestaurantsController@destroy')->name('restaurants.destroy');
+
     Route::get('/restaurants/change_status/{id}/{status}', 'Admin\RestaurantsController@change_status')->name('restaurants.change_status');
 
 
