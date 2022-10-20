@@ -1,38 +1,21 @@
 <?php
+
 namespace App\Traits;
 
-trait JsonResponseTrait{
+trait JsonResponseTrait
+{
 
     /**
-     * sendResponse
+     * sendSuccessData
      *
-     * @param  mixed $message
-     * @param  mixed $payload
+     * @param mixed $message
+     * @param mixed $payload
      * @return \Symfony\Component\HttpFoundation\Response $response
      */
-    public function sendResponse(string $message, $payload = null, $code=200)
+    public function sendSuccessData(string $message, $payload = null, $code = 200)
     {
         $result = [
-            'status'  => true,
-            'msg'  => $message,
-            'data' => $payload,
-        ];
-
-        return response()->json($result, $code);
-    }
-
-
-    /**
-     * sendError
-     *
-     * @param  mixed $message
-     * @param  mixed $payload
-     * @return \Symfony\Component\HttpFoundation\Response $response
-     */
-    public function sendError(string $message, $payload=null, $code=206)
-    {
-        $result = [
-            'status'  => false,
+            'status' => true,
             'msg' => $message,
             'data' => $payload,
         ];
@@ -41,25 +24,44 @@ trait JsonResponseTrait{
     }
 
 
-    public function respondWithSuccess($msg="",$status=200)
+    /**
+     * sendErrorData
+     *
+     * @param mixed $message
+     * @param mixed $payload
+     * @return \Symfony\Component\HttpFoundation\Response $response
+     */
+    public function sendErrorData(string $message, $payload = null, $code = 206)
     {
-        $responseArray = [
-            'status' =>$status,
-            'messages' => $msg,
+        $result = [
+            'status' => false,
+            'msg' => $message,
+            'data' => $payload,
         ];
 
-        return response()->json($responseArray,$status);
+        return response()->json($result, $code);
     }
 
 
-    public function respondWithFail($msg="",$status=400)
+    public function sendSuccess($msg = "", $code = 200)
     {
         $responseArray = [
-            'status' =>$status,
+            'status' => true,
             'messages' => $msg,
         ];
 
-        return response()->json($responseArray,$status);
+        return response()->json($responseArray, $code);
+    }
+
+
+    public function sendError($msg = "", $code = 400)
+    {
+        $responseArray = [
+            'status' => false,
+            'messages' => $msg,
+        ];
+
+        return response()->json($responseArray, $code);
     }
 
 }

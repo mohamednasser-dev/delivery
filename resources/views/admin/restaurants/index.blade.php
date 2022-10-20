@@ -18,11 +18,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-{{--                    <a href="{{url($route.'/create')}} "--}}
-{{--                       class="btn btn-info btn-bg">--}}
-{{--                        <i class="fa fa-plus"></i>--}}
-{{--                        {{trans('lang.add')}}</a>--}}
-{{--                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>--}}
+                    {{--                    <a href="{{url($route.'/create')}} "--}}
+                    {{--                       class="btn btn-info btn-bg">--}}
+                    {{--                        <i class="fa fa-plus"></i>--}}
+                    {{--                        {{trans('lang.add')}}</a>--}}
+                    {{--                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>--}}
 
                 </div>
                 <div class="card-body">
@@ -30,6 +30,7 @@
                     <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
                         <thead>
                         <tr>
+                            <th class="center">{{trans('lang.logo')}}</th>
                             <th class="center">{{trans('lang.restaurant_name')}}</th>
                             <th class="center">{{trans('lang.restaurant_type')}}</th>
                             <th class="center">{{trans('lang.full_name')}}</th>
@@ -44,6 +45,10 @@
                         <tbody>
                         @foreach($data as $key => $row)
                             <tr>
+                                <td class="center">
+                                    <img class="img-thumbnail" src="{{$row->logo}}"
+                                         style="height: 75px; width: 75px;">
+                                </td>
                                 <td class="center">{{ $row->name}}</td>
                                 <td class="center">{{ $row->type->name}}</td>
                                 <td class="center">{{ $row->full_name}}</td>
@@ -53,39 +58,39 @@
                                 <td class="center">{{ $row->owner_type->name}}</td>
                                 <td class="center">
                                     <div class="btn-group">
-                                            @if($row->status == 'new')
-                                                <button type="button" class="btn btn-primary dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    {{trans('s_admin.new')}}
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                       href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
-                                                    <a class="dropdown-item"
-                                                       href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
-                                                </div>
-                                            @elseif($row->status == 'accepted')
-                                                <button type="button" class="btn btn-success dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    {{trans('s_admin.accepted')}}
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                       href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
-                                                </div>
-                                            @elseif($row->status == 'rejected')
-                                                <button type="button" class="btn btn-danger dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    {{trans('s_admin.rejected')}}
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                       href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
-                                                </div>
-                                            @endif
+                                        @if($row->status == 'pending')
+                                            <button type="button" class="btn btn-primary dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                {{trans('s_admin.new')}}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                   href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
+                                                <a class="dropdown-item"
+                                                   href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
+                                            </div>
+                                        @elseif($row->status == 'accepted')
+                                            <button type="button" class="btn btn-success dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                {{trans('s_admin.accepted')}}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                   href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
+                                            </div>
+                                        @elseif($row->status == 'rejected')
+                                            <button type="button" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                {{trans('s_admin.rejected')}}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                   href="{{route('restaurants.change_status',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="text-lg-center">
@@ -95,7 +100,8 @@
                                     </a>
                                     <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"
                                        href="{{url($route.'/'.$row->id.'/delete_ew')}}"
-                                       class='btn btn-icon btn-danger btn-circle btn-sm mr-2' title="{{trans('lang.delete')}}"><i
+                                       class='btn btn-icon btn-danger btn-circle btn-sm mr-2'
+                                       title="{{trans('lang.delete')}}"><i
                                             class="icon-nm fas fa-trash"
                                             aria-hidden='true'></i></a>
                                 </td>

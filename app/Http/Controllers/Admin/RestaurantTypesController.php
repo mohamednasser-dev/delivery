@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RestaurantTypeRequest;
+use App\Http\Requests\Admin\RestaurantTypeRequest;
 use App\Models\RestaurantType;
 use Exception;
 

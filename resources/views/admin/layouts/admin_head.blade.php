@@ -1,11 +1,7 @@
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
     <!--begin::Logo-->
     <a href="{{url('/')}}">
-        @if(session('lang')=='en')
-            <img alt="Logo" src="{{ asset('metronic/assets/media/logos/logo_en.png') }}"/>
-        @else
-            <img alt="Logo" src="{{ asset('metronic/assets/media/logos/logo_ar.png') }}"/>
-        @endif
+            <img alt="Logo" src="{{ asset('uploads/settings/logo.svg') }}"/>
     </a>
     <!--end::Logo-->
     <!--begin::Toolbar-->
@@ -53,11 +49,7 @@
             <div class="brand flex-column-auto" id="kt_brand">
                 <!--begin::Logo-->
                 <a href="{{url('/home')}}" class="brand-logo">
-                    {{--                            @if(session('lang')=='en')--}}
-                    {{--                                <img alt="Logo" style="width: 170px;" src="{{ asset('metronic/assets/media/logos/logo_en.png') }}" />--}}
-                    {{--                            @else--}}
-                    {{--                                <img alt="Logo"  style="width: 170px;" src="{{ asset('metronic/assets/media/logos/logo_ar.png') }}" />--}}
-                    {{--                            @endif--}}
+                    <img alt="Logo" style="width: 170px;" src="{{ asset('uploads/settings/logo.svg') }}" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Toggle-->

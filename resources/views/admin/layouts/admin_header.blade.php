@@ -80,6 +80,9 @@
                 input[type=number] {
                     -moz-appearance: textfield;
                 }
+                .center{
+                    text-align: center;
+                }
             </style>
                 @if (empty(session('coloradmin')))
                     @if (isset($_GET['coloradmin']))

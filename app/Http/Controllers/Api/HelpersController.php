@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Resources\NationalityResources;
 use App\Http\Resources\OwnerTypeResources;
 use App\Http\Resources\RestaurantTypeResources;
 use App\Models\Nationality;
@@ -18,20 +19,20 @@ class HelpersController extends Controller
     {
         $data = OwnerType::orderBy('created_at', 'desc')->get();
         $data = (OwnerTypeResources::collection($data));
-        return $this->sendResponse(__('lang.data_shown_s'), $data);
+        return $this->sendSuccessData(__('lang.data_shown_s'), $data);
     }
 
     public function restaurant_types()
     {
         $data = RestaurantType::orderBy('id', 'asc')->get();
         $data = (RestaurantTypeResources::collection($data));
-        return $this->sendResponse(__('lang.data_shown_s'), $data);
+        return $this->sendSuccessData(__('lang.data_shown_s'), $data);
     }
     public function nationalities()
     {
         $data = Nationality::orderBy('id', 'asc')->get();
-        $data = (RestaurantTypeResources::collection($data));
-        return $this->sendResponse(__('lang.data_shown_s'), $data);
+        $data = (NationalityResources::collection($data));
+        return $this->sendSuccessData(__('lang.data_shown_s'), $data);
     }
 
 

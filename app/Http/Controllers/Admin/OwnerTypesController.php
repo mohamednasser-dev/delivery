@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OwnerTypesRequest;
+use App\Http\Requests\Admin\OwnerTypesRequest;
 use App\Models\OwnerType;
 use Exception;
 

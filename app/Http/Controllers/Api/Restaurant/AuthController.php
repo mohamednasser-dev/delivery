@@ -2,65 +2,63 @@
 
 namespace App\Http\Controllers\Api\Restaurant;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Restaurant\EmailCheckCodeRequest;
-use App\Http\Requests\Restaurant\LoginRequest;
-use App\Http\Requests\Restaurant\RegisterRequest;
 use App\Http\Requests\Restaurant\SendEmailCheckCodeRequest;
-use App\Http\Resources\RestaurantResource;
-use App\Mail\CodeMail;
-use App\Models\Phone_check;
-use App\Models\Restaurant;
-use App\Traits\JsonResponseTrait;
-use Ghanem\LaravelSmsmisr\Facades\Smsmisr;
-use Illuminate\Http\Request;
+use App\Http\Requests\Restaurant\SendPhoneCheckCodeRequest;
+use App\Http\Requests\Restaurant\EmailCheckCodeRequest;
+use App\Http\Requests\Restaurant\PhoneCheckCodeRequest;
+use App\Http\Requests\Restaurant\RegisterRequest;
+use App\Http\Requests\Restaurant\LoginRequest;
+use App\Http\Resources\RestaurantResources;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Restaurant;
 
 
 class AuthController extends Controller
 {
-    use JsonResponseTrait;
 
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        $restaurant = Restaurant::create($data);
-
-        return $this->sendResponse(__('lang.restaurant_created_wait_approve'), false, 200);
+        Restaurant::create($data);
+        return $this->sendSuccess(__('lang.restaurant_created_wait_approve'), 201);
     }
 
     public function login(LoginRequest $request)
     {
-
         $data = $request->validated();
-        $restaurant = Restaurant::where('email', $data['email'])->first();
-
-        $token = $restaurant->createToken("TOKEN")->plainTextToken;
-
         $auth = Auth::guard('restaurant')->attempt($data);
         if ($auth) {
+            $restaurant = Auth::guard('restaurant')->user();
+            if ($restaurant->status == 'new') {
+                return $this->sendError(__('lang.wait_admin_to_accept'));
+            } elseif ($restaurant->status == 'rejected') {
+                return $this->sendError(__('lang.you_a_rejected'));
+            }
+            $token = $restaurant->createToken("TOKEN")->plainTextToken;
             $response = [
-                'restaurant' => new RestaurantResource($restaurant),
-                'admin_token' => $token
+                'restaurant' => new RestaurantResources($restaurant),
+                'access_token' => $token
             ];
-            return response($response, 201);
+            return $this->sendSuccessData(__('lang.login_s'), $response, 201);
         }
-
-        return $this->respondWithFail('Wrong credentials');
+        return $this->sendError(__('lang.wrong_password'));
     }
 
     public function logout()
     {
         auth('sanctum')->user()->tokens()->delete();
-
-        return $this->sendResponse('تم تسجيل الخروج بنجاح', false, 200);
+        return $this->sendSuccess(__('lang.logout_s'));
     }
 
     public function send_email_check_code(SendEmailCheckCodeRequest $request)
     {
         $data = $request->validated();
+        //check first is email exists before or not
+        $exists_email = Restaurant::where('email', $data['email'])->first();
+        if ($exists_email) {
+            return $this->sendError(trans('lang.email_exists_before'), 406);
+        }
         //generate random 4 numbers
         $otp = \Otp::generate($data['email']);
         $details = [
@@ -69,13 +67,11 @@ class AuthController extends Controller
         ];
         try {
             //Mail::to($data['email'])->send(new CodeMail($details));
-
         } catch (\Exception $e) {
-            return $this->sendError(trans('lang.send_valid_email'), null, 401);
+            return $this->sendError(__('lang.send_valid_email'), 401);
         }
         $result['otp'] = $otp;
-        return $this->sendResponse(trans('lang.verify_email'), $result, 200);
-
+        return $this->sendSuccessData(trans('lang.verify_email'), $result, 200);
     }
 
     public function verify_email(EmailCheckCodeRequest $request)
@@ -83,7 +79,42 @@ class AuthController extends Controller
         $data = $request->validated();
         $validated_otp = \Otp::validate($data['email'], $data['otp']);
         if ($validated_otp->status == true) {
-            return $this->sendResponse(__('lang.code_checked_s'));
+            return $this->sendSuccess(__('lang.code_checked_s'));
+        } else {
+            return $this->sendError(__('lang.otp_invalid'));
+        }
+    }
+
+    //phone check
+    public function send_phone_check_code(SendPhoneCheckCodeRequest $request)
+    {
+        $data = $request->validated();
+        //check first is phone exists before or not
+        $exists_email = Restaurant::where('phone', $data['phone'])->first();
+        if ($exists_email) {
+            return $this->sendError(__('lang.phone_exists_before'), 406);
+        }
+        //generate random 4 numbers
+        $otp = \Otp::generate($data['phone']);
+        $details = [
+            'title' => 'Verification',
+            'body' => 'Thank you for registering on LimaZola app;your code is :' . $otp,
+        ];
+        try {
+            //sms Gateway here ...
+        } catch (\Exception $e) {
+            return $this->sendError(__('lang.send_valid_phone'), 401);
+        }
+        $result['otp'] = $otp;
+        return $this->sendSuccessData(trans('lang.verify_email'), $result, 200);
+    }
+
+    public function verify_phone(PhoneCheckCodeRequest $request)
+    {
+        $data = $request->validated();
+        $validated_otp = \Otp::validate($data['phone'], $data['otp']);
+        if ($validated_otp->status == true) {
+            return $this->sendSuccess(__('lang.code_checked_s'));
         } else {
             return $this->sendError(__('lang.otp_invalid'));
         }

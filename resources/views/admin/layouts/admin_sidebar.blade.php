@@ -13,14 +13,16 @@
     <li class="menu-item @if( request()->segment(1) == 'restaurants' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{route('restaurants.index')}}" class="menu-link">
-            <i class="menu-icon flaticon2-user"></i>
+            <i class="menu-icon flaticon2-box"></i>
+            <span class="svg-icon svg-icon-danger menu-icon">
             <span class="menu-text">{{trans('lang.restaurants')}}</span>
+            </span>
         </a>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'delivery_men' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="#" class="menu-link">
-            <i class="menu-icon flaticon2-user"></i>
+            <i class="menu-icon fas fa-motorcycle"></i>
             <span class="menu-text">{{trans('s_admin.delivery_men')}}</span>
         </a>
     </li>

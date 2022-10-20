@@ -328,7 +328,7 @@ class GeneralController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function sendResponse($data, $message = null, $statusCode = null)
+    public function sendSuccessData($data, $message = null, $statusCode = null)
     {
         // Set array response data
         $response = [

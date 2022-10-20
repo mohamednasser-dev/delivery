@@ -63,7 +63,8 @@ class RestaurantsController extends Controller
 
         $restaurant->update(['status' => $status]);
         if (!$restaurant->password && $status == Restaurant::STATUS_ACCEPTED) {
-            $password = rand(1, 999999);
+//            $password = rand(100000, 999999);
+            $password = '123456';
             $restaurant->update(['password' => $password]);
             $mailData = [
                 'title' => 'A New Password For Your Restaurant',

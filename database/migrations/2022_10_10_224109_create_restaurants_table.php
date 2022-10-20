@@ -30,7 +30,7 @@ class CreateRestaurantsTable extends Migration
             $table->foreignId('nationality_id')->references('id')->on('nationalities')->onDelete('restrict');
             $table->foreignId('owner_type_id')->references('id')->on('owner_types')->onDelete('restrict');
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('status', ['new', 'accepted', 'rejected'])->default('new');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

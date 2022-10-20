@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-lg-4">
                                     <label for="">لوجو الموقع<span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-8">
@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-lg-4">
                                     <label for="">خلفيه صفحه الدخول (600 * 1100 )<span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-8">
@@ -163,7 +163,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-lg-4">
                                     <label for="">لوجو صفحه الدخول<span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-8">
