@@ -6,14 +6,8 @@ namespace App\Http\Controllers\Api\Restaurant;
 use App\Http\Requests\Restaurant\categoryDestroyRequest;
 use App\Http\Requests\Restaurant\categoryRequest;
 use App\Http\Resources\CategoryResources;
-use App\Http\Resources\RestaurantResources;
-use App\Http\Resources\RestaurantTypeResources;
 use App\Models\Category;
-use App\Models\Restaurant;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-
 
 class CategoriesController extends Controller
 {

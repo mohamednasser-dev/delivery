@@ -3,6 +3,9 @@
 use App\Http\Controllers\Api\Restaurant\AuthController;
 use App\Http\Controllers\Api\Restaurant\ProfileController;
 use App\Http\Controllers\Api\Restaurant\CategoriesController;
+use App\Http\Controllers\Api\Restaurant\AttributesController;
+use App\Http\Controllers\Api\Restaurant\OptionsController;
+use App\Http\Controllers\Api\Restaurant\AddonsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +37,30 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::post('/store', [CategoriesController::class, 'store']);
         Route::post('/update', [CategoriesController::class, 'update'])->name('categories.update');
         Route::get('/destroy', [CategoriesController::class, 'destroy']);
+    });
+
+    //attributes
+    Route::prefix('attributes')->group(function () {
+        Route::get('/', [AttributesController::class, 'index']);
+        Route::post('/store', [AttributesController::class, 'store']);
+        Route::post('/update', [AttributesController::class, 'update'])->name('attributes.update');
+        Route::get('/destroy', [AttributesController::class, 'destroy']);
+    });
+
+    //options
+    Route::prefix('options')->group(function () {
+        Route::get('/', [OptionsController::class, 'index']);
+        Route::post('/store', [OptionsController::class, 'store']);
+        Route::post('/update', [OptionsController::class, 'update'])->name('options.update');
+        Route::get('/destroy', [OptionsController::class, 'destroy']);
+    });
+
+    //addons
+    Route::prefix('addons')->group(function () {
+        Route::get('/', [AddonsController::class, 'index']);
+        Route::post('/store', [AddonsController::class, 'store']);
+        Route::post('/update', [AddonsController::class, 'update'])->name('addons.update');
+        Route::get('/destroy', [AddonsController::class, 'destroy']);
     });
 
 });
