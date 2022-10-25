@@ -1,6 +1,17 @@
 <?php
 return [
     'user_password_updated_successfully' => 'تم تحديث كلمة المرور بنجاح',
+    'rest_information' => 'معلومات المطعم',
+    'current_categories' => 'الاقسام الحالية',
+    'add_new_category' => 'إضافة قسم جديد',
+    'categories' => 'الأقسام',
+    'addons' => 'الإضافات',
+    'orders' => 'الطلبات',
+    'attributes' => 'الصفات',
+    'category_count' => 'عدد الأقسام',
+    'orders_count' => 'عدد الطلبات',
+    'meals_count' => 'عدد الوجبات',
+    'meals' => 'الوجبات',
     'logo' => 'الشعار',
     'current_pass_incorrect' => 'كلمة المرور الحلية غير صحيحه',
     'data_show_successfully' => 'تم اظهار البيانات بنجاح',
