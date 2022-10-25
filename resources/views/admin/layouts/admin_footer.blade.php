@@ -38,12 +38,12 @@
         <!--begin::Header-->
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-100 mr-5">
-                <div class="symbol-label" style="background-image:url({{auth::user()->image}})"></div>
+                <div class="symbol-label" style="background-image:url({{auth()->user()->image}})"></div>
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a href="javascript:void(0);" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{auth::user()->name}}</a>
-                <div class="text-muted mt-1">{{auth::user()->Role->name}}</div>
+                <a href="javascript:void(0);" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{auth()->user()->name}}</a>
+                <div class="text-muted mt-1">{{auth()->user()->Role->name}}</div>
                 <div class="navi mt-2">
                     <a href="javascript:void(0);" class="navi-item">
                         <span class="navi-link p-0 pb-2">
@@ -60,7 +60,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                             </span>
-                            <span class="navi-text text-muted text-hover-primary">{{auth::user()->email}}</span>
+                            <span class="navi-text text-muted text-hover-primary">{{auth()->user()->email}}</span>
                         </span>
                     </a>
                     <a href="{{ route('admin.logout') }}"  class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">{{trans('admin.logout')}}</a>
@@ -203,6 +203,7 @@
 {{------------------------------------------------ for student edit page ------------------------------------------------}}
 @include('sweetalert::alert')
 @yield('scripts')
+@stack('scripts')
 <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

@@ -39,6 +39,7 @@
                             <th class="center">{{trans('lang.phone')}}</th>
                             <th class="center">{{trans('lang.owner_type')}}</th>
                             <th class="center">{{trans('lang.approval')}}</th>
+                            <th class="center">{{trans('lang.dashboard')}}</th>
                             <th class="center" width="10%">{{trans('lang.options')}}</th>
                         </tr>
                         </thead>
@@ -94,12 +95,19 @@
                                     </div>
                                 </td>
                                 <td class="text-lg-center">
+                                    <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2" id="edit"
+                                       href="{{route( 'restaurants.dashboard.index',$row->id)}}">
+                                        <i class="icon-nm fas fa-home"></i>
+                                    </a>
+
+                                </td>
+                                <td class="text-lg-center">
                                     <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
                                        href="{{route( $route.'.edit' , $row->id )}}">
                                         <i class="icon-nm fas fa-pencil-alt"></i>
                                     </a>
                                     <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"
-                                       href="{{url($route.'/'.$row->id.'/delete_ew')}}"
+                                       href="{{url($route.'/delete/'.$row->id)}}"
                                        class='btn btn-icon btn-danger btn-circle btn-sm mr-2'
                                        title="{{trans('lang.delete')}}"><i
                                             class="icon-nm fas fa-trash"

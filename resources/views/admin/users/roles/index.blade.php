@@ -41,7 +41,7 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $role->name}}</td>
                                     <td class="text-lg-center">
-                                        <a  class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit" href="{{route( 'roles.edit' , $role->id )}}">
+                                        <a  class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit" href="{{route( 'roles.edit_new' , $role->id )}}">
                                             <i class="icon-nm fas fa-eye"></i>
                                         </a>
                                     </td>
