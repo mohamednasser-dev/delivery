@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurantTypeRequest;
 use App\Mail\RestaurantPasswordMail;
+use App\Models\Addon;
+use App\Models\Attribute;
 use App\Models\Category;
+use App\Models\Meal;
 use App\Models\Restaurant;
 use App\Models\RestaurantType;
 use Exception;
@@ -36,7 +39,18 @@ class RestaurantDashboardController extends Controller
         if ($type == 'categories') {
             $categories = Category::where('restaurant_id', $id)->get();
             return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
-        } else {
+        }elseif ($type == 'attributes') {
+            $categories = Attribute::where('restaurant_id', $id)->get();
+            return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
+        }elseif ($type == 'addons') {
+            $categories = Addon::where('restaurant_id', $id)->get();
+            return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
+        }elseif ($type == 'meals') {
+            $category_data = Category::where('restaurant_id', $id)->get();
+
+            $categories = Meal::where('restaurant_id', $id)->get();
+            return view($this->viewPath . 'index', compact('data', 'type', 'categories','category_data'));
+        }  else {
             return view($this->viewPath . 'index', compact('data', 'type'));
 
         }

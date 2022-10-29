@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\categoryDashboardRequest;
+use App\Http\Requests\Admin\AddonsDashboardRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Addon;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use Exception;
 
-class CategoriesController extends Controller
+class AddonsController extends Controller
 {
-    protected $viewPath = 'admin.categories.';
-    private $route = 'categories';
+    protected $viewPath = 'admin.addons.';
+    private $route = 'addons';
     protected $paginate = 30;
     public $objectName;
 
-    public function __construct(Category $model)
+    public function __construct(Addon $model)
     {
         $this->objectName = $model;
     }
@@ -31,7 +31,7 @@ class CategoriesController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(categoryDashboardRequest $request, $id)
+    public function store(AddonsDashboardRequest $request, $id)
     {
         $data = $request->validated();
         $data['restaurant_id'] = $id;
@@ -55,7 +55,7 @@ class CategoriesController extends Controller
     }
 
 
-    public function update(categoryDashboardRequest $request)
+    public function update(AddonsDashboardRequest $request)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($data['id'])->update($data);

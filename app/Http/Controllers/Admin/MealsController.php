@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\categoryDashboardRequest;
+use App\Http\Requests\Admin\AddonsDashboardRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\MealsDashboardRequest;
+use App\Models\Addon;
+use App\Models\Meal;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use Exception;
 
-class CategoriesController extends Controller
+class MealsController extends Controller
 {
-    protected $viewPath = 'admin.categories.';
-    private $route = 'categories';
+    protected $viewPath = 'admin.meals.';
+    private $route = 'meals';
     protected $paginate = 30;
     public $objectName;
 
-    public function __construct(Category $model)
+    public function __construct(Meal $model)
     {
         $this->objectName = $model;
     }
@@ -31,7 +33,7 @@ class CategoriesController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(categoryDashboardRequest $request, $id)
+    public function store(MealsDashboardRequest $request, $id)
     {
         $data = $request->validated();
         $data['restaurant_id'] = $id;
@@ -55,7 +57,7 @@ class CategoriesController extends Controller
     }
 
 
-    public function update(categoryDashboardRequest $request)
+    public function update(MealsDashboardRequest $request)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($data['id'])->update($data);

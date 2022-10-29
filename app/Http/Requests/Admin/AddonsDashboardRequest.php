@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
 
-class categoryDashboardRequest extends FormRequest
+class AddonsDashboardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,9 +32,9 @@ class categoryDashboardRequest extends FormRequest
             'name_en' => 'required|string|min:2|max:255',
             'id' => [
                 'nullable',
-                'exists:categories,id',
+                'exists:addons,id',
                 Rule::requiredIf(function () {
-                    return Request::routeIs('categories.update_new');
+                    return Request::routeIs('addons.update_new');
                 })
             ],
         ];

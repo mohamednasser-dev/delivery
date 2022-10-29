@@ -1,10 +1,10 @@
 <!--begin::Heading-->
 @php
-    $route = 'categories';
+    $route = 'addons';
 @endphp
 <div class="row">
     <div class="col-lg-9 col-xl-6 offset-xl-3">
-        <h3 class="font-size-h6 mb-5">{{trans('lang.add_new_category')}}</h3>
+        <h3 class="font-size-h6 mb-5">{{trans('lang.add_new_addon')}}</h3>
     </div>
 </div>
 <!--end::Heading-->

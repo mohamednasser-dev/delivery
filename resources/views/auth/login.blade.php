@@ -67,7 +67,7 @@
 								<div class="form-group">
 									<div class="d-flex justify-content-between mt-n5">
 										<label class="font-size-h6 font-weight-bolder text-dark pt-5"> {{__('admin.password')}} </label>
-										<a href="#" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">{{__('admin.are_forget_password')}} </a>
+{{--										<a href="#" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">{{__('admin.are_forget_password')}} </a>--}}
 									</div>
 									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 @error('password') is-invalid @enderror" id="password" type="password" name="password" placeholder=" {{__('admin.password')}} " required autocomplete="current-password" />
                                     @error('password')
