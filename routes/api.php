@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Restaurant\CategoriesController;
 use App\Http\Controllers\Api\Restaurant\AttributesController;
 use App\Http\Controllers\Api\Restaurant\OptionsController;
 use App\Http\Controllers\Api\Restaurant\AddonsController;
+use App\Http\Controllers\Api\Restaurant\MealsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,14 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::post('/store', [AddonsController::class, 'store']);
         Route::post('/update', [AddonsController::class, 'update'])->name('addons.update');
         Route::get('/destroy', [AddonsController::class, 'destroy']);
+    });
+
+    //addons
+    Route::prefix('meals')->group(function () {
+        Route::get('/', [MealsController::class, 'index']);
+        Route::post('/store', [MealsController::class, 'store']);
+        Route::post('/update', [MealsController::class, 'update'])->name('meals.update');
+        Route::get('/destroy', [MealsController::class, 'destroy']);
     });
 
 });

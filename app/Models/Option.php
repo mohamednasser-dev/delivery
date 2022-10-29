@@ -9,7 +9,7 @@ class Option extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name_ar', 'name_en', 'attribute_id', 'active',];
+    protected $fillable=['name_ar', 'name_en', 'attribute_id', 'active','restaurant_id'];
 
     public function getNameAttribute()
     {

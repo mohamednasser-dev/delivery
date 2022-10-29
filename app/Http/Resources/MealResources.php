@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddonResources extends JsonResource
+class MealResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +17,7 @@ class AddonResources extends JsonResource
         return
             [
                 'id' => $this->id,
-                'name_ar' => $this->name_ar,
-                'name_en' => $this->name_en,
+                'name' => $this->name,
                 'active' => $this->active
             ];
     }

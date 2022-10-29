@@ -21,6 +21,8 @@ class OptionsController extends Controller
     public function store(OptionRequest $request)
     {
         $data = $request->validated();
+        $data['restaurant_id'] = restaurant()->id;
+//        dd($data);
         Option::create($data);
         return $this->sendSuccess(__('lang.created_s'), 201);
     }
