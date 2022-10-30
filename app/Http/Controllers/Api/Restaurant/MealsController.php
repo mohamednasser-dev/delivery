@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\Restaurant;
 
+use App\Http\Requests\Restaurant\Meal\AddItemMealRequest;
+use App\Http\Requests\Restaurant\Meal\DeleteItemMealRequest;
 use App\Http\Requests\Restaurant\Meal\MealDestroyRequest;
 use App\Http\Requests\Restaurant\Meal\MealRequest;
 use App\Http\Resources\MealResources;
@@ -210,17 +212,9 @@ class MealsController extends Controller
         return $this->sendSuccess(__('lang.deleted_s'), 201);
     }
 
-    public function deleteItem()
+    public function deleteItem(DeleteItemMealRequest $request)
     {
-        $request = request();
-
-        $validator = Validator::make($request->all(), [
-            'type' => 'required|in:addon,attribute,option',
-            'id' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => $validator->messages()->first()]);
-        }
+        $request = $request->validated();
 
         if($request->type == "addon"){
             MealAddon::whereId($request->id)->delete();
@@ -236,18 +230,10 @@ class MealsController extends Controller
         return $this->sendSuccess(__('lang.deleted_s'), 201);
     }
 
-    public function addItem()
+    public function addItem(AddItemMealRequest $request)
     {
-        $request = request();
-        $validator = Validator::make($request->all(), [
-            'type' => 'required|in:addon,attribute,option',
-            'id' => 'required',
-            'meals' => 'required|exists:meals,id',
-            'active' => 'required|in:1,0',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => $validator->messages()->first()]);
-        }
+        $data = $request->validated();
+
         $restaurant_id = restaurant()->id;
         $meal_id = $request->meal_id;
 
