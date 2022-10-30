@@ -70,6 +70,8 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::post('/store', [MealsController::class, 'store']);
         Route::post('/update', [MealsController::class, 'update'])->name('meals.update');
         Route::get('/destroy', [MealsController::class, 'destroy']);
+        Route::post('/add-item', [MealsController::class, 'addItem']);
+        Route::get('/destroy-item', [MealsController::class, 'deleteItem']);
     });
 
 });
