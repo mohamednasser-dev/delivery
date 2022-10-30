@@ -1,10 +1,10 @@
 <!--begin::Heading-->
 @php
-    $route = 'categories';
+    $route = 'attributes';
 @endphp
 <div class="row">
     <div class="col-lg-9 col-xl-6 offset-xl-3">
-        <h3 class="font-size-h6 mb-5">{{trans('lang.add_new_category')}}</h3>
+        <h3 class="font-size-h6 mb-5">{{trans('lang.add_new_attribute')}}</h3>
     </div>
 </div>
 <!--end::Heading-->
@@ -74,7 +74,7 @@
                             <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
                                data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
                                data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"
-                              >
+                               >
                                 <i class="icon-nm fas fa-pencil-alt"></i>
                             </a>
                             <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"

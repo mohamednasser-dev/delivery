@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\RestaurantDashboardController;
 use App\Http\Controllers\Admin\RestaurantsController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\AttributesController;
+use App\Http\Controllers\Admin\AddonsController;
+use App\Http\Controllers\Admin\MealsController;
 use App\Http\Controllers\Admin\OwnerTypesController;
 use App\Http\Controllers\Admin\RestaurantTypesController;
 use App\Http\Controllers\Admin\NationalitiesController;
@@ -82,15 +85,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('delete/{id}', [NationalitiesController::class, 'destroy'])->name( '.destroy');
     });
 
-    //nationalities
-    Route::group(['prefix' => 'nationalities', 'as' => 'nationalities'], function () {
-        Route::get('/', [NationalitiesController::class, 'index'])->name( '.index');
-        Route::get('create', [NationalitiesController::class, 'create'])->name( '.create');
-        Route::post('store', [NationalitiesController::class, 'store'])->name( '.store');
-        Route::get('edit/{id}', [NationalitiesController::class, 'edit'])->name( '.edit');
-        Route::post('update/{id}', [NationalitiesController::class, 'update'])->name( '.update');
-        Route::get('delete/{id}', [NationalitiesController::class, 'destroy'])->name('.destroy');
-    });
 
     //restaurants
     Route::group(['prefix' => 'restaurants', 'as' => 'restaurants'], function () {
@@ -110,13 +104,32 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //categories
     Route::group(['prefix' => 'categories', 'as' => 'categories'], function () {
-        Route::get('/', [CategoriesController::class, 'index']);
-        Route::get('create', [CategoriesController::class, 'create'])->name('.create');
         Route::post('/store/{id}', [CategoriesController::class, 'store'])->name('.store');
-        Route::get('edit/{id}', [CategoriesController::class, 'edit'])->name('.edit');
         Route::get('change_status', [CategoriesController::class, 'change_status'])->name('.change_status');
-//        Route::post('/{id}/update', [CategoriesController::class, 'update'])->name('.update');
-        Route::get('delete/{id}', [CategoriesController::class, 'delete'])->name('.delete');
+        Route::post('update_new', [CategoriesController::class, 'update'])->name('.update_new');
+        Route::get('delete/{id}', [CategoriesController::class, 'destroy'])->name('.delete');
+    });
+    //attributes
+    Route::group(['prefix' => 'attributes', 'as' => 'attributes'], function () {
+        Route::post('/store/{id}', [AttributesController::class, 'store'])->name('.store');
+        Route::get('change_status', [AttributesController::class, 'change_status'])->name('.change_status');
+        Route::post('update_new', [AttributesController::class, 'update'])->name('.update_new');
+        Route::get('delete/{id}', [AttributesController::class, 'destroy'])->name('.delete');
+    });
+    //addons
+    Route::group(['prefix' => 'addons', 'as' => 'addons'], function () {
+        Route::post('/store/{id}', [AddonsController::class, 'store'])->name('.store');
+        Route::get('change_status', [AddonsController::class, 'change_status'])->name('.change_status');
+        Route::post('update_new', [AddonsController::class, 'update'])->name('.update_new');
+        Route::get('delete/{id}', [AddonsController::class, 'destroy'])->name('.delete');
+    });
+
+    //meals
+    Route::group(['prefix' => 'meals', 'as' => 'meals'], function () {
+        Route::post('/store/{id}', [MealsController::class, 'store'])->name('.store');
+        Route::get('change_status', [MealsController::class, 'change_status'])->name('.change_status');
+        Route::post('update_new', [MealsController::class, 'update'])->name('.update_new');
+        Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
     });
     //pages
     Route::group(['prefix' => 'pages'], function () {

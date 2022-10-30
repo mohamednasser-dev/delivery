@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\categoryDashboardRequest;
+use App\Http\Requests\Admin\AttributeDashboardRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\Attribute;
 use Exception;
 
-class CategoriesController extends Controller
+class AttributesController extends Controller
 {
-    protected $viewPath = 'admin.categories.';
-    private $route = 'categories';
+    protected $viewPath = 'admin.attributes.';
+    private $route = 'attributes';
     protected $paginate = 30;
     public $objectName;
 
-    public function __construct(Category $model)
+    public function __construct(Attribute $model)
     {
         $this->objectName = $model;
     }
@@ -31,7 +31,7 @@ class CategoriesController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(categoryDashboardRequest $request, $id)
+    public function store(AttributeDashboardRequest $request, $id)
     {
         $data = $request->validated();
         $data['restaurant_id'] = $id;
@@ -55,7 +55,7 @@ class CategoriesController extends Controller
     }
 
 
-    public function update(categoryDashboardRequest $request)
+    public function update(AttributeDashboardRequest $request)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($data['id'])->update($data);
