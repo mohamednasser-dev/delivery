@@ -27,7 +27,7 @@ class Category extends Model
         if (!empty($image)) {
             return asset('uploads/categories') . '/' . $image;
         }
-        return asset('default-image.png');
+        return asset('defaults/default_category.png');
     }
 
     public function setImageAttribute($image)
@@ -36,8 +36,6 @@ class Category extends Model
             $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/categories/'), $img_name);
             $this->attributes['image'] = $img_name;
-        } else {
-            $this->attributes['image'] = 'default-image.png';
         }
     }
 }

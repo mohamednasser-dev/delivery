@@ -19,6 +19,9 @@ Route::post('/restaurant/auth/register/send_phone_check_code', 'Api\Restaurant\A
 Route::post('/restaurant/auth/register/verify_phone', 'Api\Restaurant\AuthController@verify_phone');
 
 Route::post('/restaurant/auth/login', [AuthController::class, 'login']);
+Route::post('/restaurant/auth/forget_password', [AuthController::class, 'forget_password']);
+Route::post('/restaurant/auth/forget_password/verify_code', [AuthController::class, 'forget_password_verify_code']);
+Route::post('/restaurant/auth/forget_password/change_password', [AuthController::class, 'forget_password_change_password']);
 
 
 Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {

@@ -34,10 +34,8 @@
                             <th class="center">{{trans('lang.restaurant_name')}}</th>
                             <th class="center">{{trans('lang.restaurant_type')}}</th>
                             <th class="center">{{trans('lang.full_name')}}</th>
-                            <th class="center">{{trans('lang.nationality')}}</th>
                             <th class="center">{{trans('lang.email')}}</th>
                             <th class="center">{{trans('lang.phone')}}</th>
-                            <th class="center">{{trans('lang.owner_type')}}</th>
                             <th class="center">{{trans('lang.approval')}}</th>
                             <th class="center">{{trans('lang.dashboard')}}</th>
                             <th class="center" width="10%">{{trans('lang.options')}}</th>
@@ -53,10 +51,8 @@
                                 <td class="center">{{ $row->name}}</td>
                                 <td class="center">{{ $row->type->name}}</td>
                                 <td class="center">{{ $row->full_name}}</td>
-                                <td class="center">{{ $row->nationality->name}}</td>
                                 <td class="center">{{ $row->email}}</td>
                                 <td class="center">{{ $row->phone}}</td>
-                                <td class="center">{{ $row->owner_type->name}}</td>
                                 <td class="center">
                                     <div class="btn-group">
                                         @if($row->status == 'pending')
@@ -96,7 +92,7 @@
                                 </td>
                                 <td class="text-lg-center">
                                     <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2" id="edit"
-                                       href="{{route( 'restaurants.dashboard.index',$row->id)}}">
+                                       href="{{route('restaurants.dashboard.show',['id'=>$row->id,'type'=>'info'])}}">
                                         <i class="icon-nm fas fa-home"></i>
                                     </a>
 

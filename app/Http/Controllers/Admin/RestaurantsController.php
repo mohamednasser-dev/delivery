@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RestaurantTypeRequest;
+use App\Http\Requests\Admin\RestaurantRequest;
 use App\Mail\RestaurantPasswordMail;
 use App\Models\Restaurant;
 use App\Models\RestaurantType;
@@ -49,12 +49,12 @@ class RestaurantsController extends Controller
     }
 
 
-    public function update(RestaurantTypeRequest $request, $id)
+    public function update(RestaurantRequest $request, $id)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($id)->update($data);
         session()->flash('success', trans('lang.updatSuccess'));
-        return redirect()->route($this->route . '.index');
+        return redirect()->back();
     }
 
     public function change_status($id, $status)

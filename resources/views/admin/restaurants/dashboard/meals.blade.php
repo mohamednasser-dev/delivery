@@ -8,7 +8,7 @@
             <h3 class="card-label">{{trans('lang.add_new_meal')}}</h3>
         </div>
         <div class="card-toolbar">
-            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="Toggle Card">
+            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="{{trans('lang.add_new_meal')}}">
                 <i class="ki ki-arrow-down icon-nm"></i>
             </a>
         </div>
@@ -41,13 +41,13 @@
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.desc_ar')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <textArae class="form-control form-control-lg form-control-solid" type="text" name="desc_ar" ></textArae>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" name="desc_ar"></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.desc_en')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <textArae class="form-control form-control-lg form-control-solid" type="text" name="desc_en" ></textArae>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" name="desc_en"></textarea>
                 </div>
             </div>
             <div class="d-flex flex-center">
