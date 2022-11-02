@@ -82,7 +82,7 @@
                         {{--                        </td>--}}
                         <td class="center">
                             <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2" id="options"
-                               href="{{route('options.index',$row->id)}}">
+                               data-attributeid="{{$row->id}}" data-toggle="modal" data-target="#options_model">
                                 <i class="icon-nm fas fa-eye"></i>
                             </a>
                         </td>
@@ -114,7 +114,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{trans('s_admin.edit')}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{trans('lang.edit')}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -124,13 +124,13 @@
                 <input type="hidden" required class="form-control" id="txt_id" name="id">
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label text-lg-right">{{trans('s_admin.name_ar')}}</label>
+                        <label class="col-lg-4 col-form-label text-lg-right">{{trans('lang.name_ar')}}</label>
                         <div class="col-lg-8">
                             <input type="text" required class="form-control" id="txt_name_ar" name="name_ar">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label text-lg-right">{{trans('s_admin.name_en')}}</label>
+                        <label class="col-lg-4 col-form-label text-lg-right">{{trans('lang.name_en')}}</label>
                         <div class="col-lg-8">
                             <input type="text" required class="form-control" id="txt_name_en" name="name_en">
                         </div>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit"
-                            class="btn btn-primary font-weight-bold">{{trans('s_admin.edit')}}</button>
+                            class="btn btn-primary font-weight-bold">{{trans('lang.edit')}}</button>
                 </div>
                 {{ Form::close() }}
             </div>
@@ -160,9 +160,9 @@
                 status: status
             }, function (data) {
                 if (data == 1) {
-                    toastr.success("{{trans('s_admin.statuschanged')}}");
+                    toastr.success("{{trans('lang.statuschanged')}}");
                 } else {
-                    toastr.error("{{trans('s_admin.statuschanged')}}");
+                    toastr.error("{{trans('lang.statuschanged')}}");
                 }
             });
         }
@@ -176,6 +176,11 @@
             $('#txt_id').val(id);
             $('#txt_name_ar').val(name_ar);
             $('#txt_name_en').val(name_en);
+        });
+        $(document).on('click', '#options', function () {
+            id = $(this).data('attributeid');
+            $('#txt_attribute_id').val(id);
+
         });
     </script>
 @endpush
