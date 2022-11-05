@@ -30,12 +30,18 @@ class OptionsDashboardRequest extends FormRequest
             'image' => 'nullable|image',
             'name_ar' => 'required|string|min:2|max:255',
             'name_en' => 'required|string|min:2|max:255',
-            'attribute_id' => 'required|exists:attributes,id',
+            'attribute_id' => [
+                'nullable',
+                'exists:attributes,id',
+                Rule::requiredIf(function () {
+                    return Request::routeIs('options.store');
+                })
+            ],
             'id' => [
                 'nullable',
-                'exists:addons,id',
+                'exists:options,id',
                 Rule::requiredIf(function () {
-                    return Request::routeIs('options.update');
+                    return Request::routeIs('options.update_new');
                 })
             ],
         ];

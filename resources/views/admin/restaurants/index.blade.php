@@ -99,7 +99,7 @@
                                 </td>
                                 <td class="text-lg-center">
                                     <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
-                                       href="{{route( $route.'.edit' , $row->id )}}">
+                                       href="{{route('restaurants.dashboard.show',['id'=>$row->id,'type'=>'info'])}}">
                                         <i class="icon-nm fas fa-pencil-alt"></i>
                                     </a>
                                     <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"

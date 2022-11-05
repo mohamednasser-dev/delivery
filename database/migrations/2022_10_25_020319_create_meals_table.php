@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->double('price',[8,2])->default(0);
-            $table->text('desc_ar');
-            $table->text('desc_en');
+            $table->text('desc_ar')->nullable();
+            $table->text('desc_en')->nullable();
             $table->integer('position')->default(1);
             $table->foreignId('restaurant_id')->nullable()->references('id')->on('restaurants')->onDelete('set null');
             $table->foreignId('category_id')->nullable()->references('id')->on('categories')->onDelete('set null');

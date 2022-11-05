@@ -30,8 +30,11 @@ class MealsDashboardRequest extends FormRequest
             'image' => 'nullable|image',
             'name_ar' => 'required|string|min:2|max:255',
             'name_en' => 'required|string|min:2|max:255',
+            'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric',
+            'desc_ar' => 'nullable|string|min:2|max:600',
+            'desc_en' => 'nullable|string|min:2|max:600',
+
             'id' => [
                 'nullable',
                 'exists:meals,id',

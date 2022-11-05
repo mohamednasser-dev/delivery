@@ -33,10 +33,9 @@ class OptionsController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(OptionsDashboardRequest $request, $id)
+    public function store(OptionsDashboardRequest $request)
     {
         $data = $request->validated();
-        $data['restaurant_id'] = $id;
         $this->objectName::create($data);
         session()->flash('success', trans('lang.addedsuccess'));
         return redirect()->back();

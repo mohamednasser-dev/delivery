@@ -1,5 +1,9 @@
 <?php
 return [
+    'enter_choice_values' => 'أدخل قيم الاختيار',
+    'choice_title' => 'عنوان الاختيار',
+    'types' => 'الانواع',
+    'add_options_values' => 'إضافة نوع المتغير',
     'login_info' => 'بيانات تسجيل الدخول',
     'password_updated_s' => 'تم تحديث كلمة المرور بنجاح',
     'codeError' => 'الرمز غير صحيح ',

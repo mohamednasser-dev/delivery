@@ -6,7 +6,11 @@ use App\Http\Requests\Admin\AddonsDashboardRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MealsDashboardRequest;
 use App\Models\Addon;
+use App\Models\Attribute;
 use App\Models\Meal;
+use App\Models\MealAddon;
+use App\Models\MealAttribute;
+use App\Models\Option;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -33,11 +37,36 @@ class MealsController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(MealsDashboardRequest $request, $id)
+//MealsDashboardRequest
+    public function store(Request $request, $id)
     {
-        $data = $request->validated();
+//        dd($request->all());
+//        $data = $request->validated();
+        $data = $request->all();
+//        dd($data);
         $data['restaurant_id'] = $id;
-        $this->objectName::create($data);
+        $meal = $this->objectName::create($data);
+        if ($meal) {
+            if (count($data['attributes']) > 0) {
+                foreach ($data['attributes'] as $attr) {
+                    $meal_attr_data['restaurant_id'] = $id;
+                    $meal_attr_data['meal_id'] = $meal->id;
+                    $meal_attr_data['attribute_id'] = $attr;
+                    $meal_attribute = MealAttribute::create($meal_attr_data);
+                    if ($meal_attribute) {
+
+                    }
+                }
+            }
+            if (count($data['addons']) > 0) {
+                foreach ($data['addons'] as $key => $addon) {
+                    $meal_addon_data['meal_id'] = $meal->id;
+                    $meal_addon_data['addon_id'] = $addon;
+                    $meal_addon_data['price'] = $data['prices'][$key];
+                    MealAddon::create($meal_addon_data);
+                }
+            }
+        }
         session()->flash('success', trans('lang.addedsuccess'));
         return redirect()->back();
     }
@@ -76,5 +105,18 @@ class MealsController extends Controller
             session()->flash('danger', trans('lang.emp_no_delete'));
         }
         return back();
+    }
+
+    public function attribute_data(Request $request)
+    {
+        $attribute = Attribute::find($request->attribute_id);
+        $options = Option::where('attribute_id', $request->attribute_id)->get();
+        return view('admin.restaurants.dashboard.parts.meal_options', compact('attribute', 'options'));
+    }
+
+    public function addon_data(Request $request)
+    {
+        $addon = Addon::find($request->addon_id);
+        return view('admin.restaurants.dashboard.parts.meal_addons', compact('addon'));
     }
 }

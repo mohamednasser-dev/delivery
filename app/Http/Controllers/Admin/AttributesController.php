@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\AttributeDashboardRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Option;
+use App\Models\Plan\Plan_surah;
 use Illuminate\Http\Request;
 use App\Models\Attribute;
 use Exception;
@@ -74,5 +76,11 @@ class AttributesController extends Controller
             session()->flash('danger', trans('lang.emp_no_delete'));
         }
         return back();
+    }
+
+    public function get_attribute_options(Request $request,$id)
+    {
+        $options = Option::where('attribute_id',$id)->get();
+        return view('admin.restaurants.dashboard.parts.attribute_options',compact('options'));
     }
 }
