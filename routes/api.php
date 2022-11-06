@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Restaurant\AttributesController;
 use App\Http\Controllers\Api\Restaurant\OptionsController;
 use App\Http\Controllers\Api\Restaurant\AddonsController;
 use App\Http\Controllers\Api\Restaurant\MealsController;
+use App\Http\Controllers\Api\Restaurant\OrdersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,7 +65,7 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::get('/destroy', [AddonsController::class, 'destroy']);
     });
 
-    //addons
+    //meals
     Route::prefix('meals')->group(function () {
         Route::get('/', [MealsController::class, 'index']);
         Route::post('/store', [MealsController::class, 'store']);
@@ -73,6 +74,19 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::post('/add-item', [MealsController::class, 'addItem']);
         Route::get('/destroy-item', [MealsController::class, 'deleteItem']);
     });
+
+    //orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/{type}', [OrdersController::class, 'getOrdersByType']);
+        Route::post('/update-status', [OrdersController::class, 'updateStatus']);
+//        Route::get('/details', [OrdersController::class, 'orderDetails']);
+    });
+
+    Route::prefix('order-details')->group(function () {
+        Route::get('/get', [OrdersController::class, 'orderDetails']);
+    });
+
+
 
 });
 

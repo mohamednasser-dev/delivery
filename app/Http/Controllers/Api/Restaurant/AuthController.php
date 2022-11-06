@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Restaurant;
 
+use App\Http\Requests\Restaurant\ProfileRequest;
 use App\Http\Requests\Restaurant\SendEmailCheckCodeRequest;
 use App\Http\Requests\Restaurant\SendPhoneCheckCodeRequest;
 use App\Http\Requests\Restaurant\EmailCheckCodeRequest;

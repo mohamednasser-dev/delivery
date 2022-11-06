@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Restaurant;
 
 
+use App\Http\Requests\Restaurant\ProfileRequest;
 use App\Http\Resources\RestaurantResources;
 use App\Http\Resources\RestaurantTypeResources;
 use App\Models\Restaurant;
@@ -22,22 +23,26 @@ class ProfileController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $restaurant_Data);
     }
 
-    public function update_profile(Request $request)
+    public function update_profile(ProfileRequest $request)
     {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'name' => 'required|string|min:2|max:255',
-            'phone' => 'required|string|max:20|unique:users,phone,' . auth('sanctum')->user()->id,
-            'city_id' => 'required|exists:cities,id',
-        ]);
-        if ($validator->fails()) {
-            return $this->sendError($validator->messages()->first());
+        $data = $request->validated();
+        Restaurant::whereId(restaurant()->id)->update($data);
 
-        }
-        $id = auth('sanctum')->user()->id;
-        Restaurant::findOrFail($id)->update($data);
-        $user = Restaurant::findOrFail($id);
-        $user = (new RestaurantTypeResources($user));
+
+//        $data = $request->all();
+//        $validator = Validator::make($data, [
+//            'name' => 'required|string|min:2|max:255',
+//            'phone' => 'required|string|max:20|unique:users,phone,' . auth('sanctum')->user()->id,
+//            'city_id' => 'required|exists:cities,id',
+//        ]);
+//        if ($validator->fails()) {
+//            return $this->sendError($validator->messages()->first());
+//
+//        }
+//        $id = auth('sanctum')->user()->id;
+//        Restaurant::findOrFail($id)->update($data);
+        $user = Restaurant::whereId(restaurant()->id)->first();
+        $user = (new RestaurantResources($user));
         return $this->sendSuccessData( __('lang.user_profile_updated_successfully'),$user);
     }
 
