@@ -37,7 +37,7 @@
                                 </div>
                                 <!--end::Symbol-->
                                 <!--begin::Username-->
-                                <a href="#"
+                                <a href="javascript:;"
                                    class="card-title font-weight-bolder text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">{{$data->name}}</a>
                                 <!--end::Username-->
                                 <!--begin::Info-->
@@ -87,7 +87,7 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column flex-grow-1">
-                                        <a href="#"
+                                        <a href="javascript:;"
                                            class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{trans('lang.orders_count')}}</a>
                                     </div>
                                     <!--end::Text-->
@@ -128,13 +128,13 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column flex-grow-1">
-                                        <a href="#"
+                                        <a href="javascript:;"
                                            class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{trans('lang.meals_count')}}</a>
                                     </div>
                                     <!--end::Text-->
                                     <!--begin::label-->
                                     <span
-                                        class="font-weight-bolder label label-xl label-light-danger label-inline px-3 py-5 min-w-45px">19</span>
+                                        class="font-weight-bolder label label-xl label-light-danger label-inline px-3 py-5 min-w-45px">{{$data->Meals->count()}}</span>
                                     <!--end::label-->
                                 </div>
                                 <!--end::Item-->
@@ -169,13 +169,13 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column flex-grow-1">
-                                        <a href="#"
+                                        <a href="javascript:;"
                                            class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{trans('lang.category_count')}}</a>
                                     </div>
                                     <!--end::Text-->
                                     <!--begin::label-->
                                     <span
-                                        class="font-weight-bolder label label-xl label-light-info label-inline py-5 min-w-45px">8</span>
+                                        class="font-weight-bolder label label-xl label-light-info label-inline py-5 min-w-45px">{{$data->Categories->count()}}</span>
                                     <!--end::label-->
                                 </div>
                                 <!--end::Item-->

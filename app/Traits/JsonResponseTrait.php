@@ -16,7 +16,7 @@ trait JsonResponseTrait
     {
         $result = [
             'status' => true,
-            'msg' => $message,
+            'message' => $message,
             'data' => $payload,
         ];
 
@@ -35,7 +35,7 @@ trait JsonResponseTrait
     {
         $result = [
             'status' => false,
-            'msg' => $message,
+            'message' => $message,
             'data' => $payload,
         ];
 
@@ -47,7 +47,7 @@ trait JsonResponseTrait
     {
         $responseArray = [
             'status' => true,
-            'messages' => $msg,
+            'message' => $msg,
         ];
 
         return response()->json($responseArray, $code);
@@ -58,7 +58,7 @@ trait JsonResponseTrait
     {
         $responseArray = [
             'status' => false,
-            'messages' => $msg,
+            'message' => $msg,
         ];
 
         return response()->json($responseArray, $code);

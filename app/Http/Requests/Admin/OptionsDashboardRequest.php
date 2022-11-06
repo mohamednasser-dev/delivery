@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
 
-class MealsDashboardRequest extends FormRequest
+class OptionsDashboardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,16 +30,18 @@ class MealsDashboardRequest extends FormRequest
             'image' => 'nullable|image',
             'name_ar' => 'required|string|min:2|max:255',
             'name_en' => 'required|string|min:2|max:255',
-            'price' => 'required|numeric|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'desc_ar' => 'nullable|string|min:2|max:600',
-            'desc_en' => 'nullable|string|min:2|max:600',
-
+            'attribute_id' => [
+                'nullable',
+                'exists:attributes,id',
+                Rule::requiredIf(function () {
+                    return Request::routeIs('options.store');
+                })
+            ],
             'id' => [
                 'nullable',
-                'exists:meals,id',
+                'exists:options,id',
                 Rule::requiredIf(function () {
-                    return Request::routeIs('meals.update_new');
+                    return Request::routeIs('options.update_new');
                 })
             ],
         ];

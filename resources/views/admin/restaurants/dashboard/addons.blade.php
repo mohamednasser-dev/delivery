@@ -2,31 +2,40 @@
 @php
     $route = 'addons';
 @endphp
-<div class="row">
-    <div class="col-lg-9 col-xl-6 offset-xl-3">
-        <h3 class="font-size-h6 mb-5">{{trans('lang.add_new_addon')}}</h3>
+<div class="card card-custom  card-collapse" id="kt_card_1">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">{{trans('lang.add_new_addon')}}</h3>
+        </div>
+        <div class="card-toolbar">
+            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top"
+               title="{{trans('lang.add_new_addon')}}">
+                <i class="ki ki-arrow-down icon-nm"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body" style="display: none; overflow: hidden; padding-top: 0px; padding-bottom: 0px;">
+        <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}">
+            @csrf
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_ar')}}</label>
+                <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg form-control-solid" type="text" name="name_ar" required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_en')}}</label>
+                <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg form-control-solid" type="text" name="name_en" required/>
+                </div>
+            </div>
+            <div class="d-flex flex-center">
+                <button type="submit" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14">{{trans('lang.save')}}
+                </button>
+            </div>
+        </form>
     </div>
 </div>
-<!--end::Heading-->
-<form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}">
-    @csrf
-    <div class="form-group row">
-        <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_ar')}}</label>
-        <div class="col-lg-9 col-xl-6">
-            <input class="form-control form-control-lg form-control-solid" type="text" name="name_ar" required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_en')}}</label>
-        <div class="col-lg-9 col-xl-6">
-            <input class="form-control form-control-lg form-control-solid" type="text" name="name_en" required/>
-        </div>
-    </div>
-    <div class="d-flex flex-center">
-        <button type="submit" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14">{{trans('lang.save')}}
-        </button>
-    </div>
-</form>
 <div class="separator separator-dashed my-10"></div>
 <!--begin::Heading-->
 <div class="row">

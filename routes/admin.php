@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RestaurantsController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\AttributesController;
 use App\Http\Controllers\Admin\AddonsController;
+use App\Http\Controllers\Admin\OptionsController;
 use App\Http\Controllers\Admin\MealsController;
 use App\Http\Controllers\Admin\OwnerTypesController;
 use App\Http\Controllers\Admin\RestaurantTypesController;
@@ -115,6 +116,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('change_status', [AttributesController::class, 'change_status'])->name('.change_status');
         Route::post('update_new', [AttributesController::class, 'update'])->name('.update_new');
         Route::get('delete/{id}', [AttributesController::class, 'destroy'])->name('.delete');
+        Route::get('get_attribute_options/{id}', [AttributesController::class, 'get_attribute_options'])->name('.get_attribute_options');
+
+    });
+    //options
+    Route::group(['prefix' => 'options', 'as' => 'options'], function () {
+        Route::post('/store', [OptionsController::class, 'store'])->name('.store');
+        Route::post('update_new', [OptionsController::class, 'update'])->name('.update_new');
+        Route::get('delete/{id}', [OptionsController::class, 'destroy'])->name('.delete');
     });
     //addons
     Route::group(['prefix' => 'addons', 'as' => 'addons'], function () {
@@ -130,6 +139,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('change_status', [MealsController::class, 'change_status'])->name('.change_status');
         Route::post('update_new', [MealsController::class, 'update'])->name('.update_new');
         Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
+        Route::get('attribute_data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
+        Route::get('addon_data', [MealsController::class, 'addon_data'])->name('.addon.data');
     });
     //pages
     Route::group(['prefix' => 'pages'], function () {

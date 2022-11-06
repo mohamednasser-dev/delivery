@@ -4,28 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\AttributeDashboardRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\OptionsDashboardRequest;
 use App\Models\Option;
-use App\Models\Plan\Plan_surah;
 use Illuminate\Http\Request;
 use App\Models\Attribute;
 use Exception;
 
-class AttributesController extends Controller
+class OptionsController extends Controller
 {
-    protected $viewPath = 'admin.attributes.';
-    private $route = 'attributes';
+    protected $viewPath = 'admin.restaurants.dashboard.';
+    private $route = 'options';
     protected $paginate = 30;
     public $objectName;
 
-    public function __construct(Attribute $model)
+    public function __construct(Option $model)
     {
         $this->objectName = $model;
     }
 
-    public function index()
+    public function index($id)
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->get();
-        return view($this->viewPath . 'index', compact('data'));
+        $data = $this->objectName::where('attribute_id',$id)->orderBy('created_at', 'desc')->get();
+        return view($this->viewPath . 'options', compact('data'));
     }
 
     public function create()
@@ -33,10 +33,9 @@ class AttributesController extends Controller
         return view($this->viewPath . 'create');
     }
 
-    public function store(AttributeDashboardRequest $request, $id)
+    public function store(OptionsDashboardRequest $request)
     {
         $data = $request->validated();
-        $data['restaurant_id'] = $id;
         $this->objectName::create($data);
         session()->flash('success', trans('lang.addedsuccess'));
         return redirect()->back();
@@ -57,7 +56,7 @@ class AttributesController extends Controller
     }
 
 
-    public function update(AttributeDashboardRequest $request)
+    public function update(OptionsDashboardRequest $request)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($data['id'])->update($data);
@@ -76,11 +75,5 @@ class AttributesController extends Controller
             session()->flash('danger', trans('lang.emp_no_delete'));
         }
         return back();
-    }
-
-    public function get_attribute_options(Request $request,$id)
-    {
-        $options = Option::where('attribute_id',$id)->get();
-        return view('admin.restaurants.dashboard.parts.attribute_options',compact('options'));
     }
 }

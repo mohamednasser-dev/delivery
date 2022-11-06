@@ -8,7 +8,8 @@
             <h3 class="card-label">{{trans('lang.add_new_meal')}}</h3>
         </div>
         <div class="card-toolbar">
-            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="Toggle Card">
+            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle"
+               data-toggle="tooltip" data-placement="top" title="{{trans('lang.add_new_meal')}}">
                 <i class="ki ki-arrow-down icon-nm"></i>
             </a>
         </div>
@@ -17,23 +18,53 @@
         <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}">
             @csrf
             <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.image')}}</label>
+                <div class="col-lg-9 col-xl-9">
+                    <div class="image-input image-input-outline image-input-circle" id="kt_user_avatar">
+                        <div class="image-input-wrapper"
+                             style="background-image: url({{asset('defaults/default_meal.png')}})"></div>
+                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                               data-action="change" data-toggle="tooltip" title=""
+                               data-original-title="{{trans('lang.add_image')}}">
+                            <i class="fa fa-pen icon-sm text-muted"></i>
+                            <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
+                            <input type="hidden" name="profile_avatar_remove"/>
+                        </label>
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                              data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
+                    <i class="ki ki-bold-close icon-xs text-muted"></i>
+                </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_ar')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg form-control-solid" type="text" name="name_ar" required/>
+                    <input class="form-control form-control-lg  " type="text" name="name_ar"
+                           placeholder="مثال : بيتزا" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_en')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg form-control-solid" type="text" name="name_en" required/>
+                    <input class="form-control form-control-lg  " type="text" name="name_en"
+                           placeholder="مثال: pizza" required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.price')}}</label>
+                <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg  " type="number" name="price" min="0"
+                           placeholder="مثال: 35.00" max="999999999999.99" step="any" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.category')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <select name="role_id" required id="cmb_role" class="form-control custom-select col-12">
-                        @foreach($category_data as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                    <select name="category_id" required id="cmb_role"
+                            class="form-control   custom-select col-12">
+                        @foreach($category_data as $row)
+                            <option value="{{$row->id}}">{{$row->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -41,17 +72,44 @@
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.desc_ar')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <textArae class="form-control form-control-lg form-control-solid" type="text" name="desc_ar" ></textArae>
+                    <textarea class="form-control  " placeholder="" id="exampleTextarea" rows="3"
+                              name="desc_ar"></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.desc_en')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <textArae class="form-control form-control-lg form-control-solid" type="text" name="desc_en" ></textArae>
+                    <textarea class="form-control  " placeholder="" id="exampleTextarea" rows="3"
+                              name="desc_en"></textarea>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.attributes')}}</label>
+                <div class="col-lg-9 col-xl-6">
+                    <select class="form-control select2" id="kt_select2_3" style="width: 100%;"
+                            name="attributes[]" multiple="multiple">
+                        @foreach($attribute_data as $row)
+                            <option value="{{$row->id}}">{{$row->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div id="attributes_section"></div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.addons')}}</label>
+                <div class="col-lg-9 col-xl-6">
+                    <select class="form-control select2" id="kt_select2_2" style="width: 100%;"
+                            name="addons[]" multiple="multiple">
+                        @foreach($addons_data as $row)
+                            <option value="{{$row->id}}">{{$row->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div id="addons_section"></div>
             <div class="d-flex flex-center">
-                <button type="submit" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14">{{trans('lang.save')}}
+                <button type="submit"
+                        class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14">{{trans('lang.save')}}
                 </button>
             </div>
         </form>
@@ -104,7 +162,7 @@
                             <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
                                data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
                                data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"
-                              >
+                            >
                                 <i class="icon-nm fas fa-pencil-alt"></i>
                             </a>
                             <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"
@@ -162,6 +220,75 @@
     </div>
 </div>
 @push('scripts')
+    <script>
+        $('#kt_select2_3').on('change', function () {
+            $('#attributes_section').html(null);
+            $.each($("#kt_select2_3 option:selected"), function () {
+                if ($(this).val().length > 50) {
+                    toastr.error(
+                        '{{ trans('validation.max.string', ['attribute' => trans('lang.variation'), 'max' => '50']) }}', {
+                            CloseButton: true,
+                            ProgressBar: true
+                        });
+                    return false;
+                }
+                // add_more_customer_choice_option($(this).val(), $(this).text());
+                $.ajax({
+                    url: '{{ route('meals.attribute.data') }}',
+                    type: "get",
+                    data: {
+                        _token: $("#csrf").val(),
+                        attribute_id: $(this).val(),
+                    },
+                    cache: false,
+                    success: function (data) {
+                        $('#attributes_section').append(data);
+                    }
+                });
+            });
+        });
+
+        function add_more_customer_choice_option(i, name) {
+            let n = name;
+            $('#attributes_section').append(
+                '<div class="row"><div class="col-md-3"><input type="hidden" name="choice_no[]" value="' + i +
+                '"><input type="text" class="form-control" name="choice[]" value="' + n +
+                '" placeholder="{{ trans('lang.choice_title') }}" readonly></div><div class="col-md-9"><input type="text" class="form-control" name="choice_options_' +
+                i +
+                '[]" placeholder="{{ trans('lang.enter_choice_values') }}" data-role="tagsinput" onchange="combination_update()"></div></div><br>'
+            );
+        }
+
+        $('#kt_select2_2').on('change', function () {
+            $('#addons_section').html(null);
+            $.each($("#kt_select2_2 option:selected"), function () {
+                if ($(this).val().length > 50) {
+                    toastr.error(
+                        '{{ trans('validation.max.string', ['attribute' => trans('lang.variation'), 'max' => '50']) }}', {
+                            CloseButton: true,
+                            ProgressBar: true
+                        });
+                    return false;
+                }
+                // add_more_customer_choice_option($(this).val(), $(this).text());
+                $.ajax({
+                    url: '{{ route('meals.addon.data') }}',
+                    type: "get",
+                    data: {
+                        _token: $("#csrf").val(),
+                        addon_id: $(this).val(),
+                    },
+                    cache: false,
+                    success: function (data) {
+                        $('#addons_section').append(data);
+                    }
+                });
+            });
+        });
+    </script>
+    <script !src="">
+        var avatar1 = new KTImageInput('kt_user_avatar');
+    </script>
     <script type="text/javascript">
         function update_active(el) {
             if (el.checked) {

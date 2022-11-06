@@ -53,6 +53,16 @@ class Restaurant extends Authenticatable
         return $this->belongsTo(OwnerType::class, 'owner_type_id');
     }
 
+    public function Categories()
+    {
+        return $this->HasMany(Category::class, 'restaurant_id');
+    }
+
+    public function Meals()
+    {
+        return $this->HasMany(Meal::class, 'restaurant_id');
+    }
+
 
     public function getLogoAttribute($image)
     {
