@@ -308,6 +308,10 @@
                 }
             });
         }
+        function delete_option(i) {
+            $('#option_row_' + i).remove();
+
+        }
     </script>
     <script>
         var id;
@@ -321,5 +325,6 @@
             $('#txt_name_en').val(name_en);
             $('#select_type').val(type);
         });
+
     </script>
 @endpush
