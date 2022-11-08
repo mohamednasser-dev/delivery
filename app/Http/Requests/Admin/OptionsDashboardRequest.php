@@ -28,8 +28,8 @@ class OptionsDashboardRequest extends FormRequest
 
         return [
             'image' => 'nullable|image',
-            'name_ar' => 'required|string|min:2|max:255',
-            'name_en' => 'required|string|min:2|max:255',
+            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
             'attribute_id' => [
                 'nullable',
                 'exists:attributes,id',
