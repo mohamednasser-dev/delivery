@@ -15,4 +15,9 @@ class MealAttribute extends Model
         'active',
         'restaurant_id'
         ];
+
+    public function meal_attribute_options()
+    {
+        return $this->HasMany(MealAttributeOption::class, 'meal_attribute_id');
+    }
 }

@@ -28,6 +28,11 @@ class Meal extends Model
         return $this->HasMany(MealAttribute::class, 'meal_id');
     }
 
+    public function meal_addons()
+    {
+        return $this->HasMany(MealAddon::class, 'meal_id');
+    }
+
     public function getImageAttribute($image)
     {
         if (!empty($image)) {

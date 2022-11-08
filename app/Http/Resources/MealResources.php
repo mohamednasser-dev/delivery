@@ -26,6 +26,11 @@ class MealResources extends JsonResource
                 'desc_en' => $this->desc_en,
                 'status' => $this->status,
                 'position' => $this->position,
+
+
+                'attributes' => $this->load(['meal_attributes' => function($q){ $q->with('meal_attribute_options'); }]),
+                'addons' => $this->load('meal_addons'),
+
             ];
     }
 }
