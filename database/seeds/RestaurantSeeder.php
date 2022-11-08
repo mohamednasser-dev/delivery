@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use App\Models\User;
+namespace Database\Seeders;
 
-class RestaurantsTableSeeder extends Seeder
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class RestaurantSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +14,7 @@ class RestaurantsTableSeeder extends Seeder
      */
     public function run()
     {
-        if (!\App\Models\Restaurant::wherePone("+9665050501")->first()) {
+        if (!\App\Models\Restaurant::wherePhone("+9665050501")->first()) {
             \App\Models\Restaurant::updateOrCreate([
                 "name_ar"=>"زاج زنجر1",
                 "name_en"=>"zag zinger1",
@@ -30,7 +31,7 @@ class RestaurantsTableSeeder extends Seeder
             ]);
         }
 
-        if (!\App\Models\Restaurant::wherePone("+9665050502")->first()) {
+        if (!\App\Models\Restaurant::wherePhone("+9665050502")->first()) {
             \App\Models\Restaurant::updateOrCreate([
                 "name_ar"=>"زاج زنجر2",
                 "name_en"=>"zag zinger2",
@@ -47,7 +48,7 @@ class RestaurantsTableSeeder extends Seeder
             ]);
         }
 
-        if (!\App\Models\Restaurant::wherePone("+9665050503")->first()) {
+        if (!\App\Models\Restaurant::wherePhone("+9665050503")->first()) {
             \App\Models\Restaurant::updateOrCreate([
                 "name_ar"=>"زاج زنجر3",
                 "name_en"=>"zag zinger3",
