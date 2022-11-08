@@ -10,6 +10,7 @@ use App\Models\Attribute;
 use App\Models\Meal;
 use App\Models\MealAddon;
 use App\Models\MealAttribute;
+use App\Models\MealAttributeOption;
 use App\Models\Option;
 use Illuminate\Http\Request;
 use Exception;
@@ -41,12 +42,12 @@ class MealsController extends Controller
     public function store(Request $request, $id)
     {
 //        dd($request->all());
-//        $data = $request->validated();
         $data = $request->all();
-//        dd($data);
         $data['restaurant_id'] = $id;
         $meal = $this->objectName::create($data);
         if ($meal) {
+            //Begin attributes
+
             if (count($data['attributes']) > 0) {
                 foreach ($data['attributes'] as $attr) {
                     $meal_attr_data['restaurant_id'] = $id;
@@ -54,10 +55,17 @@ class MealsController extends Controller
                     $meal_attr_data['attribute_id'] = $attr;
                     $meal_attribute = MealAttribute::create($meal_attr_data);
                     if ($meal_attribute) {
-
+                        foreach ($request->attr_options_ids[$attr] as $key=> $option_id) {
+                            $meal_attr_options_data['meal_id'] = $meal->id;
+                            $meal_attr_options_data['meal_attribute_id'] = $meal_attribute->id;
+                            $meal_attr_options_data['option_id'] = $option_id;
+                            $meal_attr_options_data['price'] = $request->option_prices[$option_id][0];
+                            MealAttributeOption::create($meal_attr_options_data);
+                        }
                     }
                 }
             }
+            //Begin addons
             if (count($data['addons']) > 0) {
                 foreach ($data['addons'] as $key => $addon) {
                     $meal_addon_data['meal_id'] = $meal->id;

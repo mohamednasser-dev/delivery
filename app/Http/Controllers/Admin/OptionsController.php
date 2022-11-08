@@ -36,6 +36,8 @@ class OptionsController extends Controller
     public function store(OptionsDashboardRequest $request)
     {
         $data = $request->validated();
+        $attr = Attribute::where('id',$request['attribute_id'])->first();
+        $data['restaurant_id'] = $attr->restaurant_id;
         $this->objectName::create($data);
         session()->flash('success', trans('lang.addedsuccess'));
         return redirect()->back();

@@ -31,7 +31,7 @@ class ProfileController extends Controller
 
 //        $data = $request->all();
 //        $validator = Validator::make($data, [
-//            'name' => 'required|string|min:2|max:255',
+//            'name' => 'required|string|max:255',
 //            'phone' => 'required|string|max:20|unique:users,phone,' . auth('sanctum')->user()->id,
 //            'city_id' => 'required|exists:cities,id',
 //        ]);
