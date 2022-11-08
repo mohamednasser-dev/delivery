@@ -28,8 +28,8 @@ class AddonsDashboardRequest extends FormRequest
 
         return [
             'image' => 'nullable|image',
-            'name_ar' => 'required|string|min:2|max:255',
-            'name_en' => 'required|string|min:2|max:255',
+            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
             'id' => [
                 'nullable',
                 'exists:addons,id',

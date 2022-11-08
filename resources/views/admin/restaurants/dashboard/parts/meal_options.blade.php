@@ -6,7 +6,9 @@
         @foreach($options as $key=> $row)
             <div class="row" id="option_row_{{$row->id}}">
                 <div class="col-md-26">
-                   <a href="javascripte::void($this);" onclick="delete_option({{$row->id}},{{$attribute->id}})"><i style="margin-top: 10px;" class="fa fa-trash"></i></a>
+                   <a href="javascript:void(0);" onclick="delete_option({{$row->id}},{{$attribute->id}})">
+                       <i title="{{trans('lang.remove_option')}}" style="color: red;margin-top: 10px;" class="fa fa-trash"></i>
+                   </a>
                 </div>
                 <div class="col-md-4">
                     <input type="hidden" name="attr_options_ids[{{$row->attribute_id}}][]" value="{{$row->id}}">

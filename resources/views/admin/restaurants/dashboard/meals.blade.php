@@ -308,9 +308,12 @@
                 }
             });
         }
-        function delete_option(i) {
+        function delete_option(i,attribute_id) {
             $('#option_row_' + i).remove();
-
+            //check if all options removed or not to remove main attribute
+            if( $('#addons_section').html() == null){
+                $('#options_container_' + attribute_id).remove();
+            }
         }
     </script>
     <script>
