@@ -37,7 +37,7 @@ class OrdersController extends Controller
                 ->whereNull('cancelled_by')
                 ->paginate(pagination_number());
         }
-        if($type == "on_pocessing"){
+        elseif($type == "on_pocessing"){
             $results = Order::where('restaurant_id', restaurant()->id)
                 ->whereNotNull('on_pocessing')
                 ->whereNull('on_delivery')
@@ -46,7 +46,7 @@ class OrdersController extends Controller
                 ->whereNull('cancelled_by')
                 ->paginate(pagination_number());
         }
-        if($type == "on_delivery"){
+        elseif($type == "on_delivery"){
             $results = Order::where('restaurant_id', restaurant()->id)
                 ->whereNotNull('on_pocessing')
                 ->whereNotNull('on_delivery')
@@ -55,7 +55,7 @@ class OrdersController extends Controller
                 ->whereNull('cancelled_by')
                 ->paginate(pagination_number());
         }
-        if($type == "delivered"){
+        elseif($type == "delivered"){
             $results = Order::where('restaurant_id', restaurant()->id)
                 ->whereNotNull('on_pocessing')
                 ->whereNotNull('on_delivery')
@@ -64,10 +64,14 @@ class OrdersController extends Controller
                 ->whereNull('cancelled_by')
                 ->paginate(pagination_number());
         }
-        if($type == "cancelled"){
+        elseif($type == "cancelled"){
             $results = Order::where('restaurant_id', restaurant()->id)
                 ->whereNotNull('cancelled_at')
                 ->whereNotNull('cancelled_by')
+                ->paginate(pagination_number());
+        }
+        else{
+            $results = Order::where('restaurant_id', restaurant()->id)
                 ->paginate(pagination_number());
         }
         $data = (OrderResources::collection($results))->response()->getData(true);
