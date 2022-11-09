@@ -32,6 +32,7 @@ class MealRequest extends FormRequest
             'desc_en' => 'required|string|min:2|max:255',
             'price' => 'required|numeric',
             'active' => 'required|in:0,1',
+            'category_id' => 'required|exists:categories,id',
             'id' => [
                 'nullable',
                 'exists:meals,id',
