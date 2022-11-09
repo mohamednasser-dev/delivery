@@ -16,4 +16,19 @@ class MealAttributeOption extends Model
         'price',
         'active',
     ];
+
+    protected $appends=['name_ar', 'name_en'];
+    protected $hidden=['created_at', 'updated_at'];
+
+    protected function getNameArAttribute(){
+        return $this->option()->first()->name_ar;
+    }
+
+    protected function getNameEnAttribute(){
+        return $this->option()->first()->name_en;
+    }
+
+    public function option(){
+        return $this->belongsTo(Option::class,"option_id");
+    }
 }
