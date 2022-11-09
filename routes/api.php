@@ -71,6 +71,7 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
     //meals
     Route::prefix('meals')->group(function () {
         Route::get('/', [MealsController::class, 'index']);
+        Route::get('/meals-by-category', [MealsController::class, 'mealsByCategory']);
         Route::post('/store', [MealsController::class, 'store']);
         Route::post('/update', [MealsController::class, 'update'])->name('meals.update');
         Route::get('/destroy', [MealsController::class, 'destroy']);

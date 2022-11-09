@@ -28,6 +28,13 @@ class MealsController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
+    public function mealsByCategory(){
+        $category_id = request()->category_id;
+        $posts = Meal::where('restaurant_id', restaurant()->id)->where('category_id',$category_id)->paginate(pagination_number());
+        $data = (MealResources::collection($posts))->response()->getData(true);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+    }
+
     public function store(MealRequest $request)
     {
         $data = $request->validated();
