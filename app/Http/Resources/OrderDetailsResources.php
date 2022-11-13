@@ -34,6 +34,7 @@ class OrderDetailsResources extends JsonResource
                 'out_lat' => isset($this->out_lat) ? $this->out_lat : "",
                 'out_lng' => isset($this->out_lng) ? $this->out_lng : "",
                 'out_location' => isset($this->out_location) ? $this->out_location : "",
+                'created_at' => $this->created_at,
                 'no_of_items' => isset($this->orderMeals) ? count($this->orderMeals) : 0,
                 'meals' => isset($this->orderMeals) ? $this->orderMeals->load(['orderMealAttributes' => function($q){ $q->with('orderMealAttributeOptions'); }])->load(['orderMealAddons']) : (object)[],
             ];
