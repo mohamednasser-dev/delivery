@@ -12,7 +12,7 @@ class OrderMeal extends Model
     protected $hidden = ['created_at','updated_at'];
 
     public function orderMealAttributes(){
-        return $this->hasMany(OrderMealAttribute::class,'order_meal_id');
+        return $this->hasMany(OrderMealAttribute::class,'order_meal_attribute_id');
     }
 
     public function orderMealAddons(){
