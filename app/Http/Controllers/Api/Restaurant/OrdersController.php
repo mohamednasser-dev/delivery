@@ -30,7 +30,7 @@ class OrdersController extends Controller
         $results = [];
         if($type == "incoming"){
             $results = Order::where('restaurant_id', restaurant()->id)
-                ->whereNull('on_pocessing')
+                ->whereNull('on_processing')
                 ->whereNull('on_delivery')
                 ->whereNull('delivered_at')
                 ->whereNull('cancelled_at')
@@ -39,7 +39,7 @@ class OrdersController extends Controller
         }
         elseif($type == "on_processing"){
             $results = Order::where('restaurant_id', restaurant()->id)
-                ->whereNotNull('on_pocessing')
+                ->whereNotNull('on_processing')
                 ->whereNull('on_delivery')
                 ->whereNull('delivered_at')
                 ->whereNull('cancelled_at')
@@ -48,7 +48,7 @@ class OrdersController extends Controller
         }
         elseif($type == "on_delivery"){
             $results = Order::where('restaurant_id', restaurant()->id)
-                ->whereNotNull('on_pocessing')
+                ->whereNotNull('on_processing')
                 ->whereNotNull('on_delivery')
                 ->whereNull('delivered_at')
                 ->whereNull('cancelled_at')
@@ -57,7 +57,7 @@ class OrdersController extends Controller
         }
         elseif($type == "delivered"){
             $results = Order::where('restaurant_id', restaurant()->id)
-                ->whereNotNull('on_pocessing')
+                ->whereNotNull('on_processing')
                 ->whereNotNull('on_delivery')
                 ->whereNotNull('delivered_at')
                 ->whereNull('cancelled_at')
@@ -86,8 +86,8 @@ class OrdersController extends Controller
         if($type == "on_processing"){
             Order::whereId($order_id)
                 ->where('restaurant_id', $restaurant_id)
-                ->whereNull('on_pocessing')
-                ->update(['on_pocessing' => Carbon::now()]);
+                ->whereNull('on_processing')
+                ->update(['on_processing' => Carbon::now()]);
         }
         if($type == "on_delivery"){
             Order::whereId($order_id)
