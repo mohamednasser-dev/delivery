@@ -37,7 +37,7 @@ class OrdersController extends Controller
                 ->whereNull('cancelled_by')
                 ->paginate(pagination_number());
         }
-        elseif($type == "on_pocessing"){
+        elseif($type == "on_processing"){
             $results = Order::where('restaurant_id', restaurant()->id)
                 ->whereNotNull('on_pocessing')
                 ->whereNull('on_delivery')
@@ -83,7 +83,7 @@ class OrdersController extends Controller
         $restaurant_id = restaurant()->id;
         $type = request()->type;
         $order_id = request()->order_id;
-        if($type == "on_pocessing"){
+        if($type == "on_processing"){
             Order::whereId($order_id)
                 ->where('restaurant_id', $restaurant_id)
                 ->whereNull('on_pocessing')

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('order_num')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-            $table->dateTime('on_pocessing')->nullable();
+            $table->dateTime('on_processing')->nullable();
             $table->dateTime('on_delivery')->nullable();
             $table->dateTime('delivered_at')->nullable();
             $table->dateTime('cancelled_at')->nullable();
