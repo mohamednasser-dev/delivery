@@ -5,7 +5,10 @@
 <div class="card card-custom  card-collapse" id="kt_card_1">
     <div class="card-header">
         <div class="card-title">
-            <h3 class="card-label">{{trans('lang.add_new_meal')}}</h3>
+            <a href="#" data-card-tool="toggle"
+               data-toggle="tooltip" data-placement="top">
+                <h3 class="btn btn-success card-label"><i class="fa fa-plus"></i> {{trans('lang.add_new_meal')}}</h3>
+            </a>
         </div>
         <div class="card-toolbar">
             <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle"
@@ -129,6 +132,22 @@
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body py-0">
+        <div class="d-flex mb-8" style="justify-content: center;">
+        @foreach($category_data as $row)
+            <!--begin::Symbol-->
+
+                <div class="symbol symbol-70 flex-shrink-0 mr-4 bg-light text-center ">
+                    <a href="">
+                        <div class="symbol-label"
+                             style="background-image: url({{$row->image}})"></div>
+                        <label class="font-weight-bolder">{{$row->name}}</label>
+                    </a>
+                </div>
+
+                <!--end::Symbol-->
+            @endforeach
+
+        </div>
         <!--begin::Table-->
         <div class="table-responsive">
             <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_4">
@@ -308,10 +327,11 @@
                 }
             });
         }
-        function delete_option(i,attribute_id) {
+
+        function delete_option(i, attribute_id) {
             $('#option_row_' + i).remove();
             //check if all options removed or not to remove main attribute
-            if( $('#addons_section').html() == null){
+            if ($('#addons_section').html() == null) {
                 $('#options_container_' + attribute_id).remove();
             }
         }
