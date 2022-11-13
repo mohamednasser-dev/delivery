@@ -9,6 +9,8 @@ class OrderMeal extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['created_at','updated_at'];
+
     public function orderMealAttributes(){
         return $this->hasMany(OrderMealAttribute::class,'order_meal_id');
     }
