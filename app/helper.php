@@ -11,7 +11,7 @@ if (!function_exists('restaurant')) {
 if (!function_exists('pagination_number')) {
     function pagination_number()
     {
-        return 10;
+        return 6;
     }
 }
 
