@@ -10,13 +10,18 @@
         <h4 class="menu-text">{{trans('lang.restaurants')}}</h4>
         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
     </li>
+    <li class="menu-item @if( request()->segment(1) == 'customers' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="{{route('customers.index')}}" class="menu-link">
+            <i class="menu-icon flaticon2-user"></i>
+            <span class="menu-text">{{trans('lang.customers')}}</span>
+        </a>
+    </li>
     <li class="menu-item @if( request()->segment(1) == 'restaurants' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{route('restaurants.index')}}" class="menu-link">
             <i class="menu-icon flaticon2-box"></i>
-            <span class="svg-icon svg-icon-danger menu-icon">
             <span class="menu-text">{{trans('lang.restaurants')}}</span>
-            </span>
         </a>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'delivery_men' ) menu-item-active @endif "

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\MealsController;
 use App\Http\Controllers\Admin\OwnerTypesController;
 use App\Http\Controllers\Admin\RestaurantTypesController;
 use App\Http\Controllers\Admin\NationalitiesController;
+use App\Http\Controllers\Admin\CustomersController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -86,6 +87,22 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('delete/{id}', [NationalitiesController::class, 'destroy'])->name( '.destroy');
     });
 
+
+    //customers
+    Route::group(['prefix' => 'customers', 'as' => 'customers'], function () {
+        Route::get('/', [CustomersController::class, 'index'])->name('.index');
+        Route::get('create', [CustomersController::class, 'create'])->name('.create');
+        Route::post('store', [CustomersController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [CustomersController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [CustomersController::class, 'update'])->name('.update');
+        Route::get('delete/{id}', [CustomersController::class, 'destroy'])->name('.destroy');
+        Route::get('/change_status/{id}/{status}', [CustomersController::class, 'change_status'])->name('.change_status');
+
+        //dashboard
+        Route::get('/dashboard/{id}', [RestaurantDashboardController::class, 'index'])->name('.dashboard.index');
+        Route::get('/dashboard/{id}/{type}', [RestaurantDashboardController::class, 'show'])->name('.dashboard.show');
+
+    });
 
     //restaurants
     Route::group(['prefix' => 'restaurants', 'as' => 'restaurants'], function () {
