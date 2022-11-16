@@ -83,6 +83,7 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
     Route::prefix('orders')->group(function () {
         Route::get('/{type?}', [OrdersController::class, 'getOrdersByType']);
         Route::get('/search', [OrdersController::class, 'search']);
+        Route::get('/filter', [OrdersController::class, 'filter']);
         Route::post('/update-status', [OrdersController::class, 'updateStatus']);
 //        Route::get('/details', [OrdersController::class, 'orderDetails']);
     });

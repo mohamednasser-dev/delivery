@@ -88,6 +88,16 @@ class OrdersController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
+    public function filter()
+    {
+        $results = new Order();
+        $results->where('restaurant_id', restaurant()->id)
+            ->paginate(pagination_number());
+
+        $data = (OrderResources::collection($results))->response()->getData(true);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+    }
+
     public function updateStatus()
     {
         $restaurant_id = restaurant()->id;
