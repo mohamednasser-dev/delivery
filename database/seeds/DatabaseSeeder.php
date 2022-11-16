@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\AddonSeeder;
-use Database\Seeders\CategorySeeder;
+use Database\seeds\AddonSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +18,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(InsertedDataSeeder::class);
 //        $this->call(\Database\Seeders\RestaurantSeeder::class);
 //        $this->call(CategorySeeder::class);
-//        $this->call(AddonSeeder::class);
+        $this->call(AddonSeeder::class);
     }
 }
