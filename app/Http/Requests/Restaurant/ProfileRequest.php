@@ -38,6 +38,8 @@ class ProfileRequest extends FormRequest
             'nationality_id' => 'sometimes|exists:nationalities,id',
             'phone' => 'sometimes|string|unique:restaurants,phone|max:20',
             'owner_type_id' => 'sometimes|exists:owner_types,id',
+            'notification' => 'sometimes|in:0,1',
+            'address' => 'sometimes|min:3|max:9999',
         ];
     }
 }
