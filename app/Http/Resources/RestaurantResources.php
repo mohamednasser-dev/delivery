@@ -27,7 +27,7 @@ class RestaurantResources extends JsonResource
             'notification'=>$this->notification,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,
-            'address'=>$this->address,
+            'address'=> !empty($this->address) ? $this->address : "",
             'full_name'=>$this->full_name,
             'created_at'=>$this->created_at->diffForHumans(),
             'nationally'=>new NationalityResources($this->nationality),
