@@ -135,15 +135,18 @@
         <div class="d-flex mb-8" style="justify-content: center;">
         @foreach($category_data as $row)
             <!--begin::Symbol-->
+                <div class="card card-custom mb-2 @if($category_id == $row->id) bg-light-success @endif ">
+                    <div class="card-body">
+                        <a href="{{route('meals.index',['id'=>$data->id,'category_id'=>$row->id])}}">
+                            <div class="symbol mr-3 text-center ">
+                                <img alt="Pic" src="{{$row->image}}"/>
+                                <label class="font-weight-bolder">{{$row->name}}</label>
+                                <label class="font-weight-bolder"> {{ $row->name}}</label>
+                            </div>
+                        </a>
 
-                <div class="symbol symbol-70 flex-shrink-0 mr-4 bg-light text-center ">
-                    <a href="">
-                        <div class="symbol-label"
-                             style="background-image: url({{$row->image}})"></div>
-                        <label class="font-weight-bolder">{{$row->name}}</label>
-                    </a>
+                    </div>
                 </div>
-
                 <!--end::Symbol-->
             @endforeach
 
@@ -160,7 +163,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($categories as $row)
+                @foreach($meals as $row)
                     <tr>
                         <td class="center">
                             <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->name_ar}}</span>

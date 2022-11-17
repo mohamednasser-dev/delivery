@@ -33,6 +33,7 @@
                         <thead>
                             <tr>
                                 <th title="Field #1">#</th>
+                                <th class="text-lg-center">{{trans('admin.image')}}</th>
                                 <th class="text-lg-center">{{trans('admin.name')}}</th>
                                 <th class="text-lg-center">{{trans('admin.phone')}}</th>
                                 <th class="text-lg-center">{{trans('admin.email')}}</th>
@@ -45,8 +46,12 @@
                         @foreach($users as $key => $user)
                             <tr>
                                 <td>{{$key + 1}}</td>
+                                <td class="center">
+                                    <img class="img-thumbnail" src="{{$user->image}}"
+                                         style="height: 75px; width: 75px;">
+                                </td>
                                 <td class="text-lg-center">{{$user->name}}</td>
-                                <td class="text-lg-center">{{$user->user_phone}}</td>
+                                <td class="text-lg-center">{{$user->phone}}</td>
                                 <td class="text-lg-center">{{$user->email}}</td>
                                 <td class="text-lg-center">{{$user->Role->name}}</td>
                                 <td class="text-lg-center">
@@ -61,7 +66,7 @@
                                      <a  class="btn btn-icon btn-primary btn-circle btn-sm mr-2" href=" {{url('users/'.$user->id.'/edit')}}">
                                         <i class="icon-nm fas fa-pencil-alt"></i>
                                     </a>
-                                    <!--
+
                                     <form method="get" id='delete-form-{{ $user->id }}'
                                           action="{{url('users/'.$user->id.'/delete')}}"
                                           style='display: none;'>
@@ -75,10 +80,10 @@
                                         }else {
                                             event.preventDefault();
                                         }"
-                                        class='btn btn-danger btn-circle' href=" ">
+                                        class='btn btn-icon btn-danger btn-circle btn-sm mr-2' href=" ">
                                         <i class="fa fa-trash" aria-hidden='true'></i>
                                     </button>
-                                    -->
+
                                 </td>
                             </tr>
                         @endforeach

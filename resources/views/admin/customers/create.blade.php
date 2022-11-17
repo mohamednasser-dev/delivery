@@ -17,7 +17,7 @@ $route = 'customers';
     </div>
 @endsection
 @section('content')
-    <form action="{{ route($route.'.store') }}" method="POST">
+    <form action="{{ route($route.'.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @include('admin.'.$route.'.form')
     </form>

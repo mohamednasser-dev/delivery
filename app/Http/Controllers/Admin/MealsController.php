@@ -7,17 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MealsDashboardRequest;
 use App\Models\Addon;
 use App\Models\Attribute;
+use App\Models\Category;
 use App\Models\Meal;
 use App\Models\MealAddon;
 use App\Models\MealAttribute;
 use App\Models\MealAttributeOption;
 use App\Models\Option;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Exception;
 
+
 class MealsController extends Controller
 {
-    protected $viewPath = 'admin.meals.';
+    protected $viewPath = 'admin.restaurants.dashboard.';
     private $route = 'meals';
     protected $paginate = 30;
     public $objectName;
@@ -27,10 +30,29 @@ class MealsController extends Controller
         $this->objectName = $model;
     }
 
-    public function index()
+    public function index(Request $request, $id)
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->get();
-        return view($this->viewPath . 'index', compact('data'));
+        $data = Restaurant::orderBy('created_at', 'desc')->findOrFail($id);
+        $category_data = Category::where('restaurant_id', $id)->orderBy('created_at', 'asc')->get();
+        $first_cat = Category::where('restaurant_id', $id)->orderBy('created_at', 'asc')->first()->id;
+        $attribute_data = Attribute::where('restaurant_id', $id)->get();
+        $addons_data = Addon::where('restaurant_id', $id)->get();
+        $meals = $this->objectName::when($request->category_id, function ($q) use ($request) {
+            // if
+            $q->where('category_id', $request->category_id);
+        }, function ($q) use ($first_cat) {
+            // Else, count greater or equal to 3
+            $q->where('category_id', $first_cat);
+
+        })->where('restaurant_id', $id)->get();
+        $type = 'meals';
+        if ($request->category_id) {
+            $category_id = $request->category_id;
+        } else {
+            $category_id = $first_cat;
+        }
+        return view($this->viewPath . 'index', compact('data', 'category_id', 'type', 'meals', 'category_data', 'attribute_data', 'addons_data'));
+
     }
 
     public function create()
@@ -55,7 +77,7 @@ class MealsController extends Controller
                     $meal_attr_data['attribute_id'] = $attr;
                     $meal_attribute = MealAttribute::create($meal_attr_data);
                     if ($meal_attribute) {
-                        foreach ($request->attr_options_ids[$attr] as $key=> $option_id) {
+                        foreach ($request->attr_options_ids[$attr] as $key => $option_id) {
                             $meal_attr_options_data['meal_id'] = $meal->id;
                             $meal_attr_options_data['meal_attribute_id'] = $meal_attribute->id;
                             $meal_attr_options_data['option_id'] = $option_id;

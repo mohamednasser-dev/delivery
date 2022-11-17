@@ -1,5 +1,6 @@
 <?php
 return [
+    'warning' => 'تنبيه ',
     'customers' => 'مستخدمين التطبيق',
     'remove_option' => 'حذف خيارات المتغير',
     'enter_choice_values' => 'أدخل قيم الاختيار',

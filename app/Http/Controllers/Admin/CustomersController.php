@@ -26,7 +26,7 @@ class CustomersController extends Controller
 
     public function index()
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->get();
+        $data = $this->objectName::user()->orderBy('created_at', 'desc')->get();
         return view($this->viewPath . 'index', compact('data'));
     }
 
@@ -51,12 +51,12 @@ class CustomersController extends Controller
     }
 
 
-    public function update(RestaurantRequest $request, $id)
+    public function update(CustomersRequest $request, $id)
     {
         $data = $request->validated();
         $this->objectName::findOrFail($id)->update($data);
         session()->flash('success', trans('lang.updatSuccess'));
-        return redirect()->back();
+        return redirect()->route($this->route . '.index');
     }
 
     public function change_status($id, $status)

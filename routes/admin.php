@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\OwnerTypesController;
 use App\Http\Controllers\Admin\RestaurantTypesController;
 use App\Http\Controllers\Admin\NationalitiesController;
 use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\usersController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -39,10 +40,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //for new join
     Route::get('user/accept/{id}', 'Admin\UsersController@accept')->name('user.accept');
     Route::get('user/reject/{id}', 'Admin\UsersController@reject')->name('user.reject');
+    Route::post('users/update/{id}', [usersController::class, 'update'])->name('users.update_new');
 
     Route::get('/get_collage_by_role_id/{id}', 'Admin\UsersController@get_collage_by_role_id');
     Route::get('users/{id}/delete', 'Admin\UsersController@destroy');
-    Route::post('users/actived', 'Admin\UsersController@update_Actived')->name('users.actived');
+    Route::post('users/actived', 'Admin\UsersController@update_status')->name('users.actived');
 
     //user permissions and roles
     Route::resource('roles', 'Admin\RoleController');
@@ -69,22 +71,22 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //restaurant_types
     Route::group(['prefix' => 'restaurant_types', 'as' => 'restaurant_types'], function () {
 
-        Route::get('/', [RestaurantTypesController::class, 'index'])->name( '.index');
-        Route::get('create', [RestaurantTypesController::class, 'create'])->name( '.create');
-        Route::post('store', [RestaurantTypesController::class, 'store'])->name( '.store');
-        Route::get('edit/{id}', [RestaurantTypesController::class, 'edit'])->name( '.edit');
-        Route::post('update/{id}', [RestaurantTypesController::class, 'update'])->name( '.update');
-        Route::get('delete/{id}', [RestaurantTypesController::class, 'destroy'])->name( '.destroy');
+        Route::get('/', [RestaurantTypesController::class, 'index'])->name('.index');
+        Route::get('create', [RestaurantTypesController::class, 'create'])->name('.create');
+        Route::post('store', [RestaurantTypesController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [RestaurantTypesController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [RestaurantTypesController::class, 'update'])->name('.update');
+        Route::get('delete/{id}', [RestaurantTypesController::class, 'destroy'])->name('.destroy');
     });
 
     //nationalities
     Route::group(['prefix' => 'nationalities', 'as' => 'nationalities'], function () {
-        Route::get('/', [NationalitiesController::class, 'index'])->name( '.index');
+        Route::get('/', [NationalitiesController::class, 'index'])->name('.index');
         Route::get('create', [NationalitiesController::class, 'create'])->name('.create');
-        Route::post('store', [NationalitiesController::class, 'store'])->name( '.store');
-        Route::get('edit/{id}', [NationalitiesController::class, 'edit'])->name( '.edit');
-        Route::post('update/{id}', [NationalitiesController::class, 'update'])->name( '.update');
-        Route::get('delete/{id}', [NationalitiesController::class, 'destroy'])->name( '.destroy');
+        Route::post('store', [NationalitiesController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [NationalitiesController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [NationalitiesController::class, 'update'])->name('.update');
+        Route::get('delete/{id}', [NationalitiesController::class, 'destroy'])->name('.destroy');
     });
 
 
@@ -152,6 +154,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //meals
     Route::group(['prefix' => 'meals', 'as' => 'meals'], function () {
+        Route::get('/{id}', [MealsController::class, 'index'])->name('.index');
         Route::post('/store/{id}', [MealsController::class, 'store'])->name('.store');
         Route::get('change_status', [MealsController::class, 'change_status'])->name('.change_status');
         Route::post('update_new', [MealsController::class, 'update'])->name('.update_new');

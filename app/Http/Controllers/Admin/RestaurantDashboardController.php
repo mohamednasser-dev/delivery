@@ -47,13 +47,7 @@ class RestaurantDashboardController extends Controller
         } elseif ($type == 'addons') {
             $categories = Addon::where('restaurant_id', $id)->get();
             return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
-        } elseif ($type == 'meals') {
-            $category_data = Category::where('restaurant_id', $id)->get();
-            $attribute_data = Attribute::where('restaurant_id', $id)->get();
-            $addons_data = Addon::where('restaurant_id', $id)->get();
-            $categories = Meal::where('restaurant_id', $id)->get();
-            return view($this->viewPath . 'index', compact('data', 'type', 'categories', 'category_data','attribute_data','addons_data'));
-        } elseif ($type == 'info') {
+          } elseif ($type == 'info') {
             $restaurant_types = RestaurantType::get();
             $nationalities = Nationality::get();
             $owner_types = OwnerType::get();

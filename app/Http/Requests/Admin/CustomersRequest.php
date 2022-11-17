@@ -27,36 +27,24 @@ class CustomersRequest extends FormRequest
     {
 
         return [
-            'logo' => [
-                'nullable',
-                'image',
-//                'max:1000',
-//                Rule::requiredIf(function () {
-//                    return Request::routeIs('restaurants.update');
-//                })
-            ],
-            'name_ar' => 'required|string|min:2|max:255',
-            'name_en' => 'required|string|min:2|max:255',
-            'crn' => 'required|string|min:2|max:255',
-            'restaurant_type_id' => 'required|exists:restaurant_types,id',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'full_name' => 'required|string|min:2|max:255',
-            'national_id' => 'required|numeric',
+            'image' => 'nullable|mimes:jpeg,jpg,png|max:10000',
+            'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('restaurants','email')->ignore($this->route('id')),
+                Rule::unique('users', 'email')->ignore($this->route('id')),
             ],
-            'nationality_id' => 'required|exists:nationalities,id',
             'phone' => [
                 'required',
-                'string',
-                'max:20',
-                Rule::unique('restaurants','phone')->ignore($this->route('id')),
+//                'regex:/(01)[0-9]{9}/',
+                Rule::unique('users', 'phone')->ignore($this->route('id')),
             ],
-            'owner_type_id' => 'required|exists:owner_types,id',
-            'password' => 'nullable|confirmed|max:20',
+            'password' => [
+                'nullable',
+                'min:6',
+                'confirmed',
+                Rule::requiredIf($this->routeIs('customers.store')),
+            ],
         ];
     }
 }

@@ -17,7 +17,7 @@
     </div>
 @endsection
 @section('content')
-    {!! Form::model($data, ['route' => [$route.'.update', $data->id] , 'method'=>'put','files'=> true]) !!}
+    {!! Form::model($data, ['route' => [$route.'.update', $data->id] , 'method'=>'post','files'=> true]) !!}
     @include('admin.'.$route.'.form')
     {{ Form::close() }}
 @endsection

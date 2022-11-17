@@ -22,9 +22,16 @@ class   LoginController extends Controller
     public function login_both(Request $request)
     {
         $remeber = Request('Remember') == 1 ? true : false;
-        if (auth::guard('web')->attempt(['email' => Request('email'), 'password' => Request('password')], $remeber)) {
-            Alert::success(trans('admin.login_done'), trans('admin.hello'));
-            return redirect('/home');
+        if (auth::guard('web')->attempt(['email' => Request('email'), 'password' => Request('password'), 'type' => 'admin'], $remeber)) {
+            if (auths()->status == 'active') {
+                Alert::success(trans('admin.login_done'), trans('admin.hello'));
+                return redirect('/home');
+            } else {
+                Auth::guard('web')->logout();
+                Alert::warning(trans('lang.warning'), trans('s_admin.you_not_active'));
+                return redirect()->back();
+            }
+
         } else {
             Alert::error(trans('s_admin.invalid_informations'), trans('admin.invaldemailorpassword'));
             return back();
@@ -40,8 +47,7 @@ class   LoginController extends Controller
 
     public function logout()
     {
-        $user = Auth::user();
-        Auth::logout();
+        Auth::guard('web')->logout();
         return redirect('/');
     }
 

@@ -43,7 +43,7 @@
             </div>
             <div class="d-flex flex-column">
                 <a href="javascript:void(0);" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{auth()->user()->name}}</a>
-                <div class="text-muted mt-1">{{auth()->user()->Role->name}}</div>
+                <div class="text-muted mt-1"> @if(auth()->user()->Role){{auth()->user()->Role->name}} @endif </div>
                 <div class="navi mt-2">
                     <a href="javascript:void(0);" class="navi-item">
                         <span class="navi-link p-0 pb-2">

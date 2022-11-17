@@ -227,7 +227,7 @@
                                 </a>
                             </li>
                             <li class="nav-item mr-3">
-                                <a href="{{route('restaurants.dashboard.show',['id'=>$data->id,'type'=>'meals'])}}" class="nav-link @if($type =='meals')active @endif ">
+                                <a href="{{route('meals.index',['id'=>$data->id])}}" class="nav-link @if(Request()->routeIs('meals.index'))active @endif ">
                                     <span class="nav-text font-weight-bold">{{trans('lang.meals')}}</span>
                                 </a>
                             </li>

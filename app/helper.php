@@ -15,3 +15,12 @@ if (!function_exists('pagination_number')) {
     }
 }
 
+if (!function_exists('auths')) {
+    function auths()
+    {
+        if (auth('web')->check()) {
+            return auth('web')->user();
+        }
+    }
+}
+
