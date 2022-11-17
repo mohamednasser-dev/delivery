@@ -36,3 +36,12 @@ if (!function_exists('currency')) {
     }
 }
 
+if (!function_exists('upload')) {
+    function upload($file, $dir)
+    {
+        $image = time() . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move('uploads' . '/' . $dir, $image);
+        return $image;
+    }
+}
+

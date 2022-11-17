@@ -38,7 +38,7 @@ class SettingController extends GeneralController
         $data = $this->model->get();
         $inputs = $request->validated();
         if ($request->hasFile('logo')) {
-            $inputs['logo'] = $this->uploadImage($request->file('logo'), $this->path, $data->where('key', 'logo')->first()->val);
+            $inputs['logo'] ='uploads/setting/'. upload($request->file('logo'), 'setting');
             if (env('APP_ENV') != 'local') {
                 if ($data->where('key', 'logo')->first()->val != 'uploads/setting/web_logo.png') {
                     $this->deleteImage($data->where('key', 'logo')->first()->val);
@@ -46,7 +46,7 @@ class SettingController extends GeneralController
             }
         }
         if ($request->hasFile('logo_login')) {
-            $inputs['logo_login'] = $this->uploadImage($request->file('logo_login'), $this->path, $data->where('key', 'logo_login')->first()->val);
+            $inputs['logo_login'] ='uploads/setting/'. upload($request->file('logo_login'), 'setting');
             if (env('APP_ENV') != 'local') {
                 if ($data->where('key', 'logo_login')->first()->val != 'uploads/setting/login_page_logo.png') {
                     $this->deleteImage($data->where('key', 'logo_login')->first()->val);
@@ -54,7 +54,7 @@ class SettingController extends GeneralController
             }
         }
         if ($request->hasFile('login_pg')) {
-            $inputs['login_pg'] = $this->uploadImage($request->file('login_pg'), $this->path, $data->where('key', 'login_pg')->first()->val, null, 900);
+            $inputs['login_pg'] ='uploads/setting/'. upload($request->file('login_pg'), 'setting');
             if (env('APP_ENV') != 'local') {
                 if ($data->where('key', 'login_pg')->first()->val != 'uploads/setting/login_pg.png') {
                     $this->deleteImage($data->where('key', 'login_pg')->first()->val);
