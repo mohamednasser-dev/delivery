@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\RestaurantTypesController;
 use App\Http\Controllers\Admin\NationalitiesController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\usersController;
+use App\Http\Controllers\Admin\RestaurantSettingsController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -161,6 +162,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
         Route::get('attribute_data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
         Route::get('addon_data', [MealsController::class, 'addon_data'])->name('.addon.data');
+    });
+    //meals
+    Route::group(['prefix' => 'restaurant_settings', 'as' => 'restaurant_settings'], function () {
+        Route::get('/{id}', [RestaurantSettingsController::class, 'index'])->name('.index');
+        Route::post('/store/{id}', [RestaurantSettingsController::class, 'store'])->name('.store');
+        Route::post('update', [RestaurantSettingsController::class, 'update'])->name('.update');
+        Route::get('delete/{id}', [RestaurantSettingsController::class, 'destroy'])->name('.delete');
     });
     //pages
     Route::group(['prefix' => 'pages'], function () {

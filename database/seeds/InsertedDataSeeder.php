@@ -162,6 +162,8 @@ class InsertedDataSeeder extends Seeder
             'app_gif' => null,
             'android_version' => 1,
             'ios_version' => 1,
+            'currency_ar' => 'ر.س',
+            'currency_en' => 'SAR',
         ];
         Setting::setMany($data);
     }

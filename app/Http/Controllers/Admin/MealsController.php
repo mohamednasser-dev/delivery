@@ -32,7 +32,7 @@ class MealsController extends Controller
 
     public function index(Request $request, $id)
     {
-        $data = Restaurant::orderBy('created_at', 'desc')->findOrFail($id);
+        $data = Restaurant::findOrFail($id);
         $category_data = Category::where('restaurant_id', $id)->orderBy('created_at', 'asc')->get();
         $first_cat = Category::where('restaurant_id', $id)->orderBy('created_at', 'asc')->first()->id;
         $attribute_data = Attribute::where('restaurant_id', $id)->get();

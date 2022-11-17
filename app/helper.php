@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Setting;
 
 if (!function_exists('restaurant')) {
     function restaurant()
@@ -20,6 +21,17 @@ if (!function_exists('auths')) {
     {
         if (auth('web')->check()) {
             return auth('web')->user();
+        }
+    }
+}
+if (!function_exists('currency')) {
+    function currency()
+    {
+        $result = Setting::where('key', 'currency_' . app()->getLocale())->first();
+        if ($result) {
+            return $result->val;
+        } else {
+            return 'ر.س';
         }
     }
 }

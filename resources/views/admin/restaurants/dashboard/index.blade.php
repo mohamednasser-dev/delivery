@@ -239,6 +239,16 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" >
+                                    <span class="nav-text font-weight-bold">{{trans('lang.balance')}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" >
+                                    <span class="nav-text font-weight-bold">{{trans('lang.transactions')}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('restaurant_settings.index',['id'=>$data->id])}}" class="nav-link @if(Request()->routeIs('restaurant_settings.index'))active @endif " >
                                     <span class="nav-text font-weight-bold">{{trans('lang.settings')}}</span>
                                 </a>
                             </li>
@@ -262,13 +272,11 @@
                                 @include('admin.restaurants.dashboard.addons')
                             @elseif($type == 'meals')
                                 @include('admin.restaurants.dashboard.meals')
+                            @elseif($type == 'settings')
+                                @include('admin.restaurants.dashboard.settings')
                             @endif
                         </div>
                         <!--end::Tab Content-->
-                        <!--begin::Tab Content-->
-                        <div class="tab-pane" id="kt_apps_contacts_view_tab_3" role="tabpanel">
-
-                        </div>
                     </div>
                 </div>
                 <!--end::Body-->

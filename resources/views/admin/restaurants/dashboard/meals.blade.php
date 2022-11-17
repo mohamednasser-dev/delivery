@@ -144,7 +144,6 @@
                                 <label class="font-weight-bolder"> {{ $row->name}}</label>
                             </div>
                         </a>
-
                     </div>
                 </div>
                 <!--end::Symbol-->
