@@ -102,4 +102,5 @@ Route::group(['prefix' => 'helpers'], function () {
     Route::get('/owner_types', 'Api\HelpersController@owner_types');
     Route::get('/restaurant_types', 'Api\HelpersController@restaurant_types');
     Route::get('/nationalities', 'Api\HelpersController@nationalities');
+    Route::get('/settings', 'Api\HelpersController@settings');
 });
