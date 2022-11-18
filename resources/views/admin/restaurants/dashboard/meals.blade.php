@@ -133,22 +133,26 @@
     <!--begin::Body-->
     <div class="card-body py-0">
         <div class="d-flex mb-8" style="justify-content: center;">
-        @foreach($category_data as $row)
-            <!--begin::Symbol-->
-                <div class="card card-custom mb-2 @if($category_id == $row->id) bg-light-success @endif ">
-                    <div class="card-body">
-                        <a href="{{route('meals.index',['id'=>$data->id,'category_id'=>$row->id])}}">
-                            <div class="symbol mr-3 text-center ">
-                                <img alt="Pic" src="{{$row->image}}"/>
-                                <label class="font-weight-bolder">{{$row->name}}</label>
-                                <label class="font-weight-bolder"> {{ $row->name}}</label>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <!--end::Symbol-->
-            @endforeach
 
+            <!--begin::Nav Tabs-->
+            <ul class="dashboard-tabs nav nav-pills nav-danger row row-paddingless m-0 p-0" role="tablist">
+            @foreach($category_data as $row)
+                <!--begin::Item-->
+                    <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                        <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center @if($category_id == $row->id) active @endif  "
+                           href="{{route('meals.index',['id'=>$data->id,'category_id'=>$row->id])}}">
+                            <span class="nav-icon py-2 w-auto">
+                               <img style="width: 70px;" alt="Pic" src="{{$row->image}}"/>
+                            </span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
+                                {{$row->name}}
+                            </span>
+                        </a>
+                    </li>
+                    <!--end::Item-->
+                @endforeach
+            </ul>
+            <!--end::Nav Tabs-->
         </div>
         <!--begin::Table-->
         <div class="table-responsive">

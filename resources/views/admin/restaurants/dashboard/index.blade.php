@@ -238,7 +238,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" >
+                                <a href="{{route('restaurant_balance.index',['id'=>$data->id])}}" class="nav-link @if(Request()->routeIs('restaurant_balance .index'))active @endif " >
                                     <span class="nav-text font-weight-bold">{{trans('lang.balance')}}</span>
                                 </a>
                             </li>
@@ -274,6 +274,8 @@
                                 @include('admin.restaurants.dashboard.meals')
                             @elseif($type == 'settings')
                                 @include('admin.restaurants.dashboard.settings')
+                            @elseif($type == 'balance')
+                                @include('admin.restaurants.dashboard.balance')
                             @endif
                         </div>
                         <!--end::Tab Content-->

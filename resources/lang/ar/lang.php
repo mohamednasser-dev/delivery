@@ -1,5 +1,6 @@
 <?php
 return [
+    'restaurant_info' => 'بيانات المطعم',
     'min_shipping_charge' => 'اقل قيمة للتوصيل',
     'free_delivery' => 'توصيل مجاني',
     'delivery' => 'التوصيل',

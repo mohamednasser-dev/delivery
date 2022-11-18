@@ -31,9 +31,7 @@ class RestaurantRequest extends FormRequest
                 'nullable',
                 'image',
 //                'max:1000',
-//                Rule::requiredIf(function () {
-//                    return Request::routeIs('restaurants.update');
-//                })
+                Rule::requiredIf($this->routeIs('restaurants.store'))
             ],
             'name_ar' => 'required|string|min:2|max:255',
             'name_en' => 'required|string|min:2|max:255',
@@ -46,17 +44,23 @@ class RestaurantRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('restaurants','email')->ignore($this->route('id')),
+                Rule::unique('restaurants', 'email')->ignore($this->route('id')),
             ],
             'nationality_id' => 'required|exists:nationalities,id',
             'phone' => [
                 'required',
                 'string',
                 'max:20',
-                Rule::unique('restaurants','phone')->ignore($this->route('id')),
+                Rule::unique('restaurants', 'phone')->ignore($this->route('id')),
             ],
             'owner_type_id' => 'required|exists:owner_types,id',
-            'password' => 'nullable|confirmed|max:20',
+
+            'password' => [
+                'nullable',
+                'confirmed',
+                'max:20',
+                Rule::requiredIf($this->routeIs('restaurants.store')),
+            ],
         ];
     }
 }

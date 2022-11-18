@@ -18,12 +18,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    {{--                    <a href="{{url($route.'/create')}} "--}}
-                    {{--                       class="btn btn-info btn-bg">--}}
-                    {{--                        <i class="fa fa-plus"></i>--}}
-                    {{--                        {{trans('lang.add')}}</a>--}}
-                    {{--                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>--}}
-
+                    <a href="{{url($route.'/create')}} "
+                       class="btn btn-info btn-bg">
+                        <i class="fa fa-plus"></i>
+                        {{trans('lang.add')}}</a>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                 </div>
                 <div class="card-body">
                     <!-- Start home table -->

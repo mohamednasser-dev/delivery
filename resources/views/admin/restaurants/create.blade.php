@@ -17,8 +17,19 @@ $route = 'restaurants';
     </div>
 @endsection
 @section('content')
-    <form action="{{ route($route.'.store') }}" method="POST">
-        @csrf
-        @include('admin.'.$route.'.form')
-    </form>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{trans('lang.restaurant_info')}}</h4>
+                    <hr>
+                    {{ Form::open( ['route' => ['restaurants.store'],'method'=>'post', 'files'=>'true'] ) }}
+                    @include('admin.restaurants.form')
+                    {{ Form::close() }}
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
