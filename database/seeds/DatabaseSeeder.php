@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(InsertedDataSeeder::class);
 //        $this->call(\Database\Seeders\RestaurantSeeder::class);
 //        $this->call(CategorySeeder::class);
-        $this->call(AddonSeeder::class);
+//        $this->call(AddonSeeder::class);
     }
 }
