@@ -6,6 +6,7 @@ use App\Http\Requests\Restaurant\Meal\AddItemMealRequest;
 use App\Http\Requests\Restaurant\Meal\DeleteItemMealRequest;
 use App\Http\Requests\Restaurant\Meal\MealDestroyRequest;
 use App\Http\Requests\Restaurant\Meal\MealRequest;
+use App\Http\Requests\Restaurant\Order\FilterOrderRequest;
 use App\Http\Resources\MealResources;
 use App\Http\Resources\OrderDetailsResources;
 use App\Http\Resources\OrderResources;
@@ -88,13 +89,15 @@ class OrdersController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
-    public function filter()
+    public function filter(FilterOrderRequest $request)
     {
-        $date_from = request()->date_from;
-        $date_to = request()->date_to;
-        $time_from = request()->time_from;
-        $time_to = request()->time_to;
-        $status = request()->status;
+        $data = $request->validated();
+
+        $date_from = $data->date_from;
+        $date_to = $data->date_to;
+        $time_from = $data->time_from;
+        $time_to = $data->time_to;
+        $status = $data->status;
 
         $results = new Order();
         $results->where('restaurant_id', restaurant()->id);
