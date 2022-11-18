@@ -30,7 +30,7 @@ class FilterOrderRequest extends FormRequest
             'date_to' => 'sometimes|date_format:Y-m-d',
             'time_from' => 'sometimes|date_format:H:i',
             'time_to' => 'sometimes|date_format:H:i',
-            'status' => 'sometimes|inincoming,on_processing,on_delivery,delivered,cancelled',
+            'status' => 'sometimes|in:incoming,on_processing,on_delivery,delivered,cancelled',
         ];
     }
 }
