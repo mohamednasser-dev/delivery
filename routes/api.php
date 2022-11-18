@@ -83,11 +83,13 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
     Route::prefix('orders')->group(function () {
         Route::get('/{type?}', [OrdersController::class, 'getOrdersByType']);
         Route::get('/search', [OrdersController::class, 'search']);
-        Route::get('/filter', [OrdersController::class, 'filter']);
         Route::post('/update-status', [OrdersController::class, 'updateStatus']);
 //        Route::get('/details', [OrdersController::class, 'orderDetails']);
     });
 
+    Route::prefix('order-filter')->group(function () {
+        Route::get('/get', [OrdersController::class, 'filter']);
+    });
     Route::prefix('order-details')->group(function () {
         Route::get('/get', [OrdersController::class, 'orderDetails']);
     });
