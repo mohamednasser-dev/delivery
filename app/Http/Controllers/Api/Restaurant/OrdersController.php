@@ -92,6 +92,7 @@ class OrdersController extends Controller
     public function filter(FilterOrderRequest $request)
     {
         $data = $request->validated();
+        dd($data);
 
         $date_from = $data->date_from;
         $date_to = $data->date_to;
