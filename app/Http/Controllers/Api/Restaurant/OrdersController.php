@@ -107,6 +107,10 @@ class OrdersController extends Controller
             $results->whereBetween('created_at', [$from, $to]);
         }elseif (isset($date_from) && isset($date_to)){
             $results->whereBetween('created_at', [$date_from, $date_to]);
+        }elseif (isset($time_from) && isset($time_to)){
+            $from = Carbon::now()->format('Y-m-d') . ' ' . $time_from;
+            $to = Carbon::now()->format('Y-m-d')  . ' ' . $time_to;
+            $results->whereBetween('created_at', [$from, $to]);
         }
         if (isset($status)){
             if($status == "incoming"){
