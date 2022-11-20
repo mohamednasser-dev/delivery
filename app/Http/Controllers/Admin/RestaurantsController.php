@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RestaurantRequest;
 use App\Mail\RestaurantPasswordMail;
+use App\Models\Nationality;
+use App\Models\OwnerType;
 use App\Models\Restaurant;
 use App\Models\RestaurantType;
 use Exception;
@@ -30,10 +32,13 @@ class RestaurantsController extends Controller
 
     public function create()
     {
-        return view($this->viewPath . 'create');
+        $restaurant_types = RestaurantType::get();
+        $nationalities = Nationality::get();
+        $owner_types = OwnerType::get();
+        return view($this->viewPath . 'create', compact( 'restaurant_types', 'nationalities','owner_types'));
     }
 
-    public function store(RestaurantTypeRequest $request)
+    public function store(RestaurantRequest $request)
     {
         $data = $request->validated();
         $this->objectName::create($data);

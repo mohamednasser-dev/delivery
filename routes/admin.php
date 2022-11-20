@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\NationalitiesController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\usersController;
 use App\Http\Controllers\Admin\RestaurantSettingsController;
+use App\Http\Controllers\Admin\RestaurantBalanceController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -163,12 +164,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('attribute_data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
         Route::get('addon_data', [MealsController::class, 'addon_data'])->name('.addon.data');
     });
-    //meals
+    //balance
+    Route::group(['prefix' => 'restaurant_balance', 'as' => 'restaurant_balance'], function () {
+        Route::get('/{id}', [RestaurantBalanceController::class, 'index'])->name('.index');
+        Route::post('update', [RestaurantBalanceController::class, 'update'])->name('.update');
+    });
+    //restaurant_settings
     Route::group(['prefix' => 'restaurant_settings', 'as' => 'restaurant_settings'], function () {
         Route::get('/{id}', [RestaurantSettingsController::class, 'index'])->name('.index');
-        Route::post('/store/{id}', [RestaurantSettingsController::class, 'store'])->name('.store');
         Route::post('update', [RestaurantSettingsController::class, 'update'])->name('.update');
-        Route::get('delete/{id}', [RestaurantSettingsController::class, 'destroy'])->name('.delete');
     });
     //pages
     Route::group(['prefix' => 'pages'], function () {
