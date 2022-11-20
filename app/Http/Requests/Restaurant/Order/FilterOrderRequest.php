@@ -26,8 +26,8 @@ class FilterOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_from' => 'sometimes|date_format:Y-m-d',
-            'date_to' => 'sometimes|date_format:Y-m-d',
+            'date_from' => 'sometimes',
+            'date_to' => 'sometimes',
             'time_from' => 'sometimes|date_format:H:i',
             'time_to' => 'sometimes|date_format:H:i',
             'status' => 'sometimes|in:incoming,on_processing,on_delivery,delivered,cancelled',

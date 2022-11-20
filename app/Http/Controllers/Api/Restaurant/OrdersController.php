@@ -91,62 +91,66 @@ class OrdersController extends Controller
 
     public function filter(FilterOrderRequest $request)
     {
-        $data = $request->validated();
+        $request->validated();
 
-        $date_from = $data->date_from;
-        $date_to = $data->date_to;
-        $time_from = $data->time_from;
-        $time_to = $data->time_to;
-        $status = $data->status;
+        $date_from = Carbon::parse(request()->date_from)->format('Y-m-d');
+        $date_to = Carbon::parse(request()->date_to)->format('Y-m-d');
+        $time_from = Carbon::parse(request()->time_from)->format('H:i');
+        $time_to = Carbon::parse(request()->time_to)->format('H:i');
+        $status = request()->status;
 
-        $results = new Order();
-        $results->where('restaurant_id', restaurant()->id);
-        if(isset($date_from) && isset($date_to) && isset($time_from) && isset($time_to)){
-            $from = $date_from . ' ' . $time_from;
-            $to = $date_to . ' ' . $time_to;
-            $results->whereBetween('created_at', [$from, $to]);
-        }elseif (isset($date_from) && isset($date_to)){
-            $results->whereBetween('created_at', [$date_from, $date_to]);
-        }elseif (isset($time_from) && isset($time_to)){
-            $from = Carbon::now()->format('Y-m-d') . ' ' . $time_from;
-            $to = Carbon::now()->format('Y-m-d')  . ' ' . $time_to;
-            $results->whereBetween('created_at', [$from, $to]);
-        }
-        if (isset($status)){
-            if($status == "incoming"){
-                $results->whereNull('on_processing')
-                    ->whereNull('on_delivery')
-                    ->whereNull('delivered_at')
-                    ->whereNull('cancelled_at')
-                    ->whereNull('cancelled_by');
-            }
-            elseif($status == "on_processing"){
-                $results->whereNotNull('on_processing')
-                    ->whereNull('on_delivery')
-                    ->whereNull('delivered_at')
-                    ->whereNull('cancelled_at')
-                    ->whereNull('cancelled_by');
-            }
-            elseif($status == "on_delivery"){
-                $results->whereNotNull('on_processing')
-                    ->whereNotNull('on_delivery')
-                    ->whereNull('delivered_at')
-                    ->whereNull('cancelled_at')
-                    ->whereNull('cancelled_by');
-            }
-            elseif($status == "delivered"){
-                $results->whereNotNull('on_processing')
-                    ->whereNotNull('on_delivery')
-                    ->whereNotNull('delivered_at')
-                    ->whereNull('cancelled_at')
-                    ->whereNull('cancelled_by');
-            }
-            elseif($status == "cancelled"){
-                $results->whereNotNull('cancelled_at')
-                    ->whereNotNull('cancelled_by');
-            }
-        }
-        $results->paginate(pagination_number());
+        $results = Order::where('restaurant_id', restaurant()->id)
+            ->where(function ($q) use ($date_from,$date_to,$time_from,$time_to,$status){
+                if(isset($date_from) && isset($date_to) && isset($time_from) && isset($time_to)){
+
+                    $from = $date_from . ' ' . $time_from;
+                    $to = $date_to . ' ' . $time_to;
+                    $q->whereBetween('created_at', [$from, $to]);
+                }elseif (isset($date_from) && isset($date_to) && (!isset($time_from) || !isset($time_to)) ){
+
+                    $q->whereBetween('created_at', [$date_from, $date_to]);
+                }elseif (isset($time_from) && isset($time_to) && (!isset($date_from) || !isset($date_to))){
+
+                    $from = Carbon::now()->format('Y-m-d') . ' ' . $time_from;
+                    $to = Carbon::now()->format('Y-m-d')  . ' ' . $time_to;
+                    $q->whereBetween('created_at', [$from, $to]);
+                }
+                if (isset($status) && !empty($status)){
+
+                    if($status == "incoming"){
+                        $q->whereNull('on_processing')
+                            ->whereNull('on_delivery')
+                            ->whereNull('delivered_at')
+                            ->whereNull('cancelled_at')
+                            ->whereNull('cancelled_by');
+                    }
+                    elseif($status == "on_processing"){
+                        $q->whereNotNull('on_processing')
+                            ->whereNull('on_delivery')
+                            ->whereNull('delivered_at')
+                            ->whereNull('cancelled_at')
+                            ->whereNull('cancelled_by');
+                    }
+                    elseif($status == "on_delivery"){
+                        $q->whereNotNull('on_processing')
+                            ->whereNotNull('on_delivery')
+                            ->whereNull('delivered_at')
+                            ->whereNull('cancelled_at')
+                            ->whereNull('cancelled_by');
+                    }
+                    elseif($status == "delivered"){
+                        $q->whereNotNull('on_processing')
+                            ->whereNotNull('on_delivery')
+                            ->whereNotNull('delivered_at')
+                            ->whereNull('cancelled_at')
+                            ->whereNull('cancelled_by');
+                    }
+                    elseif($status == "cancelled"){
+                        $q->whereNotNull('cancelled_at')
+                            ->whereNotNull('cancelled_by');
+                    }
+                }
+            })->paginate(pagination_number());
 
         $data = (OrderResources::collection($results))->response()->getData(true);
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
