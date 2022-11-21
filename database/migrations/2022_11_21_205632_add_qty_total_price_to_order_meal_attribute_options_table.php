@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('meal_addons', function (Blueprint $table) {
-            $table->bigInteger('qty')->default(1)->after('addon_id');
+        Schema::table('order_meal_attribute_options', function (Blueprint $table) {
+            $table->bigInteger('qty')->default(1)->after('name_en');
             $table->double('total_price',[8,2])->default(0)->after('price');
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('meal_addons', function (Blueprint $table) {
+        Schema::table('order_meal_attribute_options', function (Blueprint $table) {
             //
         });
     }
