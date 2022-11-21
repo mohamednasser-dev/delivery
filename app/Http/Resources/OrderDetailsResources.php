@@ -37,6 +37,7 @@ class OrderDetailsResources extends JsonResource
                 'created_at' => $this->created_at,
                 'no_of_items' => isset($this->orderMeals) ? count($this->orderMeals) : 0,
                 'meals' => isset($this->orderMeals) ? $this->orderMeals->load(['orderMealAttributes' => function($q){ $q->with('orderMealAttributeOptions'); }])->load(['orderMealAddons']) : (object)[],
+                'user' => $this->user,
             ];
     }
 }
