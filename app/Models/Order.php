@@ -16,6 +16,11 @@ class Order extends Model
         return $this->hasMany(OrderMeal::class,'order_id');
     }
 
+    public function user(){
+        return $this->belongsTo(User::class,'user_id')
+            ->select('id','name','phone');
+    }
+
     public function getCreatedAtAttribute($value){
         return Carbon::parse($value)->format('Y-m-d H:i:s');
     }

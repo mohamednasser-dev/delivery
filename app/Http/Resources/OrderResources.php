@@ -36,6 +36,7 @@ class OrderResources extends JsonResource
                 'out_location' => isset($this->out_location) ? $this->out_location : "",
                 'created_at' => $this->created_at,
                 'no_of_items' => isset($this->orderMeals) ? count($this->orderMeals) : 0,
+                'user' => $this->user,
             ];
     }
 }
