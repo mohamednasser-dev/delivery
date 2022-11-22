@@ -7,15 +7,15 @@
         <div class="card-title">
             <a href="#" data-card-tool="toggle"
                data-toggle="tooltip" data-placement="top">
-                <h3 class="btn btn-success card-label"><i class="fa fa-plus"></i> {{trans('lang.add_new_meal')}}</h3>
+                <h3 class="btn btn-success"><i class="fa fa-plus"></i> {{trans('lang.add_new_meal')}}</h3>
             </a>
         </div>
-        <div class="card-toolbar">
-            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle"
-               data-toggle="tooltip" data-placement="top" title="{{trans('lang.add_new_meal')}}">
-                <i class="ki ki-arrow-down icon-nm"></i>
-            </a>
-        </div>
+{{--        <div class="card-toolbar">--}}
+{{--            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle"--}}
+{{--               data-toggle="tooltip" data-placement="top" title="{{trans('lang.add_new_meal')}}">--}}
+{{--                <i class="ki ki-arrow-down icon-nm"></i>--}}
+{{--            </a>--}}
+{{--        </div>--}}
     </div>
     <div class="card-body" style="display: none; overflow: hidden; padding-top: 0px; padding-bottom: 0px;">
         <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}">

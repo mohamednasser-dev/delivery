@@ -5,12 +5,9 @@
 <div class="card card-custom  card-collapse" id="kt_card_1">
     <div class="card-header">
         <div class="card-title">
-            <h3 class="card-label">{{trans('lang.add_new_category')}}</h3>
-        </div>
-        <div class="card-toolbar">
-            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top"
-               title="{{trans('lang.add_new_category')}}">
-                <i class="ki ki-arrow-down icon-nm"></i>
+            <a href="#" data-card-tool="toggle"
+               data-toggle="tooltip" data-placement="top">
+                <h3 class="btn btn-success"><i class="fa fa-plus"></i> {{trans('lang.add_new_category')}}</h3>
             </a>
         </div>
     </div>
