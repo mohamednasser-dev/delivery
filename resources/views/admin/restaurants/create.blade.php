@@ -1,6 +1,6 @@
 @extends('admin_temp')
 @php
-$route = 'restaurants';
+    $route = 'restaurants';
 @endphp
 @section('title')
     <div class="d-flex align-items-center flex-wrap mr-2">
@@ -17,7 +17,11 @@ $route = 'restaurants';
     </div>
 @endsection
 @section('content')
+    <?php
 
+    $lat = '24.65442475109588';
+    $lng = '46.709548950195305';
+    ?>
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
