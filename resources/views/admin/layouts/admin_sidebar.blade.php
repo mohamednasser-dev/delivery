@@ -28,7 +28,7 @@
         aria-haspopup="true">
         <a href="#" class="menu-link">
             <i class="menu-icon fas fa-motorcycle"></i>
-            <span class="menu-text">{{trans('s_admin.delivery_men')}}</span>
+            <span class="menu-text">{{trans('lang.delivery_men')}}</span>
         </a>
     </li>
     {{--    basic_info--}}

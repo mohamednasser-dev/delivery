@@ -1,5 +1,7 @@
 <?php
 return [
+    'owners_types' => 'انواع الملاك',
+    'delivery_men' => 'رجال التوصيل',
     'active_notification' => 'تفعيل الإشعارات',
     'address_on_map' => 'الموقع على الخريطة',
     'location_info' => 'بيانات الموقع',

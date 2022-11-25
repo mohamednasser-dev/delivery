@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\usersController;
 use App\Http\Controllers\Admin\RestaurantSettingsController;
 use App\Http\Controllers\Admin\RestaurantBalanceController;
+use App\Http\Controllers\Admin\RestaurantTransactionsController;
+use App\Http\Controllers\Admin\RestaurantOrdersController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -168,6 +170,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::group(['prefix' => 'restaurant_balance', 'as' => 'restaurant_balance'], function () {
         Route::get('/{id}', [RestaurantBalanceController::class, 'index'])->name('.index');
         Route::post('update', [RestaurantBalanceController::class, 'update'])->name('.update');
+    });
+    //restaurant_transactions
+    Route::group(['prefix' => 'restaurant_transactions', 'as' => 'restaurant_transactions'], function () {
+        Route::get('/{id}', [RestaurantTransactionsController::class, 'index'])->name('.index');
+    });
+    //restaurant_transactions
+    Route::group(['prefix' => 'restaurant_orders', 'as' => 'restaurant_orders'], function () {
+        Route::get('/{id}', [RestaurantOrdersController::class, 'index'])->name('.index');
     });
     //restaurant_settings
     Route::group(['prefix' => 'restaurant_settings', 'as' => 'restaurant_settings'], function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Restaurant;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Controller;
@@ -20,8 +21,9 @@ class HomeController extends Controller
     public function index()
     {
 
-
-        return view('admin.home');
+        $count['users'] = User::user()->get()->count();
+        $count['restaurants'] = Restaurant::get()->count();
+        return view('admin.home', compact('count'));
     }
 
     public function profile()
