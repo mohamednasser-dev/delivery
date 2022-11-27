@@ -1,5 +1,6 @@
 <?php
 return [
+    'sign_up_restaurants_reports' => 'أحصائيات تسجيل المستخدمين و المطاعم لسنه ',
     'owners_types' => 'انواع الملاك',
     'delivery_men' => 'رجال التوصيل',
     'active_notification' => 'تفعيل الإشعارات',

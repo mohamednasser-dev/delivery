@@ -77,7 +77,102 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Card-->
+            <div class="card card-custom gutter-b">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3 class="card-label">{{trans('lang.sign_up_restaurants_reports')}} {{$year}}</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="chart_3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('scripts')
+    <script>
+        "use strict";
 
+        // Shared Colors Definition
+        const primary = '#6993FF';
+        const success = '#1BC5BD';
+        const info = '#8950FC';
+        const warning = '#FFA800';
+        const danger = '#F64E60';
+
+
+        var _demo3 = function () {
+            const apexChart = "#chart_3";
+            var options = {
+                series: [{
+                    name: 'المطاعم',
+                    data: {!! $restaurants_arr !!}
+                }, {
+                    name: 'المستخدمين',
+                    data: {!! $users_arr !!}
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['عدد التسجيل الجديد']
+                },
+                xaxis: {
+                    categories: ['Jun','Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'nov', 'des'],
+                },
+                yaxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return " " + val + " "
+                        }
+                    }
+                },
+                colors: [primary, success, warning]
+            };
+
+            var chart = new ApexCharts(document.querySelector(apexChart), options);
+            chart.render();
+        }
+
+        var KTApexChartsDemo = function () {
+            // Private functions
+
+            return {
+                // public functions
+                init: function () {
+                    _demo3();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function () {
+            KTApexChartsDemo.init();
+        });
+
+    </script>
 @endsection
