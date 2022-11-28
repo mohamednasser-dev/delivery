@@ -160,11 +160,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::group(['prefix' => 'meals', 'as' => 'meals'], function () {
         Route::get('/{id}', [MealsController::class, 'index'])->name('.index');
         Route::post('/store/{id}', [MealsController::class, 'store'])->name('.store');
+        Route::get('/edit/{id}', [MealsController::class, 'edit'])->name('.edit');
         Route::get('change_status', [MealsController::class, 'change_status'])->name('.change_status');
-        Route::post('update_new', [MealsController::class, 'update'])->name('.update_new');
+        Route::put('update_new', [MealsController::class, 'update'])->name('.update_new');
         Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
-        Route::get('attribute_data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
-        Route::get('addon_data', [MealsController::class, 'addon_data'])->name('.addon.data');
+        Route::get('attribute/data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
+        Route::get('addon/data', [MealsController::class, 'addon_data'])->name('.addon.data');
     });
     //balance
     Route::group(['prefix' => 'restaurant_balance', 'as' => 'restaurant_balance'], function () {

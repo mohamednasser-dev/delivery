@@ -271,7 +271,7 @@
                             @elseif($type == 'addons')
                                 @include('admin.restaurants.dashboard.addons')
                             @elseif($type == 'meals')
-                                @include('admin.restaurants.dashboard.meals')
+                                @include('admin.restaurants.dashboard.meals.meals')
                             @elseif($type == 'settings')
                                 @include('admin.restaurants.dashboard.settings')
                             @elseif($type == 'balance')
