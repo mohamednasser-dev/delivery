@@ -37,6 +37,7 @@ class RestaurantRequest extends FormRequest
             'name_en' => 'required|string|min:2|max:255',
             'crn' => 'required|string|min:2|max:255',
             'restaurant_type_id' => 'required|exists:restaurant_types,id',
+            'address' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'full_name' => 'required|string|min:2|max:255',

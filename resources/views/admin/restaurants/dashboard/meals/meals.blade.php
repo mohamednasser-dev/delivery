@@ -1,54 +1,21 @@
 <!--begin::Heading-->
 @php
-    $route = 'categories';
+    $route = 'meals';
 @endphp
 <div class="card card-custom  card-collapse" id="kt_card_1">
     <div class="card-header">
         <div class="card-title">
             <a href="#" data-card-tool="toggle"
                data-toggle="tooltip" data-placement="top">
-                <h3 class="btn btn-success"><i class="fa fa-plus"></i> {{trans('lang.add_new_category')}}</h3>
+                <h3 class="btn btn-success"><i class="fa fa-plus"></i> {{trans('lang.add_new_meal')}}</h3>
             </a>
         </div>
     </div>
     <div class="card-body" style="display: none; overflow: hidden; padding-top: 0px; padding-bottom: 0px;">
-        {{ Form::open( ['route' => [$route.'.store',['id'=>$data->id]],'class'=>'form','method'=>'post', 'files'=>'true'] ) }}
-        <div class="form-group row">
-            <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.image')}}</label>
-            <div class="col-lg-9 col-xl-9" >
-                <div class="image-input image-input-outline image-input-circle" id="kt_user_avatar">
-                    <div class="image-input-wrapper"  style="background-image: url({{asset('defaults/default_category.png')}})" ></div>
-                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                           data-action="change" data-toggle="tooltip" title=""
-                           data-original-title="{{trans('lang.add_image')}}">
-                        <i class="fa fa-pen icon-sm text-muted"></i>
-                        <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
-                        <input type="hidden" name="profile_avatar_remove"/>
-                    </label>
-                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                          data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
-                    <i class="ki ki-bold-close icon-xs text-muted"></i>
-                </span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_ar')}}</label>
-            <div class="col-lg-9 col-xl-6">
-                <input class="form-control form-control-lg form-control-solid" type="text" name="name_ar" required/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_en')}}</label>
-            <div class="col-lg-9 col-xl-6">
-                <input class="form-control form-control-lg form-control-solid" type="text" name="name_en" required/>
-            </div>
-        </div>
-        <div class="d-flex flex-center">
-            <button type="submit" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14">{{trans('lang.save')}}
-            </button>
-        </div>
-        {{ Form::close() }}
+        <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}" enctype="multipart/form-data">
+            @csrf
+            @include('admin.restaurants.dashboard.meals.form')
+        </form>
     </div>
 </div>
 <div class="separator separator-dashed my-10"></div>
@@ -65,6 +32,28 @@
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body py-0">
+        <div class="d-flex mb-8" style="justify-content: center;">
+
+            <!--begin::Nav Tabs-->
+            <ul class="dashboard-tabs nav nav-pills nav-danger row row-paddingless m-0 p-0" role="tablist">
+            @foreach($category_data as $row)
+                <!--begin::Item-->
+                    <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                        <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center @if($category_id == $row->id) active @endif  "
+                           href="{{route('meals.index',['id'=>$data->id,'category_id'=>$row->id])}}">
+                            <span class="nav-icon py-2 w-auto">
+                               <img style="width: 70px;" alt="Pic" src="{{$row->image}}"/>
+                            </span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
+                                {{$row->name}}
+                            </span>
+                        </a>
+                    </li>
+                    <!--end::Item-->
+                @endforeach
+            </ul>
+            <!--end::Nav Tabs-->
+        </div>
         <!--begin::Table-->
         <div class="table-responsive">
             <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_4">
@@ -78,7 +67,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($categories as $row)
+                @foreach($meals as $row)
                     <tr>
                         <td class="center">
                             <img class="img-thumbnail rounded-circle" src="{{$row->image}}"
@@ -100,10 +89,9 @@
                         {{--                                </span>--}}
                         {{--                        </td>--}}
                         <td class="center">
-                            <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
-                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
-                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"
-                              >
+                            <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2"
+                               href="{{route($route.'.edit',$row->id)}}"
+                            >
                                 <i class="icon-nm fas fa-pencil-alt"></i>
                             </a>
                             <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"
@@ -136,27 +124,7 @@
             <div class="modal-body">
                 {{ Form::open( ['route' =>$route.'.update_new','method'=>'post', 'files'=>'true'] ) }}
                 <input type="hidden" required class="form-control" id="txt_id" name="id">
-
                 <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-4 text-right col-form-label">{{trans('lang.image')}}</label>
-                        <div class="col-lg-8 col-xl-8" >
-                            <div class="image-input image-input-outline image-input-circle" id="kt_user_avatar2">
-                                <div class="image-input-wrapper"  style="background-image: url({{asset('defaults/default_category.png')}})" ></div>
-                                <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                       data-action="change" data-toggle="tooltip" title=""
-                                       data-original-title="{{trans('lang.add_image')}}">
-                                    <i class="fa fa-pen icon-sm text-muted"></i>
-                                    <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
-                                    <input type="hidden" name="profile_avatar_remove"/>
-                                </label>
-                                <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                      data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
-                                <i class="ki ki-bold-close icon-xs text-muted"></i>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label text-lg-right">{{trans('s_admin.name_ar')}}</label>
                         <div class="col-lg-8">
@@ -180,42 +148,4 @@
         </div>
     </div>
 </div>
-@push('scripts')
-    <script !src="">
-        var avatar1 = new KTImageInput('kt_user_avatar');
-        var avatar2 = new KTImageInput('kt_user_avatar2');
-    </script>
-    <script type="text/javascript">
-        function update_active(el) {
-            if (el.checked) {
-                var status = 'y';
-            } else {
-                var status = 'n';
-            }
-            $.post('{{ route('categories.change_status') }}', {
-                _token: '{{ csrf_token() }}',
-                id: el.value,
-                status: status
-            }, function (data) {
-                if (data == 1) {
-                    toastr.success("{{trans('s_admin.statuschanged')}}");
-                } else {
-                    toastr.error("{{trans('s_admin.statuschanged')}}");
-                }
-            });
-        }
-    </script>
-    <script>
-        var id;
-        $(document).on('click', '#edit', function () {
-            id = $(this).data('editid');
-            name_ar = $(this).data('name_ar');
-            name_en = $(this).data('name_en');
-            type = $(this).data('type');
-            $('#txt_id').val(id);
-            $('#txt_name_ar').val(name_ar);
-            $('#txt_name_en').val(name_en);
-            $('#select_type').val(type);
-        });
-    </script>
-@endpush
+

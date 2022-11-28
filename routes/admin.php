@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\usersController;
 use App\Http\Controllers\Admin\RestaurantSettingsController;
 use App\Http\Controllers\Admin\RestaurantBalanceController;
+use App\Http\Controllers\Admin\RestaurantTransactionsController;
+use App\Http\Controllers\Admin\RestaurantOrdersController;
 
 Auth::routes();
 //Route::get('/', 'HomeController@main_pge')->name('main_page');
@@ -159,11 +161,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::group(['prefix' => 'meals', 'as' => 'meals'], function () {
         Route::get('/{id}', [MealsController::class, 'index'])->name('.index');
         Route::post('/store/{id}', [MealsController::class, 'store'])->name('.store');
+        Route::get('/edit/{id}', [MealsController::class, 'edit'])->name('.edit');
         Route::get('change_status', [MealsController::class, 'change_status'])->name('.change_status');
-        Route::post('update_new', [MealsController::class, 'update'])->name('.update_new');
+        Route::put('update_new', [MealsController::class, 'update'])->name('.update_new');
         Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
-        Route::get('attribute_data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
-        Route::get('addon_data', [MealsController::class, 'addon_data'])->name('.addon.data');
+        Route::get('attribute/data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
+        Route::get('addon/data', [MealsController::class, 'addon_data'])->name('.addon.data');
     });
 
     //orders
@@ -180,6 +183,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::group(['prefix' => 'restaurant_balance', 'as' => 'restaurant_balance'], function () {
         Route::get('/{id}', [RestaurantBalanceController::class, 'index'])->name('.index');
         Route::post('update', [RestaurantBalanceController::class, 'update'])->name('.update');
+    });
+    //restaurant_transactions
+    Route::group(['prefix' => 'restaurant_transactions', 'as' => 'restaurant_transactions'], function () {
+        Route::get('/{id}', [RestaurantTransactionsController::class, 'index'])->name('.index');
+    });
+    //restaurant_transactions
+    Route::group(['prefix' => 'restaurant_orders', 'as' => 'restaurant_orders'], function () {
+        Route::get('/{id}', [RestaurantOrdersController::class, 'index'])->name('.index');
     });
     //restaurant_settings
     Route::group(['prefix' => 'restaurant_settings', 'as' => 'restaurant_settings'], function () {

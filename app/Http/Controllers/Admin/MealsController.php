@@ -32,11 +32,11 @@ class MealsController extends Controller
 
     public function index(Request $request, $id)
     {
-        $first_cat = null ;
+        $first_cat = null;
         $data = Restaurant::findOrFail($id);
         $category_data = Category::where('restaurant_id', $id)->orderBy('created_at', 'asc')->get();
         $cat = Category::where('restaurant_id', $id)->orderBy('created_at', 'asc')->first();
-        if($cat){
+        if ($cat) {
             $first_cat = $cat->id;
         }
         $attribute_data = Attribute::where('restaurant_id', $id)->get();
@@ -48,7 +48,7 @@ class MealsController extends Controller
             // Else, count greater or equal to 3
             $q->where('category_id', $first_cat);
 
-        })->where('restaurant_id', $id)->get();
+        })->where('restaurant_id', $id)->orderBy('created_at','desc')->get();
         $type = 'meals';
         if ($request->category_id) {
             $category_id = $request->category_id;
@@ -108,8 +108,16 @@ class MealsController extends Controller
 
     public function edit($id)
     {
-        $data = $this->objectName::findOrFail($id);
-        return view($this->viewPath . 'edit', compact('data'));
+        $meal = $this->objectName::findOrFail($id);
+        $data = Restaurant::where('id', $meal->restaurant_id)->first();
+        $category_data = Category::where('restaurant_id', $meal->restaurant_id)->orderBy('created_at', 'asc')->get();
+        $attribute_data = Attribute::where('restaurant_id', $meal->restaurant_id)->get();
+        $addons_data = Addon::where('restaurant_id', $meal->restaurant_id)->get();
+        $meal_attributes_ids = $meal->meal_attributes->pluck('attribute_id')->toArray();
+        $meal_attributes = $meal->meal_attributes;
+        $meal_addons_ids = $meal->meal_addons->pluck('addon_id')->toArray();
+        $meal_addons = $meal->meal_addons;
+        return view($this->viewPath . 'meals.edit', compact('data','meal_addons', 'meal_attributes','meal', 'category_data', 'meal_addons_ids', 'attribute_data', 'addons_data', 'meal_attributes_ids'));
     }
 
     public function change_status(Request $request)

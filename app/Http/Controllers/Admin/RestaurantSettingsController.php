@@ -45,6 +45,7 @@ class RestaurantSettingsController extends Controller
             [
                 'id' => 'required|exists:restaurants,id',
                 'is_active' => 'nullable',
+                'notification' => 'nullable',
                 'commission' => 'required|numeric|min:0',
                 'min_order_price' => 'required|numeric|min:0',
                 'tax' => 'required|numeric|min:0',
@@ -55,7 +56,6 @@ class RestaurantSettingsController extends Controller
             ]);
 
         //is_active
-
         if ($request->is_active) {
             $data['is_active'] = 1;
         } else {
@@ -66,6 +66,12 @@ class RestaurantSettingsController extends Controller
             $data['free_delivery'] = 1;
         } else {
             $data['free_delivery'] = 0;
+        }
+        //notification
+        if ($request->notification) {
+            $data['notification'] = 1;
+        } else {
+            $data['notification'] = 0;
         }
         $this->objectName::findOrFail($data['id'])->update($data);
         session()->flash('success', trans('lang.updatSuccess'));

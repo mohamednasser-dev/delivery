@@ -1,5 +1,11 @@
 <?php
 return [
+    'sign_up_restaurants_reports' => 'أحصائيات تسجيل المستخدمين و المطاعم لسنه ',
+    'owners_types' => 'انواع الملاك',
+    'delivery_men' => 'رجال التوصيل',
+    'active_notification' => 'تفعيل الإشعارات',
+    'address_on_map' => 'الموقع على الخريطة',
+    'location_info' => 'بيانات الموقع',
     'restaurant_info' => 'بيانات المطعم',
     'min_shipping_charge' => 'اقل قيمة للتوصيل',
     'free_delivery' => 'توصيل مجاني',
@@ -33,7 +39,7 @@ return [
     'restaurant_dashboard' => 'لوحة تحكم المطعم',
     'add_new_meal' => 'إضافة وجبة جديدة',
     'add_new_addon' => 'إضافة اضافات جديدة',
-    'add_new_attribute' => 'إضافة متغير جديدة مثل( الحجم و النوع )',
+    'add_new_attribute' => 'إضافة متغير جديد',
     'national_id' => 'رقم الهوية الوطنية',
     'personal_data_info' => 'البيانات الشخصية',
     'crn' => 'رقم السجل التجاري',

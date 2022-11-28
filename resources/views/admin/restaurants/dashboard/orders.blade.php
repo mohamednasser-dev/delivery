@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--begin::Heading-->
 @php
     $route = 'orders';
@@ -241,10 +242,34 @@
                 {{ Form::close() }}
             </div>
 
+{{--=======--}}
+<div class="card">
+    <div class="card-body">
+        <!--begin::Section-->
+        <div class="card card-custom">
+            <div class="card-body p-0">
+                <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
+                    <thead>
+                    <tr>
+                        <th class="center">رقم الطلب</th>
+                        <th class="center">تاريخ الطلب</th>
+                        <th class="center">العميل</th>
+                        <th class="center">المبلغ</th>
+                        <th class="center">حالة الطلب</th>
+                        <th class="center">الإجرائات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+{{-->>>>>>> 34e65d1ad0eda91e8ae2417cc553968d8e4898c0--}}
         </div>
     </div>
 </div>
 @push('scripts')
+{{--<<<<<<< HEAD--}}
     <script>
         $('#kt_select2_3').on('change', function () {
             $('#attributes_section').html(null);
@@ -356,4 +381,7 @@
         });
 
     </script>
+=======
+
+>>>>>>> 34e65d1ad0eda91e8ae2417cc553968d8e4898c0
 @endpush

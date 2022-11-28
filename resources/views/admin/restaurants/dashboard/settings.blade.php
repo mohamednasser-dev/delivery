@@ -18,6 +18,16 @@
                 </label>
             </span>
         </div>
+        <label class="col-3 col-form-label">{{trans('lang.active_notification')}}</label>
+        <div class="col-3">
+            <span class="switch switch-lg switch-icon">
+                <label>
+                    <input type="checkbox" @if($data->notification) checked="checked" @endif
+                    name="notification">
+                    <span></span>
+                </label>
+            </span>
+        </div>
     </div>
     <div class="form-group row">
         <label class="col-3 col-form-label">{{trans('lang.commission_needed')}} ( % )</label>

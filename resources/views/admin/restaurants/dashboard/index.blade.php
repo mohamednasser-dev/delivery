@@ -233,16 +233,18 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('orders.index',['id'=>$data->id])}}" class="nav-link" >
+                                <a href="{{route('restaurant_orders.index',['id'=>$data->id])}}"  class="nav-link @if(Request()->routeIs('restaurant_orders.index'))active @endif " >
+
                                     <span class="nav-text font-weight-bold">{{trans('lang.orders')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('restaurant_balance.index',['id'=>$data->id])}}" class="nav-link @if(Request()->routeIs('restaurant_balance .index'))active @endif " >
+                                <a href="{{route('restaurant_balance.index',['id'=>$data->id])}}" class="nav-link @if(Request()->routeIs('restaurant_balance.index'))active @endif " >
                                     <span class="nav-text font-weight-bold">{{trans('lang.balance')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" >
+                                <a href="{{route('restaurant_transactions.index',['id'=>$data->id])}}" class="nav-link @if(Request()->routeIs('restaurant_transactions.index'))active @endif " >
                                     <span class="nav-text font-weight-bold">{{trans('lang.transactions')}}</span>
                                 </a>
                             </li>
@@ -270,11 +272,15 @@
                             @elseif($type == 'addons')
                                 @include('admin.restaurants.dashboard.addons')
                             @elseif($type == 'meals')
-                                @include('admin.restaurants.dashboard.meals')
+                                @include('admin.restaurants.dashboard.meals.meals')
                             @elseif($type == 'settings')
                                 @include('admin.restaurants.dashboard.settings')
                             @elseif($type == 'balance')
                                 @include('admin.restaurants.dashboard.balance')
+                            @elseif($type == 'transactions')
+                                @include('admin.restaurants.dashboard.transactions')
+                            @elseif($type == 'orders')
+                                @include('admin.restaurants.dashboard.orders')
                             @endif
                         </div>
                         <!--end::Tab Content-->
