@@ -25,6 +25,7 @@ class RestaurantResources extends JsonResource
             'name_en'=>$this->name_en,
             'crn'=>$this->crn,
             'notification'=>(int)$this->notification,
+            'fcm_token'=>(string)$this->fcm_token,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,
             'address'=> !empty($this->address) ? $this->address : "",
