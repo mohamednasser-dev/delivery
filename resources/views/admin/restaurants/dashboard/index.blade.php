@@ -232,8 +232,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" >
-
+                                <a href="{{route('orders.index',['id'=>$data->id])}}" class="nav-link" >
                                     <span class="nav-text font-weight-bold">{{trans('lang.orders')}}</span>
                                 </a>
                             </li>

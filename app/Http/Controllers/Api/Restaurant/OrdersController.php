@@ -176,15 +176,15 @@ class OrdersController extends Controller
         if($type == "delivered"){
             Order::whereId($order_id)
                 ->where('restaurant_id', $restaurant_id)
-                ->whereNull('delivered')
-                ->update(['delivered' => Carbon::now()]);
+                ->whereNull('delivered_at')
+                ->update(['delivered_at' => Carbon::now()]);
         }
         if($type == "cancelled"){
             Order::whereId($order_id)
                 ->where('restaurant_id', $restaurant_id)
-                ->whereNull('cancelled')
+                ->whereNull('cancelled_at')
                 ->update([
-                    'cancelled' => Carbon::now(),
+                    'cancelled_at' => Carbon::now(),
                     'cancelled_by' => "restaurant",
                     'cancele_reason' => request()->cancele_reason,
                 ]);

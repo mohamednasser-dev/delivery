@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AttributesController;
 use App\Http\Controllers\Admin\AddonsController;
 use App\Http\Controllers\Admin\OptionsController;
 use App\Http\Controllers\Admin\MealsController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\OwnerTypesController;
 use App\Http\Controllers\Admin\RestaurantTypesController;
 use App\Http\Controllers\Admin\NationalitiesController;
@@ -163,6 +164,17 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
         Route::get('attribute_data', [MealsController::class, 'attribute_data'])->name('.attribute.data');
         Route::get('addon_data', [MealsController::class, 'addon_data'])->name('.addon.data');
+    });
+
+    //orders
+    Route::group(['prefix' => 'orders', 'as' => 'orders'], function () {
+        Route::get('/{id}', [OrdersController::class, 'index'])->name('.index');
+        Route::post('/store/{id}', [OrdersController::class, 'store'])->name('.store');
+        Route::get('change_status', [OrdersController::class, 'change_status'])->name('.change_status');
+        Route::post('update_new', [OrdersController::class, 'update'])->name('.update_new');
+        Route::get('delete/{id}', [OrdersController::class, 'destroy'])->name('.delete');
+        Route::get('attribute_data', [OrdersController::class, 'attribute_data'])->name('.attribute.data');
+        Route::get('addon_data', [OrdersController::class, 'addon_data'])->name('.addon.data');
     });
     //balance
     Route::group(['prefix' => 'restaurant_balance', 'as' => 'restaurant_balance'], function () {
