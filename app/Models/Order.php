@@ -12,6 +12,8 @@ class Order extends Model
 
     protected $hidden = ['updated_at'];
 
+    protected $guarded = [];
+
     public function orderMeals(){
         return $this->hasMany(OrderMeal::class,'order_id');
     }

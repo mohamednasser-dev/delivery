@@ -9,6 +9,12 @@ class OrderMeal extends Model
 {
     use HasFactory;
 
+    protected $appends = ['image'];
+
+    public function getImageAttribute(){
+        return $this->meal()->first()->image;
+    }
+
     protected $hidden = ['created_at','updated_at'];
 
     public function orderMealAttributes(){
@@ -17,5 +23,9 @@ class OrderMeal extends Model
 
     public function orderMealAddons(){
         return $this->hasMany(OrderMealAddons::class,'order_meal_id');
+    }
+
+    public function meal(){
+        return $this->belongsTo(Meal::class,"meal_id");
     }
 }
