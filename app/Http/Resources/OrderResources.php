@@ -20,7 +20,7 @@ class OrderResources extends JsonResource
                 'order_num' => $this->order_num,
                 'user_id' => $this->user_id,
                 'restaurant_id' => $this->restaurant_id,
-                'on_pocessing' => isset($this->on_pocessing) ? $this->on_pocessing : "",
+                'on_processing' => isset($this->on_processing) ? $this->on_processing : "",
                 'on_delivery' => isset($this->on_delivery) ? $this->on_delivery : "",
                 'delivered_at' => isset($this->delivered_at) ? $this->delivered_at : "",
                 'cancelled_at' => isset($this->cancelled_at) ? $this->cancelled_at : "",
