@@ -180,4 +180,17 @@ class AuthController extends Controller
         return $this->sendSuccess(__('lang.password_updated_s'));
 
     }
+
+    public function refreshToken()
+    {
+        $restaurant_id = restaurant()->id;
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        auth('sanctum')->user()->tokens()->delete();
+        $token = $restaurant->createToken("TOKEN")->plainTextToken;
+        $response = [
+            'restaurant' => new RestaurantResources($restaurant),
+            'access_token' => $token
+        ];
+        return $this->sendSuccessData(__('lang.login_s'), $response, 201);
+    }
 }
