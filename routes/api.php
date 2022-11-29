@@ -79,6 +79,12 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::post('/add-item', [MealsController::class, 'addItem']);
         Route::get('/destroy-item', [MealsController::class, 'deleteItem']);
     });
+    Route::prefix('meal-search')->group(function () {
+        Route::get('/get', [MealsController::class, 'search']);
+    });
+    Route::prefix('meal-filter')->group(function () {
+        Route::get('/get', [MealsController::class, 'filter']);
+    });
 
     //orders
     Route::prefix('orders')->group(function () {

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Restaurant;
 
 use App\Http\Requests\Restaurant\Meal\AddItemMealRequest;
 use App\Http\Requests\Restaurant\Meal\DeleteItemMealRequest;
+use App\Http\Requests\Restaurant\Meal\FilterMealRequest;
 use App\Http\Requests\Restaurant\Meal\MealDestroyRequest;
 use App\Http\Requests\Restaurant\Meal\MealRequest;
+use App\Http\Requests\Restaurant\Meal\SearchMealRequest;
 use App\Http\Resources\MealResources;
 use App\Models\Addon;
 use App\Models\Attribute;
@@ -295,6 +297,42 @@ class MealsController extends Controller
         }
         //--end
         return $this->sendSuccess(__('lang.created_s'), 201);
+    }
+
+    public function search(SearchMealRequest $request)
+    {
+        $request->validated();
+
+        $posts = Meal::where('restaurant_id', restaurant()->id)
+            ->where('name_ar', 'like', '%' . request()->search_key . '%')
+            ->orWhere('name_en', 'like', '%' . request()->search_key . '%')
+            ->orWhere('desc_ar', 'like', '%' . request()->search_key . '%')
+            ->orWhere('desc_en', 'like', '%' . request()->search_key . '%')
+            ->paginate(pagination_number());
+        $data = (MealResources::collection($posts))->response()->getData(true);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+    }
+
+    public function filter(FilterMealRequest $request)
+    {
+        $request->validated();
+
+        $status = request()->status;
+        $price = request()->price;
+
+        $results = Meal::where('restaurant_id', restaurant()->id)
+            ->where(function ($q) use ($status,$price){
+                if(isset($status)){
+//                    'pending', 'accepted', 'rejected'
+                    $q->where('status', $status);
+                }
+                if (isset($price)){
+                    $q->where('price', 'like', '%' . request()->price . '%');
+                }
+            })->paginate(pagination_number());
+
+        $data = (MealResources::collection($results))->response()->getData(true);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\Restaurant\Meal\DeleteItemMealRequest;
 use App\Http\Requests\Restaurant\Meal\MealDestroyRequest;
 use App\Http\Requests\Restaurant\Meal\MealRequest;
 use App\Http\Requests\Restaurant\Order\FilterOrderRequest;
+use App\Http\Requests\Restaurant\Order\SearchOrderRequest;
 use App\Http\Resources\MealResources;
 use App\Http\Resources\OrderDetailsResources;
 use App\Http\Resources\OrderResources;
@@ -79,8 +80,10 @@ class OrdersController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
-    public function search()
+    public function search(SearchOrderRequest $request)
     {
+        $request->validated();
+
         $results = Order::where('restaurant_id', restaurant()->id)
             ->where('order_num', 'like', '%' . request()->search_key . '%')
             ->paginate(pagination_number());
