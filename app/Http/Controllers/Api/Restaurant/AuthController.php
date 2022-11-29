@@ -186,7 +186,7 @@ class AuthController extends Controller
         $restaurant_id = restaurant()->id;
         $restaurant = Restaurant::findOrFail($restaurant_id);
         if(!$restaurant)
-            return $this->sendError(__('lang.wrong_password'));
+            return $this->sendError(__('lang.error'));
 
         auth('sanctum')->user()->tokens()->delete();
         $token = $restaurant->createToken("TOKEN")->plainTextToken;
