@@ -183,6 +183,10 @@ class AuthController extends Controller
 
     public function refreshToken()
     {
+        $restaurant_data = restaurant();
+        if(!$restaurant_data)
+            return $this->sendError(__('lang.error'));
+
         $restaurant_id = restaurant()->id;
         $restaurant = Restaurant::whereId($restaurant_id)->first();
         if(!$restaurant)
