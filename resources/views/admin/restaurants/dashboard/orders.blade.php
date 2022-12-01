@@ -123,18 +123,18 @@
                         {{--                                </span>--}}
                         {{--                        </td>--}}
                         <td class="center">
-                            <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
-                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
-                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"
-                            >
-                                <i class="icon-nm fas fa-pencil-alt"></i>
-                            </a>
-                            <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"
-                               href="{{route($route.'.delete',$row->id)}}"
-                               class='btn btn-icon btn-danger btn-circle btn-sm mr-2'
-                               title="{{trans('lang.delete')}}"><i
-                                    class="icon-nm fas fa-trash"
-                                    aria-hidden='true'></i></a>
+{{--                            <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"--}}
+{{--                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"--}}
+{{--                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"--}}
+{{--                            >--}}
+{{--                                <i class="icon-nm fas fa-pencil-alt"></i>--}}
+{{--                            </a>--}}
+{{--                            <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"--}}
+{{--                               href="{{route($route.'.delete',$row->id)}}"--}}
+{{--                               class='btn btn-icon btn-danger btn-circle btn-sm mr-2'--}}
+{{--                               title="{{trans('lang.delete')}}"><i--}}
+{{--                                    class="icon-nm fas fa-trash"--}}
+{{--                                    aria-hidden='true'></i></a>--}}
                         </td>
                     </tr>
                 @endforeach
