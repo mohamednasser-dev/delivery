@@ -348,4 +348,15 @@ return [
     'not_found' => 'حدث خطأ ما يرجى المحاولة مره اخرى',
     'sendedsuccess' => 'تم الإرسال بنجاح',
     'error' => 'يوجد خطأ',
+
+    'current_orders'=> 'الطلبات',
+    'all_orders'=> 'كل الطلبات',
+    'incoming_orders'=> 'الطلبات القادمة',
+    'on_processing_orders'=> 'طلبات قيد التنفيذ',
+    'on_delivery_orders'=> 'طلبات قيد التوصيل',
+    'delivered_orders'=> 'طلبات تم التوصيل',
+    'cancelled_orders'=> 'طلبات ملغية',
+    'total_price'=> 'الاجمالي',
+    'sub_total'=> 'الاجمالي',
+    'fee'=> 'رسوم',
 ];

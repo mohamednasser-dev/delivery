@@ -190,7 +190,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     });
     //restaurant_transactions
     Route::group(['prefix' => 'restaurant_orders', 'as' => 'restaurant_orders'], function () {
-        Route::get('/{id}', [RestaurantOrdersController::class, 'index'])->name('.index');
+        Route::get('/{id}/{status?}', [RestaurantOrdersController::class, 'index'])->name('.index');
     });
     //restaurant_settings
     Route::group(['prefix' => 'restaurant_settings', 'as' => 'restaurant_settings'], function () {

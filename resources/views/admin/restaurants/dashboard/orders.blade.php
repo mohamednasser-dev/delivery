@@ -1,124 +1,50 @@
-<<<<<<< HEAD
 <!--begin::Heading-->
 @php
     $route = 'orders';
 @endphp
-<div class="card card-custom  card-collapse" id="kt_card_1">
-    <div class="card-header">
-        <div class="card-title">
-            <a href="#" data-card-tool="toggle"
-               data-toggle="tooltip" data-placement="top">
-                <h3 class="btn btn-success card-label"><i class="fa fa-plus"></i> {{trans('lang.add_new_meal')}}</h3>
-            </a>
-        </div>
-        <div class="card-toolbar">
-            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle"
-               data-toggle="tooltip" data-placement="top" title="{{trans('lang.add_new_meal')}}">
-                <i class="ki ki-arrow-down icon-nm"></i>
-            </a>
-        </div>
+<div class="card card-custom card-collapse" id="kt_card_1">
+
+    <div class="card-header" style="display: inline-block;overflow-x: scroll">
+        <a href="{{route('restaurant_orders.index',['id'=>$data->id , 'status' => null])}}">
+            <h3 class="btn btn-{{$status == null ? 'success':'default' }} card-label">
+                {{trans('lang.all_orders')}}
+                <b class="badge badge-info ">{{count($allOrders)}}</b>
+            </h3>
+        </a>
+        <a href="{{route('restaurant_orders.index',['id'=>$data->id , 'status' => 'incoming'])}}">
+            <h3 class="btn btn-{{$status == 'incoming' ? 'success':'default' }} card-label">
+                {{trans('lang.incoming_orders')}}
+                <b class="badge badge-info ">{{count($incomingOrders)}}</b>
+            </h3>
+        </a>
+        <a href="{{route('restaurant_orders.index',['id'=>$data->id , 'status' => 'on_processing'])}}">
+            <h3 class="btn btn-{{$status == 'on_processing' ? 'success':'default' }} card-label">
+                {{trans('lang.on_processing_orders')}}
+                <b class="badge badge-info ">{{count($on_processingOrders)}}</b>
+            </h3>
+        </a>
+        <a href="{{route('restaurant_orders.index',['id'=>$data->id , 'status' => 'on_delivery'])}}">
+            <h3 class="btn btn-{{$status == 'on_delivery' ? 'success':'default' }} card-label">
+                {{trans('lang.on_delivery_orders')}}
+                <b class="badge badge-info ">{{count($on_deliveryOrders)}}</b>
+            </h3>
+        </a>
+        <a href="{{route('restaurant_orders.index',['id'=>$data->id , 'status' => 'delivered'])}}">
+            <h3 class="btn btn-{{$status == 'delivered' ? 'success':'default' }} card-label">
+                {{trans('lang.delivered_orders')}}
+                <b class="badge badge-info ">{{count($deliveredOrders)}}</b>
+            </h3>
+        </a>
+        <a href="{{route('restaurant_orders.index',['id'=>$data->id , 'status' => 'cancelled'])}}">
+            <h3 class="btn btn-{{$status == 'cancelled' ? 'success':'default' }} card-label">
+                {{trans('lang.cancelled_orders')}}
+                <b class="badge badge-info ">{{count($deliveredOrders)}}</b>
+            </h3>
+        </a>
     </div>
-    <div class="card-body" style="display: none; overflow: hidden; padding-top: 0px; padding-bottom: 0px;">
-        <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}">
-            @csrf
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.image')}}</label>
-                <div class="col-lg-9 col-xl-9">
-                    <div class="image-input image-input-outline image-input-circle" id="kt_user_avatar">
-                        <div class="image-input-wrapper"
-                             style="background-image: url({{asset('defaults/default_meal.png')}})"></div>
-                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                               data-action="change" data-toggle="tooltip" title=""
-                               data-original-title="{{trans('lang.add_image')}}">
-                            <i class="fa fa-pen icon-sm text-muted"></i>
-                            <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
-                            <input type="hidden" name="profile_avatar_remove"/>
-                        </label>
-                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                              data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
-                    <i class="ki ki-bold-close icon-xs text-muted"></i>
-                </span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_ar')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg  " type="text" name="name_ar"
-                           placeholder="مثال : بيتزا" required/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_en')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg  " type="text" name="name_en"
-                           placeholder="مثال: pizza" required/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.price')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg  " type="number" name="price" min="0"
-                           placeholder="مثال: 35.00" max="999999999999.99" step="any" required/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.category')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <select name="category_id" required id="cmb_role"
-                            class="form-control   custom-select col-12">
-                        @foreach($category_data as $row)
-                            <option value="{{$row->id}}">{{$row->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.desc_ar')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <textarea class="form-control  " placeholder="" id="exampleTextarea" rows="3"
-                              name="desc_ar"></textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.desc_en')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <textarea class="form-control  " placeholder="" id="exampleTextarea" rows="3"
-                              name="desc_en"></textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.attributes')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <select class="form-control select2" id="kt_select2_3" style="width: 100%;"
-                            name="attributes[]" multiple="multiple">
-                        @foreach($attribute_data as $row)
-                            <option value="{{$row->id}}">{{$row->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div id="attributes_section"></div>
-            <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.addons')}}</label>
-                <div class="col-lg-9 col-xl-6">
-                    <select class="form-control select2" id="kt_select2_2" style="width: 100%;"
-                            name="addons[]" multiple="multiple">
-                        @foreach($addons_data as $row)
-                            <option value="{{$row->id}}">{{$row->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div id="addons_section"></div>
-            <div class="d-flex flex-center">
-                <button type="submit"
-                        class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14">{{trans('lang.save')}}
-                </button>
-            </div>
-        </form>
-    </div>
+
 </div>
+
 <div class="separator separator-dashed my-10"></div>
 <!--begin::Heading-->
 <div class="row">
@@ -137,21 +63,21 @@
 
             <!--begin::Nav Tabs-->
             <ul class="dashboard-tabs nav nav-pills nav-danger row row-paddingless m-0 p-0" role="tablist">
-            @foreach($category_data as $row)
-                <!--begin::Item-->
-                    <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                        <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center @if($category_id == $row->id) active @endif  "
-                           href="{{route('meals.index',['id'=>$data->id,'category_id'=>$row->id])}}">
-                            <span class="nav-icon py-2 w-auto">
-                               <img style="width: 70px;" alt="Pic" src="{{$row->image}}"/>
-                            </span>
-                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
-                                {{$row->name}}
-                            </span>
-                        </a>
-                    </li>
-                    <!--end::Item-->
-                @endforeach
+{{--            @foreach($category_data as $row)--}}
+{{--                <!--begin::Item-->--}}
+{{--                    <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">--}}
+{{--                        <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center @if($category_id == $row->id) active @endif  "--}}
+{{--                           href="{{route('meals.index',['id'=>$data->id,'category_id'=>$row->id])}}">--}}
+{{--                            <span class="nav-icon py-2 w-auto">--}}
+{{--                               <img style="width: 70px;" alt="Pic" src="{{$row->image}}"/>--}}
+{{--                            </span>--}}
+{{--                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">--}}
+{{--                                {{$row->name}}--}}
+{{--                            </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <!--end::Item-->--}}
+{{--                @endforeach--}}
             </ul>
             <!--end::Nav Tabs-->
         </div>
@@ -160,8 +86,11 @@
             <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_4">
                 <thead>
                 <tr class="text-left">
-                    <th class="center">{{trans('lang.name_ar')}}</th>
-                    <th class="center">{{trans('lang.name_en')}}</th>
+                    <th class="center">{{trans('lang.date')}}</th>
+                    <th class="center">{{trans('lang.total_price')}}</th>
+                    <th class="center">{{trans('lang.sub_total')}}</th>
+                    <th class="center">{{trans('lang.tax')}}</th>
+                    <th class="center">{{trans('lang.fee')}}</th>
                     {{--                    <th class="center">{{trans('lang.status')}}</th>--}}
                     <th class="center" style="min-width: 160px">{{trans('lang.options')}}</th>
                 </tr>
@@ -170,10 +99,19 @@
                 @foreach($meals as $row)
                     <tr>
                         <td class="center">
-                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->name_ar}}</span>
+                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($row->created_at)->format('Y-m-d H:i')}}</span>
                         </td>
                         <td class="center">
-                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->name_en}}</span>
+                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->total_price}}</span>
+                        </td>
+                        <td class="center">
+                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->sub_total}}</span>
+                        </td>
+                        <td class="center">
+                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->tax}}</span>
+                        </td>
+                        <td class="center">
+                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->fee}}</span>
                         </td>
                         {{--                        <td>--}}
                         {{--                          <span class="switch switch-icon">--}}
@@ -242,7 +180,6 @@
                 {{ Form::close() }}
             </div>
 
-{{--=======--}}
 <div class="card">
     <div class="card-body">
         <!--begin::Section-->
@@ -264,12 +201,10 @@
                     </tbody>
                 </table>
             </div>
-{{-->>>>>>> 34e65d1ad0eda91e8ae2417cc553968d8e4898c0--}}
         </div>
     </div>
 </div>
 @push('scripts')
-{{--<<<<<<< HEAD--}}
     <script>
         $('#kt_select2_3').on('change', function () {
             $('#attributes_section').html(null);
@@ -381,7 +316,5 @@
         });
 
     </script>
-=======
 
->>>>>>> 34e65d1ad0eda91e8ae2417cc553968d8e4898c0
 @endpush
