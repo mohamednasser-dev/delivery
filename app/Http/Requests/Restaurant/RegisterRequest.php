@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Restaurant;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -38,6 +39,9 @@ class RegisterRequest extends FormRequest
             'nationality_id' => 'required|exists:nationalities,id',
             'phone' => 'required|string|unique:restaurants,phone|max:20',
             'owner_type_id' => 'required|exists:owner_types,id',
+            'sections' => 'required|array|min:1|max:50',
+            'sections.*' => ['required', 'integer', Rule::exists('sections', 'id')],
+
         ];
     }
 }

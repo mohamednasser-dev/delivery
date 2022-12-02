@@ -24,7 +24,7 @@ class Restaurant extends Authenticatable
 
     public function getNameAttribute()
     {
-        if ($locale = \app()->getLocale() == "ar") {
+        if (\app()->getLocale() == "ar") {
             return $this->name_ar;
         } else {
             return $this->name_en;
@@ -56,6 +56,11 @@ class Restaurant extends Authenticatable
     public function Categories()
     {
         return $this->HasMany(Category::class, 'restaurant_id');
+    }
+
+    public function sections()
+    {
+        return $this->HasMany(RestaurantSection::class, 'restaurant_id');
     }
 
     public function Meals()
