@@ -38,6 +38,7 @@ class RegisterRequest extends FormRequest
             'nationality_id' => 'required|exists:nationalities,id',
             'phone' => 'required|string|unique:restaurants,phone|max:20',
             'owner_type_id' => 'required|exists:owner_types,id',
+            'password' => 'required|min:6',
         ];
     }
 }

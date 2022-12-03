@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Restaurant\AuthController;
+use App\Http\Controllers\Api\Customer\AuthController as CustomerAuthController;
 use App\Http\Controllers\Api\Restaurant\ProfileController;
 use App\Http\Controllers\Api\Restaurant\CategoriesController;
 use App\Http\Controllers\Api\Restaurant\AttributesController;
@@ -107,6 +108,22 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
 
 
 });
+
+//customer
+Route::post('/customer/auth/register', 'Api\Customer\AuthController@register');
+
+Route::post('/customer/auth/register/send_email_check_code', 'Api\Customer\AuthController@send_email_check_code');
+Route::post('/customer/auth/register/verify_email', 'Api\Customer\AuthController@verify_email');
+
+Route::post('/customer/auth/register/send_phone_check_code', 'Api\Customer\AuthController@send_phone_check_code');
+Route::post('/customer/auth/register/verify_phone', 'Api\Customer\AuthController@verify_phone');
+
+Route::post('/customer/auth/login', [CustomerAuthController::class, 'login']);
+Route::post('/customer/auth/refresh-token', [CustomerAuthController::class, 'refreshToken']);
+Route::post('/customer/auth/forget_password', [CustomerAuthController::class, 'forget_password']);
+Route::post('/customer/auth/forget_password/verify_code', [CustomerAuthController::class, 'forget_password_verify_code']);
+Route::post('/customer/auth/forget_password/change_password', [CustomerAuthController::class, 'forget_password_change_password']);
+
 
 //helpers
 Route::group(['prefix' => 'helpers'], function () {

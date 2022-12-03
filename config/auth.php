@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Restaurant;
+use App\Models\Customer;
 
 return [
 
@@ -47,6 +48,11 @@ return [
             'provider' => 'restaurant',
             'hash' => false,
         ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customer',
+            'hash' => false,
+        ],
 
     ],
 
@@ -75,6 +81,10 @@ return [
         'restaurant' => [
             'driver' => 'eloquent',
             'model' => Restaurant::class,
+        ],
+        'customer' => [
+            'driver' => 'eloquent',
+            'model' => Customer::class,
         ],
     ],
 
