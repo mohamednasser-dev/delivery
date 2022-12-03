@@ -39,6 +39,7 @@ class ProfileRequest extends FormRequest
             'phone' => 'sometimes|string|unique:restaurants,phone|max:20',
             'owner_type_id' => 'sometimes|exists:owner_types,id',
             'notification' => 'sometimes|in:0,1',
+            'fcm_token' => 'sometimes',
             'address' => 'sometimes|min:3|max:9999',
         ];
     }
