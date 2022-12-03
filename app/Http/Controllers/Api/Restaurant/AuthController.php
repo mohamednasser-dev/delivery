@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\RestaurantTypeResources;
 use App\Mail\ForgetPasswordMail;
 use App\Mail\RestaurantPasswordMail;
+use App\Models\RestaurantSection;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Mail;
@@ -29,7 +30,14 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        Restaurant::create($data);
+        $restaurant = Restaurant::create($data);
+        if (count($data['sections']) > 0) {
+            foreach ($data['sections'] as $section) {
+                $section_data['restaurant_id'] = $restaurant->id;
+                $section_data['section_id'] = $section;
+                RestaurantSection::create($section_data);
+            }
+        }
         return $this->sendSuccess(__('lang.restaurant_created_wait_approve'), 201);
     }
 
@@ -184,12 +192,12 @@ class AuthController extends Controller
     public function refreshToken()
     {
         $restaurant_data = restaurant();
-        if(!$restaurant_data)
+        if (!$restaurant_data)
             return $this->sendError(__('lang.error'));
 
         $restaurant_id = restaurant()->id;
         $restaurant = Restaurant::whereId($restaurant_id)->first();
-        if(!$restaurant)
+        if (!$restaurant)
             return $this->sendError(__('lang.error'));
 
         auth('sanctum')->user()->tokens()->delete();

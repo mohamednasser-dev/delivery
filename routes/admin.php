@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ScreenController;
 use App\Http\Controllers\Admin\SocialLinkController;
+use App\Http\Controllers\Admin\SectionsController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\RestaurantDashboardController;
 use App\Http\Controllers\Admin\RestaurantsController;
@@ -228,6 +229,16 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('update/{id}', [SocialLinkController::class, 'update'])->name('links.update');
         Route::post('deletes', [SocialLinkController::class, 'deletes'])->name('links.deletes');
         Route::get('delete/{id}', [SocialLinkController::class, 'delete'])->name('links.delete');
+    });
+    //sections
+    Route::group(['prefix' => 'sections','as'=>'sections'], function () {
+        Route::get('/', [SectionsController::class, 'index'])->name('.index');
+        Route::get('create', [SectionsController::class, 'create'])->name('.create');
+        Route::post('store', [SectionsController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [SectionsController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [SectionsController::class, 'update'])->name('.update');
+        Route::post('deletes', [SectionsController::class, 'deletes'])->name('.deletes');
+        Route::get('delete/{id}', [SectionsController::class, 'delete'])->name('.delete');
     });
 
     //settings

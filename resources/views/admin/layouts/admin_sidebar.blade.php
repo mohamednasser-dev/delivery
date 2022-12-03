@@ -50,6 +50,13 @@
             <span class="menu-text">{{trans('lang.restaurant_types')}}</span>
         </a>
     </li>
+    <li class="menu-item @if( request()->segment(1) == 'sections' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="{{url('/sections')}}" class="menu-link">
+            <i class="menu-icon flaticon2-user"></i>
+            <span class="menu-text">{{trans('lang.sections')}}</span>
+        </a>
+    </li>
     <li class="menu-item @if( request()->segment(1) == 'nationalities' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{route('nationalities.index')}}" class="menu-link">

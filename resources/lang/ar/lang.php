@@ -1,5 +1,6 @@
 <?php
 return [
+    'sections' => 'أقسام المطاعم',
     'sign_up_restaurants_reports' => 'أحصائيات تسجيل المستخدمين و المطاعم لسنه ',
     'owners_types' => 'انواع الملاك',
     'delivery_men' => 'رجال التوصيل',
@@ -79,7 +80,7 @@ return [
     'verify_email' => 'تم ارسال كود التحقق الى بريدك الالكترونى',
     'data_shown_s' => 'تم اظهار البيانات بنجاح',
     'restaurant_type' => 'قسم المطعم',
-    'restaurant_types' => 'اقسام المطاعم',
+    'restaurant_types' => 'أنواع المتاجر',
     'approval' => 'الموافقة',
     'nationalities' => 'الجنسيات',
     'owner_type' => 'نوع المالك',
