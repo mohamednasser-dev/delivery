@@ -281,18 +281,24 @@ class MealsController extends Controller
 
         //--add option to exist attribute to exist meal
         if($request->type == "option"){
-            $thisMealAttribute = Option::where('attribute_id', $request->attribute_id)
+            $thisMealAttributeOption = Option::where('attribute_id', $request->attribute_id)
                 ->where('restaurant_id', $restaurant_id)
                 ->first();
-            if($thisMealAttribute){
-                MealAttributeOption::create([
-                    'restaurant_id' => $restaurant_id,
-                    'meal_id' => $meal_id,
-                    'meal_attribute_id' => $thisMealAttribute->id,
-                    'option_id' => $request->id,
-                    'active' => $request->active,
-                    'price' => $request->price,
-                ]);
+            if($thisMealAttributeOption){
+                $thisMealAttribute = MealAttribute::where('attribute_id', $request->attribute_id)
+                    ->where('restaurant_id', $restaurant_id)
+                    ->where('meal_id', $request->meal_id)
+                    ->first();
+                if($thisMealAttribute) {
+                    MealAttributeOption::create([
+                        'restaurant_id' => $restaurant_id,
+                        'meal_id' => $request->meal_id,
+                        'meal_attribute_id' => $thisMealAttribute->id,
+                        'option_id' => $request->id,
+                        'active' => $request->active,
+                        'price' => $request->price,
+                    ]);
+                }
             }
         }
         //--end
