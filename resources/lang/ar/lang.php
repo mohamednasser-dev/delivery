@@ -87,6 +87,7 @@ return [
     'nationality' => 'الجنسية',
     'restaurants' => 'المطاعم',
     'restaurant_created_wait_approve' => 'تم إنشاء الحساب بنجاح , يرجى إنتظار الإدارة للموافقة',
+    'customer_created_success' => 'تم إنشاء الحساب بنجاح',
     'basic_info' => 'البيانات الاساسية',
     'owner_types' => 'أنواع الملاك',
     'name_ar' => 'الاسم بالعربية',

@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
-use App\Http\Requests\Restaurant\ProfileRequest;
-use App\Http\Requests\Restaurant\Forget_password\ChangePasswordRequest;
-use App\Http\Requests\Restaurant\Forget_password\ForgetPasswordRequest;
-use App\Http\Requests\Restaurant\Forget_password\VerifyOtpRequest;
-use App\Http\Requests\Restaurant\SendEmailCheckCodeRequest;
-use App\Http\Requests\Restaurant\SendPhoneCheckCodeRequest;
-use App\Http\Requests\Restaurant\EmailCheckCodeRequest;
-use App\Http\Requests\Restaurant\PhoneCheckCodeRequest;
-use App\Http\Requests\Restaurant\RegisterRequest;
+use App\Http\Requests\Customer\ProfileRequest;
+use App\Http\Requests\Customer\Forget_password\ChangePasswordRequest;
+use App\Http\Requests\Customer\Forget_password\ForgetPasswordRequest;
+use App\Http\Requests\Customer\Forget_password\VerifyOtpRequest;
+use App\Http\Requests\Customer\SendEmailCheckCodeRequest;
+use App\Http\Requests\Customer\SendPhoneCheckCodeRequest;
+use App\Http\Requests\Customer\EmailCheckCodeRequest;
+use App\Http\Requests\Customer\PhoneCheckCodeRequest;
+use App\Http\Requests\Customer\RegisterRequest;
 use App\Http\Requests\Customer\LoginRequest;
 use App\Http\Resources\Customer\CustomerResources;
-use App\Http\Resources\RestaurantResources;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RestaurantTypeResources;
 use App\Mail\ForgetPasswordMail;
 use App\Mail\RestaurantPasswordMail;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Restaurant;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Mail;
 use Teckwei1993\Otp\Otp;
 
@@ -31,8 +30,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        Restaurant::create($data);
-        return $this->sendSuccess(__('lang.restaurant_created_wait_approve'), 201);
+        Customer::create($data);
+        return $this->sendSuccess(__('lang.customer_created_success'), 201);
     }
 
     public function login(LoginRequest $request)
@@ -54,7 +53,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth('sanctum')->user()->tokens()->delete();
+        auth('customer')->user()->tokens()->delete();
         return $this->sendSuccess(__('lang.logout_s'));
     }
 
@@ -62,7 +61,7 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         //check first is email exists before or not
-        $exists_email = Restaurant::where('email', $data['email'])->first();
+        $exists_email = Customer::where('email', $data['email'])->first();
         if ($exists_email) {
             return $this->sendError(trans('lang.email_exists_before'), 406);
         }
@@ -97,7 +96,7 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         //check first is phone exists before or not
-        $exists_email = Restaurant::where('phone', $data['phone'])->first();
+        $exists_email = Customer::where('phone', $data['phone'])->first();
         if ($exists_email) {
             return $this->sendError(__('lang.phone_exists_before'), 406);
         }
@@ -147,7 +146,7 @@ class AuthController extends Controller
         $validated_otp = \Otp::validate($data['email'], $data['otp']);
         if ($validated_otp->status == true) {
             unset($data['otp']);
-            $restaurant = Restaurant::where('email', $data['email'])->first();
+            $restaurant = Customer::where('email', $data['email'])->first();
             if ($restaurant) {
                 if ($restaurant->status == 'new') {
                     return $this->sendError(__('lang.wait_admin_to_accept'));
@@ -156,7 +155,7 @@ class AuthController extends Controller
                 }
                 $token = $restaurant->createToken("TOKEN")->plainTextToken;
                 $response = [
-                    'restaurant' => new RestaurantResources($restaurant),
+                    'restaurant' => new CustomerResources($restaurant),
                     'access_token' => $token
                 ];
                 return $this->sendSuccessData(__('lang.Verified_success'), $response, 201);
@@ -171,8 +170,8 @@ class AuthController extends Controller
         $data = $request->validated();
 
         $id = auth('sanctum')->user()->id;
-        Restaurant::findOrFail($id)->update($data);
-        $user = Restaurant::findOrFail($id);
+        Customer::findOrFail($id)->update($data);
+        $user = Customer::findOrFail($id);
         $user = (new RestaurantTypeResources($user));
 
         return $this->sendSuccess(__('lang.password_updated_s'));
@@ -186,14 +185,14 @@ class AuthController extends Controller
             return $this->sendError(__('lang.error'));
 
         $restaurant_id = restaurant()->id;
-        $restaurant = Restaurant::whereId($restaurant_id)->first();
+        $restaurant = Customer::whereId($restaurant_id)->first();
         if(!$restaurant)
             return $this->sendError(__('lang.error'));
 
         auth('sanctum')->user()->tokens()->delete();
         $token = $restaurant->createToken("TOKEN")->plainTextToken;
         $response = [
-            'restaurant' => new RestaurantResources($restaurant),
+            'restaurant' => new CustomerResources($restaurant),
             'access_token' => $token
         ];
         return $this->sendSuccessData(__('lang.login_s'), $response, 201);
