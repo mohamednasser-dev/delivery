@@ -26,7 +26,7 @@ class DeleteItemMealRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|in:addon,attribute,option',
+            'type' => 'required',
             'id' => 'required',
             'meal_id' => 'required|exists:meals,id',
         ];
