@@ -120,11 +120,11 @@ class MealsController extends Controller
             ]);
             if (isset($request->attributess) && isset($request->attributess['id'])) {
                 //attributes edits
-                $thisMealAttribute = MealAttribute::whereId($request->attributess['id'])
+                $thisMealAttribute = MealAttribute::where('attribute_id',$request->attributess['id'])
                     ->where('restaurant_id', $restaurant_id)
                     ->where('meal_id', $meal->id)->first();
                 if ($thisMealAttribute) {
-                    MealAttribute::whereId($request->attributess['id'])
+                    MealAttribute::where('attribute_id',$request->attributess['id'])
                         ->where('restaurant_id', $restaurant_id)
                         ->where('meal_id', $meal->id)
                         ->update([
