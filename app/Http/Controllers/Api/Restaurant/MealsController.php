@@ -228,23 +228,23 @@ class MealsController extends Controller
 
         if(request()->type == "addon"){
             MealAddon::whereId(request()->id)
-                ->where('meal_id',request()->meal_id)
+//                ->where('meal_id',request()->meal_id)
                 ->delete();
         }
         if(request()->type == "attribute"){
             MealAttribute::whereId(request()->id)
                 ->where('restaurant_id', restaurant()->id)
-                ->where('meal_id',request()->meal_id)
+//                ->where('meal_id',request()->meal_id)
                 ->delete();
         }
         if(request()->type == "option"){
-            MealAttributeOption::whereId(request()->id)
-                ->where('meal_id',request()->meal_id)
+            MealAttributeOption::where(request()->id)
+//                ->where('meal_id',request()->meal_id)
                 ->delete();
         }
-//        else{
-//            return $this->sendError("error");
-//        }
+        else{
+            return $this->sendError("error");
+        }
         return $this->sendSuccess(__('lang.deleted_s'), 201);
     }
 
