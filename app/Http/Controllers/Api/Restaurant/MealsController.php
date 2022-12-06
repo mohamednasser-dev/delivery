@@ -231,13 +231,13 @@ class MealsController extends Controller
 //                ->where('meal_id',request()->meal_id)
                 ->delete();
         }
-        if(request()->type == "attribute"){
+        elseif(request()->type == "attribute"){
             MealAttribute::whereId(request()->id)
                 ->where('restaurant_id', restaurant()->id)
 //                ->where('meal_id',request()->meal_id)
                 ->delete();
         }
-        if(request()->type == "option"){
+        elseif(request()->type == "option"){
             MealAttributeOption::where(request()->id)
 //                ->where('meal_id',request()->meal_id)
                 ->delete();
