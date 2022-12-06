@@ -235,6 +235,8 @@ class MealsController extends Controller
         if($request->type == "option"){
             MealAttributeOption::whereId($request->id)
                 ->delete();
+        }else{
+            return $this->sendError("error");
         }
         return $this->sendSuccess(__('lang.deleted_s'), 201);
     }
