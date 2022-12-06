@@ -28,7 +28,7 @@ class DeleteItemMealRequest extends FormRequest
         return [
             'type' => 'required|in:addon,attribute,option',
             'id' => 'required',
-            'meal_id' => 'required,exists:meals,id',
+            'meal_id' => 'required,exist:meals,id',
         ];
     }
 }
