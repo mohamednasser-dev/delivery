@@ -223,6 +223,7 @@ class MealsController extends Controller
 
     public function deleteItem(DeleteItemMealRequest $request)
     {
+        dd(request()->type);
 //        $request = $request->validated();
 
         if(request()->type == "addon"){
