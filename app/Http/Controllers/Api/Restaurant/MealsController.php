@@ -223,7 +223,7 @@ class MealsController extends Controller
 
     public function deleteItem(DeleteItemMealRequest $request)
     {
-        dd(request()->type);
+//        dd(request()->type);
 //        $request = $request->validated();
 
         if(request()->type == "addon"){
@@ -239,9 +239,10 @@ class MealsController extends Controller
             MealAttributeOption::whereId(request()->id)
                 ->where('meal_id',request()->meal_id)
                 ->delete();
-        }else{
-            return $this->sendError("error");
         }
+//        else{
+//            return $this->sendError("error");
+//        }
         return $this->sendSuccess(__('lang.deleted_s'), 201);
     }
 
