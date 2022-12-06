@@ -135,6 +135,7 @@ class MealsController extends Controller
                         ->where('restaurant_id', $restaurant_id)
                         ->first();
                     if ($checkAttribute) {
+                        dd(11);
                         MealAttribute::create([
                             'restaurant_id' => $restaurant_id,
                             'meal_id' => $meal->id,
