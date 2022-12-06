@@ -223,7 +223,7 @@ class MealsController extends Controller
 
     public function deleteItem(DeleteItemMealRequest $request)
     {
-        $request = $request->validated();
+//        $request = $request->validated();
 
         if(request()->type == "addon"){
             MealAddon::whereId(request()->id)
