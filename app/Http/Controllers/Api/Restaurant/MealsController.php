@@ -135,7 +135,6 @@ class MealsController extends Controller
                         ->where('restaurant_id', $restaurant_id)
                         ->first();
                     if ($checkAttribute) {
-                        dd(11);
                         MealAttribute::create([
                             'restaurant_id' => $restaurant_id,
                             'meal_id' => $meal->id,
@@ -186,7 +185,7 @@ class MealsController extends Controller
                                 'price' => isset($addon['price']) ? $addon['price'] : $thisMealAddon->price,
                             ]);
                     } else {
-                        $checkAddon = Addon::whereId($addon['new_id'])
+                        $checkAddon = Addon::whereId($addon['id'])
                             ->where('restaurant_id', $restaurant_id)
                             ->first();
                         if ($checkAddon) {
