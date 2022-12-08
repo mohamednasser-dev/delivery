@@ -6,13 +6,14 @@ use App\Http\Requests\Admin\AttributeDashboardRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Option;
 use App\Models\Plan\Plan_surah;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Models\Attribute;
 use Exception;
 
 class AttributesController extends Controller
 {
-    protected $viewPath = 'admin.attributes.';
+    protected $viewPath = 'admin.restaurants.dashboard.';
     private $route = 'attributes';
     protected $paginate = 30;
     public $objectName;
@@ -22,10 +23,12 @@ class AttributesController extends Controller
         $this->objectName = $model;
     }
 
-    public function index()
+    public function index($id)
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->get();
-        return view($this->viewPath . 'index', compact('data'));
+        $data = Restaurant::findOrFail($id);
+        $type = 'attributes';
+        $categories = $this->objectName::where('restaurant_id', $id)->get();
+        return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
     }
 
     public function create()

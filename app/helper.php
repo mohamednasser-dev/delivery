@@ -16,6 +16,8 @@ if (!function_exists('pagination_number')) {
     }
 }
 
+
+
 if (!function_exists('auths')) {
     function auths()
     {
@@ -39,7 +41,7 @@ if (!function_exists('currency')) {
 if (!function_exists('upload')) {
     function upload($file, $dir)
     {
-        $image = time() . uniqid() . '.' . $file->getClientOriginalExtension();
+        $image = time() . random_int(0000,9999) . '.' . $file->getClientOriginalExtension();
         $file->move('uploads' . '/' . $dir, $image);
         return $image;
     }

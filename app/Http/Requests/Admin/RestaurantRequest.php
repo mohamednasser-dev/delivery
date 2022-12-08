@@ -33,6 +33,12 @@ class RestaurantRequest extends FormRequest
 //                'max:1000',
                 Rule::requiredIf($this->routeIs('restaurants.store'))
             ],
+            'cover' => [
+                'nullable',
+                'image',
+//                'max:1000',
+                Rule::requiredIf($this->routeIs('restaurants.store'))
+            ],
             'name_ar' => 'required|string|min:2|max:255',
             'name_en' => 'required|string|min:2|max:255',
             'crn' => 'required|string|min:2|max:255',

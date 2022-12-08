@@ -39,7 +39,7 @@ class PageController extends GeneralController
         $data = $request->validated();
         if($request->image){
             if (is_file($request->image)) {
-                $img_name = time() . uniqid() . '.' . $request->image->getClientOriginalExtension();
+                $img_name = time() . random_int(0000,9999) . '.' . $request->image->getClientOriginalExtension();
                 $request->image->move(public_path('/uploads/pages/'), $img_name);
                 $data['image'] = $img_name;
             }

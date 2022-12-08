@@ -63,7 +63,7 @@ class usersController extends Controller
         $data = $request->validated();
         if ($data['image']) {
             if (is_file($data['image'])) {
-                $img_name = time() . uniqid() . '.' . $data['image']->getClientOriginalExtension();
+                $img_name = time() . random_int(0000,9999) . '.' . $data['image']->getClientOriginalExtension();
                 $data['image']->move(public_path('/uploads/users_images/'), $img_name);
                 $data['image'] = $img_name;
             }

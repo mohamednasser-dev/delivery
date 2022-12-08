@@ -1,5 +1,8 @@
 <?php
 return [
+    'rating' => 'التقييم',
+    'cover' => 'الغلاف',
+    'change_cover' => 'تغيير الغلاف',
     'sections' => 'أقسام المطاعم',
     'sign_up_restaurants_reports' => 'أحصائيات تسجيل المستخدمين و المطاعم لسنه ',
     'owners_types' => 'انواع الملاك',

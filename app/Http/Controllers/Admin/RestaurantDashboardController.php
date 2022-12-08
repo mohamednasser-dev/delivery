@@ -37,17 +37,8 @@ class RestaurantDashboardController extends Controller
 
     public function show($id, $type)
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->findOrFail($id);
-        if ($type == 'categories') {
-            $categories = Category::where('restaurant_id', $id)->get();
-            return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
-        } elseif ($type == 'attributes') {
-            $categories = Attribute::where('restaurant_id', $id)->get();
-            return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
-        } elseif ($type == 'addons') {
-            $categories = Addon::where('restaurant_id', $id)->get();
-            return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
-          } elseif ($type == 'info') {
+        $data = $this->objectName::findOrFail($id);
+        if ($type == 'info') {
             $restaurant_types = RestaurantType::get();
             $nationalities = Nationality::get();
             $owner_types = OwnerType::get();

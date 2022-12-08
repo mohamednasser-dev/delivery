@@ -55,7 +55,7 @@
                                 <td class="center">
                                     <div class="btn-group">
                                         @if($row->status == 'pending')
-                                            <button type="button" class="btn btn-primary dropdown-toggle"
+                                            <button type="button" class="btn btn-warning dropdown-toggle"
                                                     data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
                                                 {{trans('s_admin.new')}}

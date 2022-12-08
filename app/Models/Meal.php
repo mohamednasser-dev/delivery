@@ -44,7 +44,7 @@ class Meal extends Model
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $img_name = 'meal_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/meals/'), $img_name);
             $this->attributes['image'] = $img_name;
         }

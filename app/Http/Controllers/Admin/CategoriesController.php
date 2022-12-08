@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\categoryDashboardRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Exception;
 
 class CategoriesController extends Controller
 {
-    protected $viewPath = 'admin.categories.';
+    protected $viewPath = 'admin.restaurants.dashboard.';
     private $route = 'categories';
     protected $paginate = 30;
     public $objectName;
@@ -20,10 +21,12 @@ class CategoriesController extends Controller
         $this->objectName = $model;
     }
 
-    public function index()
+    public function index($id)
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->get();
-        return view($this->viewPath . 'index', compact('data'));
+        $data = Restaurant::findOrFail($id);
+        $type = 'categories';
+        $categories = $this->objectName::where('restaurant_id', $id)->get();
+        return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
     }
 
     public function create()
