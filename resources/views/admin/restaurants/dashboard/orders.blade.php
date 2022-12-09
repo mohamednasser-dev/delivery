@@ -87,6 +87,7 @@
                 <thead>
                 <tr class="text-left">
                     <th class="center">{{trans('lang.date')}}</th>
+                    <th class="center">{{trans('lang.no_of_meals')}}</th>
                     <th class="center">{{trans('lang.total_price')}}</th>
                     <th class="center">{{trans('lang.sub_total')}}</th>
                     <th class="center">{{trans('lang.tax')}}</th>
@@ -100,6 +101,15 @@
                     <tr>
                         <td class="center">
                             <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($row->created_at)->format('Y-m-d H:i')}}</span>
+                        </td>
+                        <td class="center">
+                            <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                @if($row->orderMeals)
+                                {{sizeof($row->orderMeals)}}
+                                @else
+                                    -
+                                @endif
+                            </span>
                         </td>
                         <td class="center">
                             <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->total_price}}</span>
@@ -123,18 +133,24 @@
                         {{--                                </span>--}}
                         {{--                        </td>--}}
                         <td class="center">
-{{--                            <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"--}}
-{{--                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"--}}
-{{--                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"--}}
-{{--                            >--}}
-{{--                                <i class="icon-nm fas fa-pencil-alt"></i>--}}
-{{--                            </a>--}}
-{{--                            <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"--}}
-{{--                               href="{{route($route.'.delete',$row->id)}}"--}}
-{{--                               class='btn btn-icon btn-danger btn-circle btn-sm mr-2'--}}
-{{--                               title="{{trans('lang.delete')}}"><i--}}
-{{--                                    class="icon-nm fas fa-trash"--}}
-{{--                                    aria-hidden='true'></i></a>--}}
+                            <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
+                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
+                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#view_model"
+                            >
+                                <i class="icon-nm fas fa-eye"></i>
+                            </a>
+                            <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2" id="edit"
+                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
+                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"
+                            >
+                                <i class="icon-nm fas fa-pencil-alt"></i>
+                            </a>
+                            <a onclick="return confirm('{{trans('lang.are_y_sure_delete')}}')"
+                               href="{{route($route.'.delete',$row->id)}}"
+                               class='btn btn-icon btn-danger btn-circle btn-sm mr-2'
+                               title="{{trans('lang.delete')}}"><i
+                                    class="icon-nm fas fa-trash"
+                                    aria-hidden='true'></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -147,7 +163,7 @@
 </div>
 {{--    edit model--}}
 <div class="modal fade" id="edit_model" data-backdrop="static" tabindex="-1" role="dialog"
-     aria-labelledby="staticBackdrop" aria-hidden="t*ue">
+     aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -180,26 +196,29 @@
                 {{ Form::close() }}
             </div>
 
-<div class="card">
-    <div class="card-body">
-        <!--begin::Section-->
-        <div class="card card-custom">
-            <div class="card-body p-0">
-                <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
-                    <thead>
-                    <tr>
-                        <th class="center">رقم الطلب</th>
-                        <th class="center">تاريخ الطلب</th>
-                        <th class="center">العميل</th>
-                        <th class="center">المبلغ</th>
-                        <th class="center">حالة الطلب</th>
-                        <th class="center">الإجرائات</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <div class="card">
+                <div class="card-body">
+                    <!--begin::Section-->
+                    <div class="card card-custom">
+                        <div class="card-body p-0">
+                            <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
+                                <thead>
+                                <tr>
+                                    <th class="center">رقم الطلب</th>
+                                    <th class="center">تاريخ الطلب</th>
+                                    <th class="center">العميل</th>
+                                    <th class="center">المبلغ</th>
+                                    <th class="center">حالة الطلب</th>
+                                    <th class="center">الإجرائات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                    </tbody>
-                </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
