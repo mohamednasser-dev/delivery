@@ -130,6 +130,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //categories
     Route::group(['prefix' => 'categories', 'as' => 'categories'], function () {
+        Route::get('/index/{id}', [CategoriesController::class, 'index'])->name('.index');
         Route::post('/store/{id}', [CategoriesController::class, 'store'])->name('.store');
         Route::get('change_status', [CategoriesController::class, 'change_status'])->name('.change_status');
         Route::post('update_new', [CategoriesController::class, 'update'])->name('.update_new');
@@ -137,6 +138,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     });
     //attributes
     Route::group(['prefix' => 'attributes', 'as' => 'attributes'], function () {
+        Route::get('/index/{id}', [AttributesController::class, 'index'])->name('.index');
         Route::post('/store/{id}', [AttributesController::class, 'store'])->name('.store');
         Route::get('change_status', [AttributesController::class, 'change_status'])->name('.change_status');
         Route::post('update_new', [AttributesController::class, 'update'])->name('.update_new');
@@ -152,6 +154,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     });
     //addons
     Route::group(['prefix' => 'addons', 'as' => 'addons'], function () {
+        Route::get('/index/{id}', [AddonsController::class, 'index'])->name('.index');
         Route::post('/store/{id}', [AddonsController::class, 'store'])->name('.store');
         Route::get('change_status', [AddonsController::class, 'change_status'])->name('.change_status');
         Route::post('update_new', [AddonsController::class, 'update'])->name('.update_new');

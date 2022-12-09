@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\AddonsDashboardRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Addon;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Exception;
 
 class AddonsController extends Controller
 {
-    protected $viewPath = 'admin.addons.';
+    protected $viewPath = 'admin.restaurants.dashboard.';
     private $route = 'addons';
     protected $paginate = 30;
     public $objectName;
@@ -20,10 +21,12 @@ class AddonsController extends Controller
         $this->objectName = $model;
     }
 
-    public function index()
+    public function index($id)
     {
-        $data = $this->objectName::orderBy('created_at', 'desc')->get();
-        return view($this->viewPath . 'index', compact('data'));
+        $data = Restaurant::findOrFail($id);
+        $type = 'addons';
+        $categories = $this->objectName::orderBy('created_at', 'desc')->get();
+        return view($this->viewPath . 'index', compact('data', 'type', 'categories'));
     }
 
     public function create()

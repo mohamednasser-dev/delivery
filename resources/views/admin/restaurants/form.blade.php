@@ -1,21 +1,40 @@
 <div class="form-group row">
-    <label class="col-xl-3 col-lg-3 text-right col-form-label"></label>
-    <div class="col-lg-6 col-xl-6" style="text-align: center;">
-        <div class="image-input image-input-outline image-input-circle" id="kt_user_avatar">
-            <div class="image-input-wrapper"
-                 style="background-image: url({{$data->logo ?? asset('defaults/default_restaurant.png')}})"></div>
-            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                   data-action="change" data-toggle="tooltip" title=""
-                   data-original-title="{{trans('lang.change_logo')}}">
-                <i class="fa fa-pen icon-sm text-muted"></i>
-                <input type="file" name="logo" accept=".png, .jpg, .jpeg"/>
-                <input type="hidden" name="profile_avatar_remove"/>
-            </label>
-            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                  data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
+    <div class="col-md-6" style="text-align: center;">
+{{--        <label class="text-center col-form-label"></label>--}}
+            <div class="image-input image-input-outline image-input-circle" id="kt_restaurant_logo">
+                <div class="image-input-wrapper"
+                     style="background-image: url({{$data->logo ?? asset('defaults/default_restaurant.png')}})"></div>
+                <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                       data-action="change" data-toggle="tooltip" title=""
+                       data-original-title="{{trans('lang.change_logo')}}">
+                    <i class="fa fa-pen icon-sm text-muted"></i>
+                    <input type="file" name="logo" accept=".png, .jpg, .jpeg"/>
+                    <input type="hidden" name="profile_avatar_remove"/>
+                </label>
+                <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                      data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
                     <i class="ki ki-bold-close icon-xs text-muted"></i>
                 </span>
-        </div>
+            </div>
+        <span class="form-text text-dark-75 font-size-lg font-weight-bolder">{{trans('lang.logo')}}</span>
+    </div>
+    <div class="col-md-6" style="text-align: center;">
+            <div class="image-input image-input-outline image-input-circle" id="kt_restaurant_cover">
+                <div class="image-input-wrapper"
+                     style="background-image: url({{$data->cover ?? asset('defaults/default_category.png')}})"></div>
+                <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                       data-action="change" data-toggle="tooltip" title=""
+                       data-original-title="{{trans('lang.change_cover')}}">
+                    <i class="fa fa-pen icon-sm text-muted"></i>
+                    <input type="file" name="cover" accept=".png, .jpg, .jpeg"/>
+                    <input type="hidden" name="profile_avatar_remove"/>
+                </label>
+                <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                      data-action="cancel" data-toggle="tooltip" title="{{trans('lang.cancel')}}">
+                    <i class="ki ki-bold-close icon-xs text-muted"></i>
+                </span>
+            </div>
+            <span class="form-text text-dark-75 font-size-lg font-weight-bolder">{{trans('lang.cover')}}</span>
     </div>
 
 </div>
@@ -184,7 +203,8 @@
 
 @push('scripts')
     <script !src="">
-        var avatar1 = new KTImageInput('kt_user_avatar');
+        var avatar1 = new KTImageInput('kt_restaurant_logo');
+        var avatar2 = new KTImageInput('kt_restaurant_cover');
     </script>
     <script>
         function myMap() {

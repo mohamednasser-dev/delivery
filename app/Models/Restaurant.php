@@ -80,11 +80,30 @@ class Restaurant extends Authenticatable
     public function setLogoAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $img_name = 'logo_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/logos/'), $img_name);
             $this->attributes['logo'] = $img_name;
         } else {
             $this->attributes['logo'] = 'default-image.png';
+        }
+    }
+
+    public function getCoverAttribute($image)
+    {
+        if (!empty($image)) {
+            return asset('uploads/covers') . '/' . $image;
+        }
+        return asset('default-image.png');
+    }
+
+    public function setCoverAttribute($image)
+    {
+        if (is_file($image)) {
+            $img_name = 'cover_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/covers/'), $img_name);
+            $this->attributes['cover'] = $img_name;
+        } else {
+            $this->attributes['cover'] = 'default-image.png';
         }
     }
 }

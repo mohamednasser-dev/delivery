@@ -37,7 +37,7 @@ class User extends Authenticatable
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $img_name = 'user_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/users_images/'), $img_name);
             $this->attributes['image'] = $img_name;
         }

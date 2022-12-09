@@ -43,7 +43,7 @@ class Screen extends Model
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $img_name = 'screen_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/screens/'), $img_name);
             $this->attributes['image'] = $img_name;
         } else {

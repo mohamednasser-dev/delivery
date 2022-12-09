@@ -13,7 +13,7 @@ class Addon extends Model
 
     public function getNameAttribute()
     {
-        if ($locale = \app()->getLocale() == "ar") {
+        if (\app()->getLocale() == "ar") {
             return $this->name_ar;
         } else {
             return $this->name_en;

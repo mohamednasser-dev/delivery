@@ -15,7 +15,7 @@ class Category extends Model
 
     public function getNameAttribute()
     {
-        if ($locale = \app()->getLocale() == "ar") {
+        if ( \app()->getLocale() == "ar") {
             return $this->name_ar;
         } else {
             return $this->name_en;
@@ -33,7 +33,7 @@ class Category extends Model
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $img_name = 'category_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/categories/'), $img_name);
             $this->attributes['image'] = $img_name;
         }

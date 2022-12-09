@@ -14,7 +14,7 @@ class Page extends Model
     protected $appends = ['type_text'];
     public function getTitleAttribute()
     {
-        if ($locale = \app()->getLocale() == "ar") {
+        if ( \app()->getLocale() == "ar") {
             return $this->title_ar;
         } else {
             return $this->title_en;
@@ -45,7 +45,7 @@ class Page extends Model
 //    public function setImageAttribute($image)
 //    {
 //        if (is_file($image)) {
-//            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+//            $img_name = 'page_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
 //            $image->move(public_path('/uploads/pages/'), $img_name);
 //            $this->attributes['image'] = $img_name;
 //        } else {
