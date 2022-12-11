@@ -153,18 +153,18 @@ class MealsController extends Controller
                         /// related option
                         if (isset($meal_attribute['meal_attribute_options']) && sizeof($meal_attribute['meal_attribute_options']) > 0) {
                             //options edits
-                            Log::info('size of options > 0');
+//                            Log::info('size of options > 0');
                             foreach ($meal_attribute['meal_attribute_options'] as $k => $option) {
-                                Log::info('inside foreach >'.$k);
+//                                Log::info('inside foreach >'.$k);
 
                                 if (isset($option['option_id'])) {
-                                    Log::info('option seted inside foreach >'.$k);
+//                                    Log::info('option seted inside foreach >'.$k);
 
                                     $thisMealAttributeOption = MealAttributeOption::where('option_id', $option['option_id'])
                                         ->where('meal_id', $meal->id)
                                         ->first();
                                     if ($thisMealAttributeOption) {
-                                        Log::info('update option seted inside foreach >'.$k);
+//                                        Log::info('update option seted inside foreach >'.$k);
 
                                         MealAttributeOption::where('option_id', $option['option_id'])
                                             ->where('meal_id', $meal->id)
@@ -173,12 +173,12 @@ class MealsController extends Controller
                                                 'price' => isset($option['price']) ? $option['price'] : $thisMealAttributeOption->price,
                                             ]);
                                     } else {
-                                        Log::info('create option seted inside foreach >'.$k);
+//                                        Log::info('create option seted inside foreach >'.$k);
 
                                         MealAttributeOption::create([
                                             'restaurant_id' => $restaurant_id,
                                             'meal_id' => $meal->id,
-                                            'meal_attribute_id' => $thisMealAttribute->id,
+                                            'meal_attribute_id' => $thisMealAttributeOption->meal_attribute_id,
                                             'option_id' => $option['option_id'],
                                             'active' => isset($option['active']) ? $option['active'] : 1,
                                             'price' => isset($option['price']) ? $option['price'] : 0,
