@@ -17,6 +17,7 @@ use App\Models\MealAddon;
 use App\Models\MealAttribute;
 use App\Models\MealAttributeOption;
 use App\Models\Option;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -104,6 +105,7 @@ class MealsController extends Controller
 
     public function update(MealRequest $request)
     {
+        Log::info(request()->all());
         $data = $request->validated();
         $restaurant_id = restaurant()->id;
         $meal = Meal::whereId($request->id)->first();
