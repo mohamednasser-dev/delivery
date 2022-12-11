@@ -161,6 +161,7 @@ class MealsController extends Controller
                                     Log::info('option seted inside foreach >'.$k);
 
                                     $thisMealAttributeOption = MealAttributeOption::where('option_id', $option['option_id'])
+                                        ->where('meal_id', $meal->id)
                                         ->first();
                                     if ($thisMealAttributeOption) {
                                         Log::info('update option seted inside foreach >'.$k);
