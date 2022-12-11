@@ -153,7 +153,7 @@ class MealsController extends Controller
                             ->first();
                         if ($thisMealAttributeOption) {
                             MealAttributeOption::where('option_id', $option['id'])
-                                ->where('meal_id', $meal->id)
+//                                ->where('meal_id', $meal->id)
                                 ->update([
                                     'active' => isset($option['active']) ? $option['active'] : $thisMealAttributeOption->active,
                                     'price' => isset($option['price']) ? $option['price'] : $thisMealAttributeOption->price,
