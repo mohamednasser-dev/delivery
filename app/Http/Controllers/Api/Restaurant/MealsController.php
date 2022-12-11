@@ -118,31 +118,34 @@ class MealsController extends Controller
                 'category_id' => isset($request->category_id) ? $request->category_id : $meal->category_id,
                 'status' => 'pending',
             ]);
-            if (isset($request->meal_attributes) && isset($request->meal_attributes['id'])) {
+            if (isset($request->meal_attributes) && sizeof($request->meal_attributes) > 0) {
                 //attributes edits
-                $thisMealAttribute = MealAttribute::where('attribute_id',$request->meal_attributes['id'])
-                    ->where('restaurant_id', $restaurant_id)
-                    ->where('meal_id', $meal->id)->first();
-                if ($thisMealAttribute) {
-                    MealAttribute::where('attribute_id',$request->meal_attributes['id'])
+                foreach ($request->meal_attributes as $meal_attribute){
+                    $thisMealAttribute = MealAttribute::where('attribute_id',$meal_attribute['id'])
                         ->where('restaurant_id', $restaurant_id)
-                        ->where('meal_id', $meal->id)
-                        ->update([
-                            'active' => isset($request->meal_attributes['active']) ? $request->meal_attributes['active'] : $thisMealAttribute->active,
-                        ]);
-                } else {
-                    $checkAttribute = Attribute::whereId($request->meal_attributes['id'])
-                        ->where('restaurant_id', $restaurant_id)
-                        ->first();
-                    if ($checkAttribute) {
-                        MealAttribute::create([
-                            'restaurant_id' => $restaurant_id,
-                            'meal_id' => $meal->id,
-                            'attribute_id' => $request->meal_attributes['id'],
-                            'active' => isset($request->meal_attributes['active']) ? $request->meal_attributes['active'] : 1,
-                        ]);
+                        ->where('meal_id', $meal->id)->first();
+                    if ($thisMealAttribute) {
+                        MealAttribute::where('attribute_id',$meal_attribute['id'])
+                            ->where('restaurant_id', $restaurant_id)
+                            ->where('meal_id', $meal->id)
+                            ->update([
+                                'active' => isset($meal_attribute['active']) ? $meal_attribute['active'] : $thisMealAttribute->active,
+                            ]);
+                    } else {
+                        $checkAttribute = Attribute::whereId($meal_attribute['id'])
+                            ->where('restaurant_id', $restaurant_id)
+                            ->first();
+                        if ($checkAttribute) {
+                            MealAttribute::create([
+                                'restaurant_id' => $restaurant_id,
+                                'meal_id' => $meal->id,
+                                'attribute_id' => $meal_attribute['id'],
+                                'active' => isset($meal_attribute['active']) ?$meal_attribute['active'] : 1,
+                            ]);
+                        }
                     }
                 }
+
                 ////////
             }
             if (isset($request->meal_attributes['meal_attribute_options']) && sizeof($request->meal_attributes['meal_attribute_options']) > 0) {
