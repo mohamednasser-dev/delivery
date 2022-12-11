@@ -172,18 +172,18 @@ class MealsController extends Controller
                                                 'active' => isset($option['active']) ? $option['active'] : $thisMealAttributeOption->active,
                                                 'price' => isset($option['price']) ? $option['price'] : $thisMealAttributeOption->price,
                                             ]);
-                                    }
-                                } else {
-                                    Log::info('create option seted inside foreach >'.$k);
+                                    } else {
+                                        Log::info('create option seted inside foreach >'.$k);
 
-                                    MealAttributeOption::create([
-                                        'restaurant_id' => $restaurant_id,
-                                        'meal_id' => $meal->id,
-                                        'meal_attribute_id' => $thisMealAttribute->id,
-                                        'option_id' => $option['option_id'],
-                                        'active' => isset($option['active']) ? $option['active'] : 1,
-                                        'price' => isset($option['price']) ? $option['price'] : 0,
-                                    ]);
+                                        MealAttributeOption::create([
+                                            'restaurant_id' => $restaurant_id,
+                                            'meal_id' => $meal->id,
+                                            'meal_attribute_id' => $thisMealAttribute->id,
+                                            'option_id' => $option['option_id'],
+                                            'active' => isset($option['active']) ? $option['active'] : 1,
+                                            'price' => isset($option['price']) ? $option['price'] : 0,
+                                        ]);
+                                    }
                                 }
                             }
                             ////////////
