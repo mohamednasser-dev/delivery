@@ -195,9 +195,9 @@ class MealsController extends Controller
                 ////////
             }
 
-            if (isset($request->addons)) {
+            if (isset($request['meal_addons'])) {
                 //addons edits
-                foreach ($request->addons as $k => $addon) {
+                foreach ($request['meal_addons'] as $k => $addon) {
                     Log::info("addon inside foreach".$k);
                     if (isset($addon['addon_id'])) {
                         Log::info("addon_id setted inside foreach".$k);
