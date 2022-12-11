@@ -124,7 +124,6 @@ class MealsController extends Controller
                 //attributes edits
                 foreach ($request->meal_attributes as $meal_attribute) {
                     if (isset($meal_attribute['attribute_id'])) {
-
                         $thisMealAttribute = MealAttribute::where('attribute_id', $meal_attribute['attribute_id'])
                             ->where('restaurant_id', $restaurant_id)
                             ->where('meal_id', $meal->id)
@@ -141,7 +140,7 @@ class MealsController extends Controller
                                 ->where('restaurant_id', $restaurant_id)
                                 ->first();
                             if ($checkAttribute) {
-                                MealAttribute::create([
+                                $thisMealAttribute = MealAttribute::create([
                                     'restaurant_id' => $restaurant_id,
                                     'meal_id' => $meal->id,
                                     'attribute_id' => $meal_attribute['attribute_id'],
@@ -178,7 +177,7 @@ class MealsController extends Controller
                                         MealAttributeOption::create([
                                             'restaurant_id' => $restaurant_id,
                                             'meal_id' => $meal->id,
-                                            'meal_attribute_id' => $thisMealAttributeOption->meal_attribute_id,
+                                            'meal_attribute_id' => $thisMealAttribute->id,
                                             'option_id' => $option['option_id'],
                                             'active' => isset($option['active']) ? $option['active'] : 1,
                                             'price' => isset($option['price']) ? $option['price'] : 0,
