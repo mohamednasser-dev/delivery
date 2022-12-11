@@ -197,12 +197,17 @@ class MealsController extends Controller
 
             if (isset($request->addons)) {
                 //addons edits
-                foreach ($request->addons as $addon) {
+                foreach ($request->addons as $k => $addon) {
+                    Log::info("addon inside foreach".$k);
                     if (isset($addon['addon_id'])) {
+                        Log::info("addon_id setted inside foreach".$k);
+
                         $thisMealAddon = MealAddon::where('addon_id', $addon['addon_id'])
                             ->where('meal_id', $meal->id)
                             ->first();
                         if ($thisMealAddon) {
+                            Log::info("update addon setted inside foreach".$k);
+
                             MealAddon::where('addon_id', $addon['addon_id'])
                                 ->where('meal_id', $meal->id)
                                 ->update([
@@ -214,6 +219,8 @@ class MealsController extends Controller
                                 ->where('restaurant_id', $restaurant_id)
                                 ->first();
                             if ($checkAddon) {
+                                Log::info("create addon setted inside foreach".$k);
+
                                 MealAddon::create([
                                     'restaurant_id' => $restaurant_id,
                                     'meal_id' => $meal->id,
