@@ -150,7 +150,7 @@ class MealsController extends Controller
                 foreach ($request->meal_attributes['meal_attribute_options'] as $option) {
                     if (isset($option['id'])) {
                         $thisMealAttributeOption = MealAttributeOption::where('option_id', $option['id'])
-                            ->where('meal_id', $meal->id)->first();
+                            ->first();
                         if ($thisMealAttributeOption) {
                             MealAttributeOption::where('option_id', $option['id'])
                                 ->where('meal_id', $meal->id)
