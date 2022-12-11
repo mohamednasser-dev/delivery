@@ -131,7 +131,7 @@ class MealsController extends Controller
                             'active' => isset($request->meal_attributes['active']) ? $request->meal_attributes['active'] : $thisMealAttribute->active,
                         ]);
                 } else {
-                    $checkAttribute = Attribute::whereId($request->id)
+                    $checkAttribute = Attribute::whereId($request->meal_attributes['id'])
                         ->where('restaurant_id', $restaurant_id)
                         ->first();
                     if ($checkAttribute) {
@@ -145,7 +145,7 @@ class MealsController extends Controller
                 }
                 ////////
             }
-            if (isset($request->meal_attributes['options']) && sizeof($request->meal_attributes['options']) > 0) {
+            if (isset($request->meal_attributes['meal_attribute_options']) && sizeof($request->meal_attributes['meal_attribute_options']) > 0) {
                 //options edits
                 foreach ($request->meal_attributes['meal_attribute_options'] as $option) {
                     if (isset($option['id'])) {
