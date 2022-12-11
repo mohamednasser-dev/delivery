@@ -139,9 +139,7 @@
                             >
                                 <i class="icon-nm fas fa-eye"></i>
                             </a>
-                            <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2" id="edit"
-                               data-editid="{{$row->id}}" data-name_ar="{{$row->name_ar}}"
-                               data-name_en="{{$row->name_en}}" data-toggle="modal" data-target="#edit_model"
+                            <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2"
                             >
                                 <i class="icon-nm fas fa-pencil-alt"></i>
                             </a>
@@ -153,6 +151,56 @@
                                     aria-hidden='true'></i></a>
                         </td>
                     </tr>
+
+                    {{--    view model--}}
+                    <div class="modal fade" id="view_model" data-backdrop="static" tabindex="-1" role="dialog"
+                         aria-labelledby="staticBackdrop" aria-hidden="false">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{trans('s_admin.order_details')}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <div class="card" style="width: 100%">
+                                                <div class="card-body">
+                                                    <!--begin::Section-->
+                                                    <div class="card card-custom">
+                                                        <div class="card-body p-0">
+                                                            <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="center">رقم الطلب</th>
+                                                                    <th class="center">تاريخ الطلب</th>
+                                                                    <th class="center">العميل</th>
+                                                                    <th class="center">المبلغ</th>
+                                                                    <th class="center">حالة الطلب</th>
+                                                                    <th class="center">الإجرائات</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
                 @endforeach
                 </tbody>
             </table>
@@ -161,179 +209,8 @@
     </div>
     <!--end::Body-->
 </div>
-{{--    edit model--}}
-<div class="modal fade" id="edit_model" data-backdrop="static" tabindex="-1" role="dialog"
-     aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{trans('s_admin.edit')}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{ Form::open( ['route' =>$route.'.update_new','method'=>'post', 'files'=>'true'] ) }}
-                <input type="hidden" required class="form-control" id="txt_id" name="id">
-                <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label text-lg-right">{{trans('s_admin.name_ar')}}</label>
-                        <div class="col-lg-8">
-                            <input type="text" required class="form-control" id="txt_name_ar" name="name_ar">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label text-lg-right">{{trans('s_admin.name_en')}}</label>
-                        <div class="col-lg-8">
-                            <input type="text" required class="form-control" id="txt_name_en" name="name_en">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit"
-                            class="btn btn-primary font-weight-bold">{{trans('s_admin.edit')}}</button>
-                </div>
-                {{ Form::close() }}
-            </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <!--begin::Section-->
-                    <div class="card card-custom">
-                        <div class="card-body p-0">
-                            <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
-                                <thead>
-                                <tr>
-                                    <th class="center">رقم الطلب</th>
-                                    <th class="center">تاريخ الطلب</th>
-                                    <th class="center">العميل</th>
-                                    <th class="center">المبلغ</th>
-                                    <th class="center">حالة الطلب</th>
-                                    <th class="center">الإجرائات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @push('scripts')
-    <script>
-        $('#kt_select2_3').on('change', function () {
-            $('#attributes_section').html(null);
-            $.each($("#kt_select2_3 option:selected"), function () {
-                if ($(this).val().length > 50) {
-                    toastr.error(
-                        '{{ trans('validation.max.string', ['attribute' => trans('lang.variation'), 'max' => '50']) }}', {
-                            CloseButton: true,
-                            ProgressBar: true
-                        });
-                    return false;
-                }
-                // add_more_customer_choice_option($(this).val(), $(this).text());
-                $.ajax({
-                    url: '{{ route('meals.attribute.data') }}',
-                    type: "get",
-                    data: {
-                        _token: $("#csrf").val(),
-                        attribute_id: $(this).val(),
-                    },
-                    cache: false,
-                    success: function (data) {
-                        $('#attributes_section').append(data);
-                    }
-                });
-            });
-        });
 
-        function add_more_customer_choice_option(i, name) {
-            let n = name;
-            $('#attributes_section').append(
-                '<div class="row"><div class="col-md-3"><input type="hidden" name="choice_no[]" value="' + i +
-                '"><input type="text" class="form-control" name="choice[]" value="' + n +
-                '" placeholder="{{ trans('lang.choice_title') }}" readonly></div><div class="col-md-9"><input type="text" class="form-control" name="choice_options_' +
-                i +
-                '[]" placeholder="{{ trans('lang.enter_choice_values') }}" data-role="tagsinput" onchange="combination_update()"></div></div><br>'
-            );
-        }
-
-        $('#kt_select2_2').on('change', function () {
-            $('#addons_section').html(null);
-            $.each($("#kt_select2_2 option:selected"), function () {
-                if ($(this).val().length > 50) {
-                    toastr.error(
-                        '{{ trans('validation.max.string', ['attribute' => trans('lang.variation'), 'max' => '50']) }}', {
-                            CloseButton: true,
-                            ProgressBar: true
-                        });
-                    return false;
-                }
-                // add_more_customer_choice_option($(this).val(), $(this).text());
-                $.ajax({
-                    url: '{{ route('meals.addon.data') }}',
-                    type: "get",
-                    data: {
-                        _token: $("#csrf").val(),
-                        addon_id: $(this).val(),
-                    },
-                    cache: false,
-                    success: function (data) {
-                        $('#addons_section').append(data);
-                    }
-                });
-            });
-        });
-    </script>
-    <script !src="">
-        var avatar1 = new KTImageInput('kt_user_avatar');
-    </script>
-    <script type="text/javascript">
-        function update_active(el) {
-            if (el.checked) {
-                var status = 'y';
-            } else {
-                var status = 'n';
-            }
-            $.post('{{ route('categories.change_status') }}', {
-                _token: '{{ csrf_token() }}',
-                id: el.value,
-                status: status
-            }, function (data) {
-                if (data == 1) {
-                    toastr.success("{{trans('s_admin.statuschanged')}}");
-                } else {
-                    toastr.error("{{trans('s_admin.statuschanged')}}");
-                }
-            });
-        }
-
-        function delete_option(i, attribute_id) {
-            $('#option_row_' + i).remove();
-            //check if all options removed or not to remove main attribute
-            if ($('#addons_section').html() == null) {
-                $('#options_container_' + attribute_id).remove();
-            }
-        }
-    </script>
-    <script>
-        var id;
-        $(document).on('click', '#edit', function () {
-            id = $(this).data('editid');
-            name_ar = $(this).data('name_ar');
-            name_en = $(this).data('name_en');
-            type = $(this).data('type');
-            $('#txt_id').val(id);
-            $('#txt_name_ar').val(name_ar);
-            $('#txt_name_en').val(name_en);
-            $('#select_type').val(type);
-        });
-
-    </script>
 
 @endpush
