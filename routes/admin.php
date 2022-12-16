@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ScreenController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\SectionsController;
+use App\Http\Controllers\Admin\OffersController;
+use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\RestaurantDashboardController;
 use App\Http\Controllers\Admin\RestaurantsController;
@@ -242,6 +244,27 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('update/{id}', [SectionsController::class, 'update'])->name('.update');
         Route::post('deletes', [SectionsController::class, 'deletes'])->name('.deletes');
         Route::get('delete/{id}', [SectionsController::class, 'delete'])->name('.delete');
+    });
+
+    //offers
+    Route::group(['prefix' => 'offers' ,'as'=>'offers'], function () {
+        Route::get('/', [OffersController::class, 'index'])->name('.index');
+        Route::get('create', [OffersController::class, 'create'])->name('.create');
+        Route::post('store', [OffersController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [OffersController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [OffersController::class, 'update'])->name('.update');
+        Route::post('deletes', [OffersController::class, 'deletes'])->name('.deletes');
+        Route::get('delete/{id}', [OffersController::class, 'delete'])->name('.delete');
+    });
+    //coupons
+    Route::group(['prefix' => 'coupons' ,'as'=>'coupons'], function () {
+        Route::get('/', [CouponsController::class, 'index'])->name('.index');
+        Route::get('create', [CouponsController::class, 'create'])->name('.create');
+        Route::post('store', [CouponsController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [CouponsController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [CouponsController::class, 'update'])->name('.update');
+        Route::post('deletes', [CouponsController::class, 'deletes'])->name('.deletes');
+        Route::get('delete/{id}', [CouponsController::class, 'delete'])->name('.delete');
     });
 
     //settings

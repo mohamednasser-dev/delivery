@@ -31,6 +31,24 @@
             <span class="menu-text">{{trans('lang.delivery_men')}}</span>
         </a>
     </li>
+    <li class="menu-section">
+        <h4 class="menu-text">{{trans('lang.campaign')}}</h4>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+    <li class="menu-item @if( request()->segment(1) == 'offers' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="{{route('offers.index')}}" class="menu-link">
+            <i class="menu-icon flaticon2-cup"></i>
+            <span class="menu-text">{{trans('lang.offers')}}</span>
+        </a>
+    </li>
+    <li class="menu-item @if( request()->segment(1) == 'coupons' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="{{route('coupons.index')}}" class="menu-link">
+            <i class="menu-icon flaticon2-telegram-logo"></i>
+            <span class="menu-text">{{trans('lang.coupons')}}</span>
+        </a>
+    </li>
     {{--    basic_info--}}
     <li class="menu-section">
         <h4 class="menu-text">{{trans('lang.basic_info')}}</h4>

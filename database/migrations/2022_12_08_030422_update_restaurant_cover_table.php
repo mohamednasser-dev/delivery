@@ -14,6 +14,7 @@ return new class extends Migration {
     {
         Schema::table('restaurants', function (Blueprint $table) {
             $table->string('cover')->nullable();
+            $table->boolean('active')->default(1);
         });
     }
 

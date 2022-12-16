@@ -23,6 +23,21 @@ class Meal extends Model
         'restaurant_id',
     ];
 
+    protected $appends = ['name'];
+
+    public function restaurant(){
+        return $this->belongsTo(Restaurant::class,"restaurant_id");
+    }
+
+    public function getNameAttribute()
+    {
+        if ( \app()->getLocale() == "ar") {
+            return $this->name_ar;
+        } else {
+            return $this->name_en;
+        }
+    }
+
     public function meal_attributes()
     {
         return $this->HasMany(MealAttribute::class, 'meal_id');
@@ -48,5 +63,15 @@ class Meal extends Model
             $image->move(public_path('/uploads/meals/'), $img_name);
             $this->attributes['image'] = $img_name;
         }
+    }
+
+    public function scopeActive($query): void
+    {
+        $query->where('active',1);
+    }
+
+    public function scopeAccepted($query): void
+    {
+        $query->where('status','accepted');
     }
 }

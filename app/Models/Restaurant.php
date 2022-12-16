@@ -68,42 +68,54 @@ class Restaurant extends Authenticatable
         return $this->HasMany(Meal::class, 'restaurant_id');
     }
 
+    public function scopeAccepted($query): void
+    {
+        $query->where('status','accepted');
+    }
+
+    public function scopeActive($query): void
+    {
+        $query->where('active',1);
+    }
+
+
 
     public function getLogoAttribute($image)
     {
         if (!empty($image)) {
             return asset('uploads/logos') . '/' . $image;
         }
-        return asset('default-image.png');
+        return asset('defaults/default_restaurant.png');
     }
 
     public function setLogoAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = 'logo_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
+            $img_name = 'logo_' . time() . random_int(0000, 9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/logos/'), $img_name);
             $this->attributes['logo'] = $img_name;
         } else {
-            $this->attributes['logo'] = 'default-image.png';
+            $this->attributes['logo'] = 'default_restaurant.png';
         }
     }
+
 
     public function getCoverAttribute($image)
     {
         if (!empty($image)) {
             return asset('uploads/covers') . '/' . $image;
         }
-        return asset('default-image.png');
+        return asset('defaults/default_category.png');
     }
 
     public function setCoverAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = 'cover_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
+            $img_name = 'cover_' . time() . random_int(0000, 9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/covers/'), $img_name);
             $this->attributes['cover'] = $img_name;
         } else {
-            $this->attributes['cover'] = 'default-image.png';
+            $this->attributes['cover'] = 'default_category.png';
         }
     }
 }
