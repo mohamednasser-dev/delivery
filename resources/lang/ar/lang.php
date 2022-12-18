@@ -1,5 +1,7 @@
 <?php
 return [
+    'restaurant_sections' => 'أقسام المطعم',
+    'shop_type' => 'نوع المتجر',
     'App\Models\Restaurant' => 'مطعم',
     'App\Models\Meal' => 'وجبة',
     'the_restaurant' => 'المطعم',

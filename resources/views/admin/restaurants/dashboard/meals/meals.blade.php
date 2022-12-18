@@ -56,7 +56,7 @@
         </div>
         <!--begin::Table-->
         <div class="table-responsive">
-            <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_4">
+            <table class="table table-head-custom table-vertical-center" id="kt_datatable">
                 <thead>
                 <tr class="text-left">
                     <th class="center">{{trans('lang.image')}}</th>
