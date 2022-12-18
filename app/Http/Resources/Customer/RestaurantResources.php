@@ -32,9 +32,9 @@ class RestaurantResources extends JsonResource
             'address'=> !empty($this->address) ? $this->address : "",
             'full_name'=>$this->full_name,
             'created_at'=>$this->created_at->diffForHumans(),
-            'nationally'=>new NationalityResources($this->nationality),
-            'owner_type'=>new OwnerTypeResources($this->owner_type),
-            'restaurant_type'=>new RestaurantTypeResources($this->type) ,
+//            'nationally'=>new NationalityResources($this->nationality),
+//            'owner_type'=>new OwnerTypeResources($this->owner_type),
+//            'restaurant_type'=>new RestaurantTypeResources($this->type) ,
         ];
     }
 }
