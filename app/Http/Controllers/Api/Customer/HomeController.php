@@ -20,9 +20,10 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        $section_id = $request->section_id;
         $offers = Offer::get();
         $sections = Section::get();
-        $sestaurantsSections = RestaurantSection::pluck('restaurant_id');
+        $sestaurantsSections = isset($section_id) ? RestaurantSection::where('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::pluck('restaurant_id');
         $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->get();
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
