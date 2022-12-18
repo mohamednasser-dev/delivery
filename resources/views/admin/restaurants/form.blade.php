@@ -60,12 +60,25 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.restaurant_type')}}</label>
+    <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.shop_type')}}</label>
     <div class="col-lg-9 col-xl-6">
-        <select name="restaurant_type_id" required id="restaurant_type_id" class="form-control custom-select col-12">
+        <select name="restaurant_type_id" required id="kt_select2_1" style="width: 100%;" class="form-control custom-select col-12 select2">
             @foreach($restaurant_types as $row)
                 <option value="{{$row->id}}" @if(old('restaurant_type_id') == $row->id) selected @endif
                 @if(Request()->segment(4) == 'info') @if($row->id == $data->restaurant_type_id) selected @endif @endif >{{$row->name}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.restaurant_sections')}}</label>
+    <div class="col-lg-9 col-xl-6">
+        <select name="sections[]" required id="kt_select2_2" multiple style="width: 100%;" class="form-control custom-select col-12 select2">
+            @foreach($sections as $row)
+                <option value="{{$row->id}}"
+                @if(Request()->segment(4) == 'info') @if(in_array($row->id,$sections_ids)) selected @endif @endif >
+                    {{$row->name}}</option>
             @endforeach
         </select>
     </div>

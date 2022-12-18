@@ -13,6 +13,7 @@ use App\Models\Nationality;
 use App\Models\OwnerType;
 use App\Models\Restaurant;
 use App\Models\RestaurantType;
+use App\Models\Section;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 
@@ -42,7 +43,9 @@ class RestaurantDashboardController extends Controller
             $restaurant_types = RestaurantType::get();
             $nationalities = Nationality::get();
             $owner_types = OwnerType::get();
-            return view($this->viewPath . 'index', compact('data', 'type', 'restaurant_types', 'nationalities','owner_types'));
+            $sections = Section::orderBy('created_at','asc')->get();
+            $sections_ids = $data->sections->pluck('section_id')->toArray();
+            return view($this->viewPath . 'index', compact('sections_ids','data', 'type', 'restaurant_types', 'nationalities','owner_types','sections'));
         } else {
             return view($this->viewPath . 'index', compact('data', 'type'));
         }

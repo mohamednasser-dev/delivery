@@ -17,13 +17,13 @@
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_ar')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg form-control-solid" type="text" name="name_ar" required/>
+                    <input class="form-control form-control-lg" type="text" name="name_ar" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.name_en')}}</label>
                 <div class="col-lg-9 col-xl-6">
-                    <input class="form-control form-control-lg form-control-solid" type="text" name="name_en" required/>
+                    <input class="form-control form-control-lg" type="text" name="name_en" required/>
                 </div>
             </div>
             <div class="d-flex flex-center">
@@ -50,7 +50,7 @@
     <div class="card-body py-0">
         <!--begin::Table-->
         <div class="table-responsive">
-            <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_4">
+            <table class="table table-head-custom table-vertical-center" id="kt_datatable">
                 <thead>
                 <tr class="text-left">
                     <th class="center">{{trans('lang.name_ar')}}</th>

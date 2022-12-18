@@ -8,7 +8,9 @@ use App\Mail\RestaurantPasswordMail;
 use App\Models\Nationality;
 use App\Models\OwnerType;
 use App\Models\Restaurant;
+use App\Models\RestaurantSection;
 use App\Models\RestaurantType;
+use App\Models\Section;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 
@@ -35,13 +37,22 @@ class RestaurantsController extends Controller
         $restaurant_types = RestaurantType::get();
         $nationalities = Nationality::get();
         $owner_types = OwnerType::get();
-        return view($this->viewPath . 'create', compact( 'restaurant_types', 'nationalities','owner_types'));
+        $sections = Section::orderBy('created_at','asc')->get();
+        return view($this->viewPath . 'create', compact( 'restaurant_types', 'nationalities','owner_types','sections'));
     }
 
     public function store(RestaurantRequest $request)
     {
         $data = $request->validated();
-        $this->objectName::create($data);
+        $restaurant = $this->objectName::create($data);
+
+        if (count($data['sections']) > 0) {
+            foreach ($data['sections'] as $section) {
+                $section_data['restaurant_id'] = $restaurant->id;
+                $section_data['section_id'] = $section;
+                RestaurantSection::create($section_data);
+            }
+        }
         session()->flash('success', trans('lang.addedsuccess'));
         return redirect()->route($this->route . '.index');
     }
@@ -58,6 +69,15 @@ class RestaurantsController extends Controller
     {
         $data = $request->validated();
         $this->objectName::findOrFail($id)->update($data);
+
+        if (count($data['sections']) > 0) {
+            RestaurantSection::where('restaurant_id',$id)->delete();
+            foreach ($data['sections'] as $section) {
+                $section_data['restaurant_id'] = $id;
+                $section_data['section_id'] = $section;
+                RestaurantSection::create($section_data);
+            }
+        }
         session()->flash('success', trans('lang.updatSuccess'));
         return redirect()->back();
     }

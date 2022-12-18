@@ -63,6 +63,7 @@ class Restaurant extends Authenticatable
         return $this->HasMany(RestaurantSection::class, 'restaurant_id');
     }
 
+
     public function Meals()
     {
         return $this->HasMany(Meal::class, 'restaurant_id');

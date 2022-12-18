@@ -68,6 +68,8 @@ class RestaurantRequest extends FormRequest
                 'max:20',
                 Rule::requiredIf($this->routeIs('restaurants.store')),
             ],
+            'sections' => 'required|array|min:1|max:50',
+            'sections.*' => ['required', 'integer', Rule::exists('sections', 'id')],
         ];
     }
 }
