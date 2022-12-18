@@ -9,6 +9,13 @@ if (!function_exists('restaurant')) {
     }
 }
 
+if (!function_exists('customer')) {
+    function customer()
+    {
+        return auth('sanctum')->user();
+    }
+}
+
 if (!function_exists('pagination_number')) {
     function pagination_number()
     {

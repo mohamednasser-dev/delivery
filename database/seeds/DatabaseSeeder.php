@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Database\seeds\AddonSeeder;
+use Database\seeds\SectionSeeder;
+use Database\seeds\RestaurantSectionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +20,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(\Database\Seeders\RestaurantSeeder::class);
 //        $this->call(CategorySeeder::class);
 //        $this->call(AddonSeeder::class);
+//        $this->call(SectionSeeder::class);
+//        $this->call(RestaurantSectionSeeder::class);
     }
 }

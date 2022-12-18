@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Restaurant\AuthController;
 use App\Http\Controllers\Api\Customer\AuthController as CustomerAuthController;
 use App\Http\Controllers\Api\Restaurant\ProfileController;
+use App\Http\Controllers\Api\Customer\ProfileController as CustomerProfileController;
 use App\Http\Controllers\Api\Restaurant\CategoriesController;
 use App\Http\Controllers\Api\Restaurant\AttributesController;
 use App\Http\Controllers\Api\Restaurant\OptionsController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Api\Restaurant\MealsController;
 use App\Http\Controllers\Api\Restaurant\OrdersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Customer\HomeController as CustomerHomeController;
 
 Route::post('/restaurant/auth/register', 'Api\Restaurant\AuthController@register');
 
@@ -124,6 +126,24 @@ Route::post('/customer/auth/forget_password', [CustomerAuthController::class, 'f
 Route::post('/customer/auth/forget_password/verify_code', [CustomerAuthController::class, 'forget_password_verify_code']);
 Route::post('/customer/auth/forget_password/change_password', [CustomerAuthController::class, 'forget_password_change_password']);
 
+Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
+
+    Route::get('/auth/logout', [AuthController::class, 'logout']);
+
+    //profile
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [CustomerProfileController::class, 'profile']);
+        Route::post('/update', [CustomerProfileController::class, 'update_profile']);
+        Route::post('/update_password', [CustomerProfileController::class, 'update_password']);
+    });
+
+});
+
+Route::prefix('customer')->group(function () {
+
+    Route::get('home', [CustomerHomeController::class, 'index']);
+
+});
 
 //helpers
 Route::group(['prefix' => 'helpers'], function () {

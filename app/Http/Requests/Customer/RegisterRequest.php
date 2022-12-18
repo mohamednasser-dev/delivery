@@ -33,6 +33,9 @@ class RegisterRequest extends FormRequest
             'password' => 'min:6',
             'fcm_token' => 'sometimes',
             'notification' => 'sometimes',
+            'lat' => 'sometimes',
+            'lng' => 'sometimes',
+            'address' => 'sometimes',
         ];
     }
 }

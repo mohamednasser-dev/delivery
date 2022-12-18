@@ -30,6 +30,9 @@ class ProfileRequest extends FormRequest
             'email' => 'sometimes|email|unique:customers,email',
             'phone' => 'sometimes|string|unique:customers,phone|max:20',
             'notification' => 'sometimes|in:0,1',
+            'lat' => 'sometimes',
+            'lng' => 'sometimes',
+            'address' => 'sometimes',
             'fcm_token' => 'sometimes',
         ];
     }

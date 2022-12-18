@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\seeds;
 
 use App\Models\Category;
 use App\Models\Restaurant;
