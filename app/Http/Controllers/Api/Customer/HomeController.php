@@ -24,11 +24,11 @@ class HomeController extends Controller
         $offers = Offer::get();
         $sections = Section::get();
         $sestaurantsSections = isset($section_id) ? RestaurantSection::where('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::pluck('restaurant_id');
-        $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->paginate(1);
+        $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->paginate(pagination_number());
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
             'sections' => isset($sections) ?  SectionResources::collection($sections) : [],
-            'restaurants' => isset($restaurants) ? RestaurantResources::collection($restaurants)->response()->getData(true) : [],
+            'restaurants' => isset($restaurants) ? RestaurantResources::collection($restaurants) : [],
         ];
         return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
     }
