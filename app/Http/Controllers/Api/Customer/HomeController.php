@@ -28,7 +28,7 @@ class HomeController extends Controller
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
             'sections' => isset($sections) ?  SectionResources::collection($sections) : [],
-            'restaurants' => isset($restaurants) ? RestaurantResources::collection($restaurants) : [],
+            'restaurants' => isset($restaurants) ? RestaurantResources::collection($restaurants)->response()->getData(true) : [],
         ];
         return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
     }
