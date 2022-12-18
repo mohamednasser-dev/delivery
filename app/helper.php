@@ -19,7 +19,7 @@ if (!function_exists('customer')) {
 if (!function_exists('pagination_number')) {
     function pagination_number()
     {
-        return 6;
+        return 2;
     }
 }
 
