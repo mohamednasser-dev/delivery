@@ -1,5 +1,6 @@
 <?php
 return [
+    'show' => 'الظهور',
     'restaurant_sections' => 'أقسام المطعم',
     'shop_type' => 'نوع المتجر',
     'App\Models\Restaurant' => 'مطعم',

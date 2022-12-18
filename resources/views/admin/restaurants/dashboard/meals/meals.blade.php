@@ -12,7 +12,8 @@
         </div>
     </div>
     <div class="card-body" style="display: none; overflow: hidden; padding-top: 0px; padding-bottom: 0px;">
-        <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}" enctype="multipart/form-data">
+        <form class="form" method="POST" action="{{route($route.'.store',['id'=>$data->id])}}"
+              enctype="multipart/form-data">
             @csrf
             @include('admin.restaurants.dashboard.meals.form')
         </form>
@@ -62,7 +63,7 @@
                     <th class="center">{{trans('lang.image')}}</th>
                     <th class="center">{{trans('lang.name_ar')}}</th>
                     <th class="center">{{trans('lang.name_en')}}</th>
-                    {{--                    <th class="center">{{trans('lang.status')}}</th>--}}
+                    <th class="center">{{trans('lang.show')}}</th>
                     <th class="center" style="min-width: 160px">{{trans('lang.options')}}</th>
                 </tr>
                 </thead>
@@ -79,15 +80,15 @@
                         <td class="center">
                             <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->name_en}}</span>
                         </td>
-                        {{--                        <td>--}}
-                        {{--                          <span class="switch switch-icon">--}}
-                        {{--                                    <label>--}}
-                        {{--                                        <input onchange="update_active(this)" value="{{ $row->id }}"--}}
-                        {{--                                               type="checkbox" <?php if ($row->active == 1) echo "checked";?>>--}}
-                        {{--                                        <span></span>--}}
-                        {{--                                    </label>--}}
-                        {{--                                </span>--}}
-                        {{--                        </td>--}}
+                        <td>
+                          <span class="switch switch-icon">
+                                <label>
+                                    <input onchange="update_active(this)" value="{{ $row->id }}"
+                                           type="checkbox" <?php if ($row->active == 1) echo "checked";?>>
+                                    <span></span>
+                                </label>
+                            </span>
+                        </td>
                         <td class="center">
                             <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2"
                                href="{{route($route.'.edit',$row->id)}}"
@@ -149,3 +150,25 @@
     </div>
 </div>
 
+@push('scripts')
+    <script type="text/javascript">
+        function update_active(el) {
+            if (el.checked) {
+                var status = 1;
+            } else {
+                var status = 0;
+            }
+            $.post('{{ route('meals.change_status') }}', {
+                _token: '{{ csrf_token() }}',
+                id: el.value,
+                status: status
+            }, function (data) {
+                if (data == 1) {
+                    toastr.success("{{trans('lang.statuschanged')}}");
+                } else {
+                    toastr.error("{{trans('lang.statuschanged')}}");
+                }
+            });
+        }
+    </script>
+@endpush
