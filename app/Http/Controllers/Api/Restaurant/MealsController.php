@@ -55,33 +55,38 @@ class MealsController extends Controller
             'restaurant_id' => $restaurant_id,
             'status' => 'pending',
         ]);
-        if ($meal && isset($request->attributess)) {
-            $checkAttribute = Attribute::whereId($request->attributess['id'])
-                ->where('restaurant_id', $restaurant_id)
-                ->first();
-            if ($checkAttribute) {
-                $mealAttribute = MealAttribute::create([
-                    'restaurant_id' => $restaurant_id,
-                    'meal_id' => $meal->id,
-                    'attribute_id' => $request->attributess['id'],
-                    'active' => $request->attributess['active'],
-                ]);
-                if ($mealAttribute && isset($request->attributess['options'])) {
-                    $checkOption = Option::whereId($request->attributess['options']['id'])
-                        ->where('restaurant_id', $restaurant_id)
-                        ->first();
-                    if ($checkOption) {
-                        MealAttributeOption::create([
-                            'restaurant_id' => $restaurant_id,
-                            'meal_id' => $meal->id,
-                            'meal_attribute_id' => $mealAttribute->id,
-                            'option_id' => $request->attributess['options']['id'],
-                            'active' => $request->attributess['options']['active'],
-                            'price' => $request->attributess['options']['price'],
-                        ]);
+        if ($meal && isset($request->attributess) && sizeof($request->attributess)>0) {
+            foreach ($request->attributess as $attr){
+                $checkAttribute = Attribute::whereId($attr['id'])
+                    ->where('restaurant_id', $restaurant_id)
+                    ->first();
+                if ($checkAttribute) {
+                    $mealAttribute = MealAttribute::create([
+                        'restaurant_id' => $restaurant_id,
+                        'meal_id' => $meal->id,
+                        'attribute_id' => $attr['id'],
+                        'active' => $attr['active'],
+                    ]);
+                    if ($mealAttribute && isset($attr['options']) && sizeof($attr['options'])>0) {
+                        foreach ($attr['options'] as $attrOption){
+                            $checkOption = Option::whereId($attrOption['id'])
+                                ->where('restaurant_id', $restaurant_id)
+                                ->first();
+                            if ($checkOption) {
+                                MealAttributeOption::create([
+                                    'restaurant_id' => $restaurant_id,
+                                    'meal_id' => $meal->id,
+                                    'meal_attribute_id' => $mealAttribute->id,
+                                    'option_id' => $attrOption['id'],
+                                    'active' => $attrOption['active'],
+                                    'price' => $attrOption['price'],
+                                ]);
+                            }
+                        }
                     }
                 }
             }
+
         }
         if ($meal && isset($request->addons)) {
             foreach ($request->addons as $addon) {
