@@ -20,6 +20,7 @@ use App\Mail\RestaurantPasswordMail;
 use App\Models\RestaurantSection;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Teckwei1993\Otp\Otp;
 
@@ -191,21 +192,27 @@ class AuthController extends Controller
 
     public function refreshToken()
     {
-        $restaurant_data = restaurant();
-        if (!$restaurant_data)
-            return $this->sendError(__('lang.error'));
+        $hashedAppKey = Hash::make(env('APP_KEY'));
+        if(Hash::check($hashedAppKey,request()->refresh_token)){
+            $restaurant_data = restaurant();
+            if (!$restaurant_data)
+                return $this->sendError(__('lang.error'));
 
-        $restaurant_id = restaurant()->id;
-        $restaurant = Restaurant::whereId($restaurant_id)->first();
-        if (!$restaurant)
-            return $this->sendError(__('lang.error'));
+            $restaurant_id = restaurant()->id;
+            $restaurant = Restaurant::whereId($restaurant_id)->first();
+            if (!$restaurant)
+                return $this->sendError(__('lang.error'));
 
-        auth('sanctum')->user()->tokens()->delete();
-        $token = $restaurant->createToken("TOKEN")->plainTextToken;
-        $response = [
-            'restaurant' => new RestaurantResources($restaurant),
-            'access_token' => $token
-        ];
-        return $this->sendSuccessData(__('lang.login_s'), $response, 201);
+            auth('sanctum')->user()->tokens()->delete();
+            $token = $restaurant->createToken("TOKEN")->plainTextToken;
+            $response = [
+                'restaurant' => new RestaurantResources($restaurant),
+                'access_token' => $token,
+                'refresh_token' => $hashedAppKey,
+
+            ];
+            return $this->sendSuccessData(__('lang.login_s'), $response, 201);
+        }
+        return $this->sendError(__('lang.codeError'));
     }
 }
