@@ -194,7 +194,7 @@ class AuthController extends Controller
     public function refreshToken()
     {
         $hashedAppKey = Hash::make(env('APP_KEY'));
-        dd(request()->refresh_token,Hash::check(1,Hash::make('1')));
+        dd(Hash::check(request()->refresh_token,$hashedAppKey));
         if(Hash::check(request()->refresh_token,$hashedAppKey)){
             $restaurant_data = restaurant();
             if (!$restaurant_data)
