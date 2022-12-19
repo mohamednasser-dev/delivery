@@ -56,7 +56,8 @@ class AuthController extends Controller
             $token = $restaurant->createToken("TOKEN")->plainTextToken;
             $response = [
                 'restaurant' => new RestaurantResources($restaurant),
-                'access_token' => $token
+                'access_token' => $token,
+                'refresh_token' => Hash::make(env('APP_KEY')),
             ];
             return $this->sendSuccessData(__('lang.login_s'), $response, 201);
         }
