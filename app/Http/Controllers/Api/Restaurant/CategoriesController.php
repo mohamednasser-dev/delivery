@@ -24,6 +24,18 @@ class CategoriesController extends Controller
 
         $data = $request->validated();
         $data['restaurant_id'] = restaurant()->id;
+
+        //check if restaurant has category of same name
+        $checkCategory = Category::where('restaurant_id', restaurant()->id)
+            ->where(function($q) use ($data){
+                $q->where('name_ar',$data['name_ar'])
+                    ->orWhere('name_en',$data['name_en']);
+            })
+            ->first();
+        if($checkCategory){
+            return $this->sendError('some data already exists');
+        }
+
         Category::create($data);
         return $this->sendSuccess(__('lang.created_s'), 201);
     }

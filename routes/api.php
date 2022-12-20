@@ -135,6 +135,11 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
         Route::get('/', [CustomerProfileController::class, 'profile']);
         Route::post('/update', [CustomerProfileController::class, 'update_profile']);
         Route::post('/update_password', [CustomerProfileController::class, 'update_password']);
+
+        Route::get('/get-my-locations', [CustomerProfileController::class, 'getMyLocations']);
+        Route::post('/create-location', [CustomerProfileController::class, 'createLocation']);
+        Route::post('/update-location', [CustomerProfileController::class, 'updateLocation']);
+
     });
 
 });
