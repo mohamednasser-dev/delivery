@@ -14,11 +14,16 @@ class SectionResources extends JsonResource
      */
     public function toArray($request)
     {
-
-        return [
+        $arr = [
+            'id'=>(int) 0,
+            'name'=> request()->header('lang') == 'ar' ? 'الكل' : 'All',
+            'image'=> '',
+        ];
+        $data = [
             'id'=>$this->id,
             'name'=>$this->name,
             'image'=>$this->image,
         ];
+        return array_merge($arr,$data);
     }
 }

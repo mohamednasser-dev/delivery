@@ -33,4 +33,18 @@ class HomeController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
     }
 
+    public function searchRestaurants(Request $request)
+    {
+        $section_id = (array)$request->section_id;
+        $sections = Section::get();
+        $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::pluck('restaurant_id');
+        $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->paginate(pagination_number());
+        $response = [
+            'offers' => isset($offers) ? OfferResources::collection($offers) : [],
+            'sections' => isset($sections) ?  SectionResources::collection($sections) : [],
+            'restaurants' => isset($restaurants) ? RestaurantResources::collection($restaurants)->response()->getData(true) : [],
+        ];
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
+    }
+
 }
