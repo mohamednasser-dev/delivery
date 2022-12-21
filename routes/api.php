@@ -147,6 +147,8 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
 Route::prefix('customer')->group(function () {
 
     Route::get('home', [CustomerHomeController::class, 'index']);
+    Route::get('search-restaurants', [CustomerHomeController::class, 'searchRestaurants']);
+    Route::get('search-sections', [CustomerHomeController::class, 'searchSections']);
 
 });
 
