@@ -39,7 +39,7 @@ class HomeController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
     }
 
-    public function searchRestaurants(SearchHomeRequest $request)
+    public function searchRestaurants(Request $request)
     {
         $section_id = (array)$request->section_id;
         $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::pluck('restaurant_id');
