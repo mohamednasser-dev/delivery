@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         $section_id = (array)$request->section_id;
         $offers = Offer::get();
-        $sections = array_merge(Section::get(),[
+        $sections = array_merge(Section::get()->toArray(),[
             'id'=>(int) 0,
             'name'=> request()->header('lang') == 'ar' ? 'الكل' : 'All',
             'image'=> '',
