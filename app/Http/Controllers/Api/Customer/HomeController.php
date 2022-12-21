@@ -87,9 +87,9 @@ class HomeController extends Controller
             $sections = Section::where(function ($q) use ($request){
                 $q->where('name_ar','like', '%' . $request->search_key . '%')
                     ->orWhere('name_en','like', '%' . $request->search_key . '%');
-            })->paginate(pagination_number());
+            })->get();
         }else{
-            $sections = Section::paginate(pagination_number());
+            $sections = Section::get();
         }
 
         $response = isset($sections) ?  SectionResources::collection(collect($sections))->response()->getData(true) : [];
