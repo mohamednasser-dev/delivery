@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
-use App\Http\Requests\Customer\SearchHomeRequest;
-use App\Http\Resources\Customer\HomeResources;
 use App\Http\Resources\Customer\OfferResources;
 use App\Http\Resources\Customer\SectionResources;
 use App\Http\Resources\Customer\RestaurantResources;
@@ -80,7 +78,7 @@ class HomeController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
     }
 
-    public function searchSections(SearchHomeRequest $request)
+    public function searchSections(Request $request)
     {
         if(
             isset($request->search_key) &&
