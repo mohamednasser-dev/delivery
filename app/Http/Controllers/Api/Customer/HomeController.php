@@ -19,19 +19,28 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        $lang = app()->getLocale() ;
         $section_id = (array)$request->section_id;
         $offers = Offer::get();
-//        $sections = array_merge(Section::get()->toArray(),[
-//            'id'=>(int) 0,
-//            'name'=> request()->header('lang') == 'ar' ? 'الكل' : 'All',
-//            'image'=> '',
-//        ]);
-        $sections = Section::get();
+        $sections = Section::select('id','name_'.$lang .' as title','image')->get()->toArray();
         $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : Restaurant::pluck('id');
+       // add all section in sections ....
+        if ($lang  == 'ar') {
+            $title = 'الكل';
+        }else{
+            $title = 'All';
+        }
+        $all = [
+            'id' => 0,
+            'title' => $title,
+            'image' => "",
+            'name' => null,
+        ];
+        array_unshift($sections, $all);
         $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->paginate(pagination_number());
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
-            'sections' => isset($sections) ?  SectionResources::collection($sections) : [],
+            'sections' => isset($sections) ? $sections  : [],
             'restaurants' => isset($restaurants) ? RestaurantResources::collection($restaurants)->response()->getData(true) : [],
         ];
         return $this->sendSuccessData(__('lang.data_show_successfully'), $response);
