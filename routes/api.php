@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Restaurant\OrdersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\HomeController as CustomerHomeController;
+use App\Http\Controllers\Api\Customer\FavoriteController;
 
 Route::post('/restaurant/auth/register', 'Api\Restaurant\AuthController@register');
 
@@ -149,6 +150,10 @@ Route::prefix('customer')->group(function () {
     Route::get('home', [CustomerHomeController::class, 'index']);
     Route::get('search-restaurants', [CustomerHomeController::class, 'searchRestaurants']);
     Route::get('search-sections', [CustomerHomeController::class, 'searchSections']);
+
+//    favorites
+    Route::get('favorites', [FavoriteController::class, 'index']);
+    Route::post('favorites/store', [FavoriteController::class, 'store']);
 
 });
 

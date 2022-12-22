@@ -107,6 +107,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('update/{id}', [CustomersController::class, 'update'])->name('.update');
         Route::get('delete/{id}', [CustomersController::class, 'destroy'])->name('.destroy');
         Route::get('/change_status/{id}/{status}', [CustomersController::class, 'change_status'])->name('.change_status');
+        Route::get('addresses/{id}', [CustomersController::class, 'addresses'])->name('.addresses');
 
         //dashboard
         Route::get('/dashboard/{id}', [RestaurantDashboardController::class, 'index'])->name('.dashboard.index');

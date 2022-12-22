@@ -1,5 +1,10 @@
 <?php
 return [
+    "fav_exists_before" => "تم حذف المطعم من المفضلة -لان هذا العنصر موجود من قبل في المفضلة",
+    "favorite_added" => "تم الاضافة الى المفضلة",
+    'map_location' => 'العنوان على الخريطة',
+    'main_address' => 'العنوان الرئيسي',
+    'addresses' => 'العناوين',
     'show' => 'الظهور',
     'restaurant_sections' => 'أقسام المطعم',
     'shop_type' => 'نوع المتجر',

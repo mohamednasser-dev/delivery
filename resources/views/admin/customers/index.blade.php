@@ -30,11 +30,11 @@
                     <table class="table table-bordered table-hover table-checkable" id="kt_datatable">
                         <thead>
                         <tr>
-                            <th class="center" width="10%">#</th>
                             <th class="center">{{trans('lang.image')}}</th>
                             <th class="center">{{trans('lang.name')}}</th>
                             <th class="center">{{trans('lang.phone')}}</th>
                             <th class="center">{{trans('lang.email')}}</th>
+                            <th class="center">{{trans('lang.addresses')}}</th>
                             <th class="center" width="10%">{{trans('lang.options')}}</th>
                         </tr>
                         </thead>
@@ -45,10 +45,15 @@
                                     <img class="img-thumbnail" src="{{$row->image}}"
                                          style="height: 75px; width: 75px;">
                                 </td>
-                                <td class="center">{{ $key+1 }}</td>
                                 <td class="center">{{ $row->name}}</td>
                                 <td class="center">{{ $row->phone}}</td>
                                 <td class="center">{{ $row->email}}</td>
+                                <td class="center">
+                                    <a class="btn btn-icon btn-warning btn-circle btn-sm mr-2" id="edit"
+                                       href="{{route( $route.'.addresses' , $row->id )}}">
+                                        <i class="icon-nm fas fa-map-marker"></i>
+                                    </a>
+                                </td>
                                 <td class="text-lg-center">
                                     <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2" id="edit"
                                        href="{{route( $route.'.edit' , $row->id )}}">

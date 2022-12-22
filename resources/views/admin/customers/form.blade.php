@@ -5,9 +5,9 @@
                 <h3>{{trans('lang.data')}}</h3>
             </div>
             <div class="card-body">
-                <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 text-right col-form-label">{{trans('lang.image')}}</label>
-                    <div class="col-lg-9 col-xl-9">
+                <div class="form-group m-t-40 row">
+                    <label class="col-md-2 col-form-label">{{trans('lang.image')}}</label>
+                    <div class="col-md-10">
                         <div class="image-input image-input-outline image-input-circle" id="kt_user_avatar">
                             <div class="image-input-wrapper"
                                  style="background-image: url({{ $data->image ?? asset('defaults/user_default.png') }})"></div>
@@ -40,7 +40,7 @@
                 <div class="form-group m-t-40 row">
                     <label for="example-text-input" class="col-md-2 col-form-label">{{trans('admin.phone')}}</label>
                     <div class="col-lg-10">
-                        <input type="number" onkeyup="this.value=phonelimit(this.value);" required
+                        <input type="text" onkeyup="this.value=phonelimit(this.value);" required
                                value="{{old('phone',$data->phone ?? null )}}" class="form-control" name="phone">
                     </div>
                 </div>

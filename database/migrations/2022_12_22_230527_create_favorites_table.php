@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('customers', function (Blueprint $table) {
-            //
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('customer_id')->nullable()->references('id')->on('customers')->onDelete('cascade');
+            $table->foreignId('restaurant_id')->nullable()->references('id')->on('restaurants')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -25,10 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-            $table->text('address')->nullable();
-        });
+        Schema::dropIfExists('favorites');
     }
 };

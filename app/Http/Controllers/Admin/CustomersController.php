@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CustomersRequest;
 use App\Http\Requests\Admin\RestaurantRequest;
 use App\Mail\RestaurantPasswordMail;
+use App\Models\Customer;
+use App\Models\CustomerAdress;
 use App\Models\Restaurant;
 use App\Models\RestaurantType;
 use App\Models\User;
@@ -19,20 +21,26 @@ class CustomersController extends Controller
     protected $paginate = 30;
     public $objectName;
 
-    public function __construct(User $model)
+    public function __construct(Customer $model)
     {
         $this->objectName = $model;
     }
 
     public function index()
     {
-        $data = $this->objectName::user()->orderBy('created_at', 'desc')->get();
+        $data = $this->objectName::orderBy('created_at', 'desc')->get();
         return view($this->viewPath . 'index', compact('data'));
     }
 
     public function create()
     {
         return view($this->viewPath . 'create');
+    }
+
+    public function addresses($id)
+    {
+        $data = CustomerAdress::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
+        return view($this->viewPath . 'addresses', compact('data'));
     }
 
     public function store(CustomersRequest $request)
