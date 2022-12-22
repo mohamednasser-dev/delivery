@@ -27,7 +27,7 @@ class HomeController extends Controller
 //            'image'=> '',
 //        ]);
         $sections = Section::get();
-        $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::pluck('restaurant_id');
+        $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : Restaurant::pluck('id');
         $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->paginate(pagination_number());
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
