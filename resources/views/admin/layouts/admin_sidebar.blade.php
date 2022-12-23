@@ -57,29 +57,36 @@
     <li class="menu-item @if( request()->segment(1) == 'owner_types' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{url('/owner_types')}}" class="menu-link">
-            <i class="menu-icon flaticon2-user"></i>
+            <i class="menu-icon flaticon2-menu"></i>
             <span class="menu-text">{{trans('lang.owner_types')}}</span>
         </a>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'restaurant_types' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{url('/restaurant_types')}}" class="menu-link">
-            <i class="menu-icon flaticon2-user"></i>
+            <i class="menu-icon flaticon2-box-1 "></i>
             <span class="menu-text">{{trans('lang.restaurant_types')}}</span>
         </a>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'sections' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{url('/sections')}}" class="menu-link">
-            <i class="menu-icon flaticon2-user"></i>
+            <i class="menu-icon flaticon2-setup"></i>
             <span class="menu-text">{{trans('lang.sections')}}</span>
         </a>
     </li>
     <li class="menu-item @if( request()->segment(1) == 'nationalities' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{route('nationalities.index')}}" class="menu-link">
-            <i class="menu-icon flaticon2-user"></i>
+            <i class="menu-icon flaticon2-avatar"></i>
             <span class="menu-text">{{trans('lang.nationalities')}}</span>
+        </a>
+    </li>
+    <li class="menu-item @if( request()->segment(1) == 'cancel_reasons' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="{{route('cancel_reasons.index')}}" class="menu-link">
+            <i class="menu-icon flaticon2-cancel"></i>
+            <span class="menu-text">{{trans('lang.cancel_reasons')}}</span>
         </a>
     </li>
 

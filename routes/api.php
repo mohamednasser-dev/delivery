@@ -165,4 +165,5 @@ Route::group(['prefix' => 'helpers'], function () {
     Route::get('/nationalities', 'Api\HelpersController@nationalities');
     Route::get('/settings', 'Api\HelpersController@settings');
     Route::get('/sections', 'Api\HelpersController@sections');
+    Route::get('/cancel_reasons', 'Api\HelpersController@cancel_reasons');
 });

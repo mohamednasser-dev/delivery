@@ -22,7 +22,7 @@ class HomeController extends Controller
         $lang = app()->getLocale() ;
         $section_id = (array)$request->section_id;
         $offers = Offer::get();
-        $sections = Section::select('id','name_'.$lang .' as title','image')->get()->toArray();
+        $sections = Section::select('id','name_'.$lang .' as title','image')->get()->makeHidden('name')->toArray();
         $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : Restaurant::pluck('id');
        // add all section in sections ....
         if ($lang  == 'ar') {
@@ -34,7 +34,6 @@ class HomeController extends Controller
             'id' => 0,
             'title' => $title,
             'image' => "",
-            'name' => null,
         ];
         array_unshift($sections, $all);
         $restaurants = Restaurant::whereIn('id',$sestaurantsSections)->paginate(pagination_number());

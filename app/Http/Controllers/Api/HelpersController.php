@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Resources\CancelReasonResources;
 use App\Http\Resources\NationalityResources;
 use App\Http\Resources\OwnerTypeResources;
 use App\Http\Resources\RestaurantTypeResources;
 use App\Http\Resources\SectionResources;
 use App\Http\Resources\SettingResources;
+use App\Models\CancelReason;
 use App\Models\Nationality;
 use App\Models\OwnerType;
 use App\Models\RestaurantType;
@@ -38,16 +40,25 @@ class HelpersController extends Controller
         $data = (NationalityResources::collection($data));
         return $this->sendSuccessData(__('lang.data_shown_s'), $data);
     }
+
     public function settings()
     {
         $data = Setting::orderBy('id', 'asc')->get();
         $data = (SettingResources::collection($data));
         return $this->sendSuccessData(__('lang.data_shown_s'), $data);
     }
+
     public function sections()
     {
         $data = Section::orderBy('id', 'asc')->get();
         $data = (SectionResources::collection($data));
+        return $this->sendSuccessData(__('lang.data_shown_s'), $data);
+    }
+
+    public function cancel_reasons()
+    {
+        $data = CancelReason::active()->orderBy('created_at', 'desc')->get();
+        $data = (CancelReasonResources::collection($data));
         return $this->sendSuccessData(__('lang.data_shown_s'), $data);
     }
 

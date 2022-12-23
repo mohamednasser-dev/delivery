@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\RestaurantTypesController;
 use App\Http\Controllers\Admin\NationalitiesController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\usersController;
+use App\Http\Controllers\Admin\CancelReasonsController;
 use App\Http\Controllers\Admin\RestaurantSettingsController;
 use App\Http\Controllers\Admin\RestaurantBalanceController;
 use App\Http\Controllers\Admin\RestaurantTransactionsController;
@@ -257,6 +258,20 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('deletes', [OffersController::class, 'deletes'])->name('.deletes');
         Route::get('delete/{id}', [OffersController::class, 'delete'])->name('.delete');
     });
+
+    //cancel_reasons
+    Route::group(['prefix' => 'cancel_reasons' ,'as'=>'cancel_reasons'], function () {
+        Route::get('/', [CancelReasonsController::class, 'index'])->name('.index');
+        Route::get('create', [CancelReasonsController::class, 'create'])->name('.create');
+        Route::post('store', [CancelReasonsController::class, 'store'])->name('.store');
+        Route::get('edit/{id}', [CancelReasonsController::class, 'edit'])->name('.edit');
+        Route::post('update/{id}', [CancelReasonsController::class, 'update'])->name('.update');
+        Route::post('deletes', [CancelReasonsController::class, 'deletes'])->name('.deletes');
+        Route::get('delete/{id}', [CancelReasonsController::class, 'delete'])->name('.delete');
+        Route::post('change_status', [CancelReasonsController::class, 'change_status'])->name('.change_status');
+
+    });
+
     //coupons
     Route::group(['prefix' => 'coupons' ,'as'=>'coupons'], function () {
         Route::get('/', [CouponsController::class, 'index'])->name('.index');

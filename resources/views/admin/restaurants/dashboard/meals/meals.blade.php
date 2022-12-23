@@ -81,7 +81,7 @@
                             <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->name_en}}</span>
                         </td>
                         <td>
-                          <span class="switch switch-icon">
+                          <span class="switch switch-icon" style="justify-content: center;">
                                 <label>
                                     <input onchange="update_active(this)" value="{{ $row->id }}"
                                            type="checkbox" <?php if ($row->active == 1) echo "checked";?>>
