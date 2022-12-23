@@ -1,35 +1,47 @@
 <?php
 
-use App\Http\Controllers\Api\Restaurant\AuthController;
 use App\Http\Controllers\Api\Customer\AuthController as CustomerAuthController;
-use App\Http\Controllers\Api\Restaurant\ProfileController;
 use App\Http\Controllers\Api\Customer\ProfileController as CustomerProfileController;
 use App\Http\Controllers\Api\Restaurant\CategoriesController;
 use App\Http\Controllers\Api\Restaurant\AttributesController;
+use App\Http\Controllers\Api\Restaurant\ProfileController;
 use App\Http\Controllers\Api\Restaurant\OptionsController;
+use App\Http\Controllers\Api\Customer\LocationsController;
 use App\Http\Controllers\Api\Restaurant\AddonsController;
-use App\Http\Controllers\Api\Restaurant\MealsController;
 use App\Http\Controllers\Api\Restaurant\OrdersController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Customer\HomeController as CustomerHomeController;
 use App\Http\Controllers\Api\Customer\FavoriteController;
+use App\Http\Controllers\Api\Restaurant\MealsController;
+use App\Http\Controllers\Api\Restaurant\AuthController;
+use App\Http\Controllers\Api\Customer\HomeController;
+use App\Http\Controllers\Api\HelpersController;
+use Illuminate\Support\Facades\Route;
 
-Route::post('/restaurant/auth/register', 'Api\Restaurant\AuthController@register');
+//restaurant
+//Not required restaurant login
+Route::prefix('restaurant')->group(function () {
+    Route::prefix('auth')->group(function () {
+        //register
+        Route::prefix('register')->group(function () {
+            Route::post('/', [AuthController::class, 'register']);
+            Route::post('/send_email_check_code', [AuthController::class, 'send_email_check_code']);
+            Route::post('/verify_email', [AuthController::class, 'verify_email']);
+            Route::post('/send_phone_check_code', [AuthController::class, 'send_phone_check_code']);
+            Route::post('/verify_phone', [AuthController::class, 'verify_phone']);
+        });
 
-Route::post('/restaurant/auth/register/send_email_check_code', 'Api\Restaurant\AuthController@send_email_check_code');
-Route::post('/restaurant/auth/register/verify_email', 'Api\Restaurant\AuthController@verify_email');
+        //login
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/refresh-token', [AuthController::class, 'refreshToken']);
+        //forget_password
+        Route::prefix('forget_password')->group(function () {
+            Route::post('/', [AuthController::class, 'forget_password']);
+            Route::post('/verify_code', [AuthController::class, 'forget_password_verify_code']);
+            Route::post('/change_password', [AuthController::class, 'forget_password_change_password']);
+        });
+    });
+});
 
-Route::post('/restaurant/auth/register/send_phone_check_code', 'Api\Restaurant\AuthController@send_phone_check_code');
-Route::post('/restaurant/auth/register/verify_phone', 'Api\Restaurant\AuthController@verify_phone');
-
-Route::post('/restaurant/auth/login', [AuthController::class, 'login']);
-Route::post('/restaurant/auth/refresh-token', [AuthController::class, 'refreshToken']);
-Route::post('/restaurant/auth/forget_password', [AuthController::class, 'forget_password']);
-Route::post('/restaurant/auth/forget_password/verify_code', [AuthController::class, 'forget_password_verify_code']);
-Route::post('/restaurant/auth/forget_password/change_password', [AuthController::class, 'forget_password_change_password']);
-
-
+//required restaurant login
 Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
 
     Route::get('/auth/logout', [AuthController::class, 'logout']);
@@ -83,12 +95,8 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
         Route::post('/add-item', [MealsController::class, 'addItem']);
         Route::get('/destroy-item', [MealsController::class, 'deleteItem']);
     });
-    Route::prefix('meal-search')->group(function () {
-        Route::get('/get', [MealsController::class, 'search']);
-    });
-    Route::prefix('meal-filter')->group(function () {
-        Route::get('/get', [MealsController::class, 'filter']);
-    });
+    Route::get('/meal-search/get', [MealsController::class, 'search']);
+    Route::get('/meal-filter/get', [MealsController::class, 'filter']);
 
     //orders
     Route::prefix('orders')->group(function () {
@@ -98,37 +106,45 @@ Route::middleware(['auth:sanctum'])->prefix('restaurant')->group(function () {
 //        Route::get('/details', [OrdersController::class, 'orderDetails']);
     });
 
-    Route::prefix('order-search')->group(function () {
-        Route::get('/get', [OrdersController::class, 'search']);
-    });
-    Route::prefix('order-filter')->group(function () {
-        Route::get('/get', [OrdersController::class, 'filter']);
-    });
-    Route::prefix('order-details')->group(function () {
-        Route::get('/get', [OrdersController::class, 'orderDetails']);
-    });
-
-
-
+    Route::get('/order-search/get', [OrdersController::class, 'search']);
+    Route::get('/order-filter/get', [OrdersController::class, 'filter']);
+    Route::get('/order-details/get', [OrdersController::class, 'orderDetails']);
 });
 
 //customer
-Route::post('/customer/auth/register', 'Api\Customer\AuthController@register');
+//not required customer login
+Route::prefix('customer')->group(function () {
+    //auth
+    Route::prefix('auth')->group(function () {
+        //register
+        Route::prefix('register')->group(function () {
+            Route::post('/register', [CustomerAuthController::class, 'register']);
+            Route::post('/send_email_check_code', [CustomerAuthController::class, 'send_email_check_code']);
+            Route::post('/verify_email', [CustomerAuthController::class, 'verify_email']);
+            Route::post('/send_phone_check_code', [CustomerAuthController::class, 'send_phone_check_code']);
+            Route::post('/verify_phone', [CustomerAuthController::class, 'verify_phone']);
+        });
+        //login
+        Route::post('/login', [CustomerAuthController::class, 'login']);
+        Route::post('/refresh-token', [CustomerAuthController::class, 'refreshToken']);
+        //forget_password
+        Route::prefix('forget_password')->group(function () {
+            Route::post('/', [CustomerAuthController::class, 'forget_password']);
+            Route::post('/verify_code', [CustomerAuthController::class, 'forget_password_verify_code']);
+            Route::post('/change_password', [CustomerAuthController::class, 'forget_password_change_password']);
+        });
+    });
 
-Route::post('/customer/auth/register/send_email_check_code', 'Api\Customer\AuthController@send_email_check_code');
-Route::post('/customer/auth/register/verify_email', 'Api\Customer\AuthController@verify_email');
+    //Home
+    Route::get('home', [HomeController::class, 'index']);
+    Route::get('search-restaurants', [HomeController::class, 'searchRestaurants']);
+    Route::get('search-sections', [HomeController::class, 'searchSections']);
 
-Route::post('/customer/auth/register/send_phone_check_code', 'Api\Customer\AuthController@send_phone_check_code');
-Route::post('/customer/auth/register/verify_phone', 'Api\Customer\AuthController@verify_phone');
+});
 
-Route::post('/customer/auth/login', [CustomerAuthController::class, 'login']);
-Route::post('/customer/auth/refresh-token', [CustomerAuthController::class, 'refreshToken']);
-Route::post('/customer/auth/forget_password', [CustomerAuthController::class, 'forget_password']);
-Route::post('/customer/auth/forget_password/verify_code', [CustomerAuthController::class, 'forget_password_verify_code']);
-Route::post('/customer/auth/forget_password/change_password', [CustomerAuthController::class, 'forget_password_change_password']);
-
+//required customer login
 Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
-
+    //logout
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 
     //profile
@@ -136,34 +152,25 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
         Route::get('/', [CustomerProfileController::class, 'profile']);
         Route::post('/update', [CustomerProfileController::class, 'update_profile']);
         Route::post('/update_password', [CustomerProfileController::class, 'update_password']);
-
-        Route::get('/get-my-locations', [CustomerProfileController::class, 'getMyLocations']);
-        Route::post('/create-location', [CustomerProfileController::class, 'createLocation']);
-        Route::post('/update-location', [CustomerProfileController::class, 'updateLocation']);
-
+    });
+    //location
+    Route::prefix('location')->group(function () {
+        Route::get('/', [LocationsController::class, 'index']);
+        Route::post('/create', [LocationsController::class, 'create']);
+        Route::post('/update', [LocationsController::class, 'update']);
     });
 
-});
-
-Route::prefix('customer')->group(function () {
-
-    Route::get('home', [CustomerHomeController::class, 'index']);
-    Route::get('search-restaurants', [CustomerHomeController::class, 'searchRestaurants']);
-    Route::get('search-sections', [CustomerHomeController::class, 'searchSections']);
-
-//    favorites
+    //favorites
     Route::get('favorites', [FavoriteController::class, 'index']);
     Route::post('favorites/store', [FavoriteController::class, 'store']);
-
 });
 
 //helpers
 Route::group(['prefix' => 'helpers'], function () {
-
-    Route::get('/owner_types', 'Api\HelpersController@owner_types');
-    Route::get('/restaurant_types', 'Api\HelpersController@restaurant_types');
-    Route::get('/nationalities', 'Api\HelpersController@nationalities');
-    Route::get('/settings', 'Api\HelpersController@settings');
-    Route::get('/sections', 'Api\HelpersController@sections');
-    Route::get('/cancel_reasons', 'Api\HelpersController@cancel_reasons');
+    Route::post('owner_types', [HelpersController::class, 'owner_types']);
+    Route::post('restaurant_types', [HelpersController::class, 'restaurant_types']);
+    Route::post('nationalities', [HelpersController::class, 'nationalities']);
+    Route::post('settings', [HelpersController::class, 'settings']);
+    Route::post('sections', [HelpersController::class, 'sections']);
+    Route::post('cancel_reasons', [HelpersController::class, 'cancel_reasons']);
 });

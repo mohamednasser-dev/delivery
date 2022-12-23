@@ -22,6 +22,7 @@ class CustomerLocationsResources extends JsonResource
             'lat'=>(string)$this->lat,
             'lng'=>(string)$this->lng,
             'address'=>(string)$this->address,
+            'phone'=>(string)$this->phone,
         ];
     }
 }
