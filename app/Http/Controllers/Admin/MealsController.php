@@ -48,7 +48,7 @@ class MealsController extends Controller
             // Else, count greater or equal to 3
             $q->where('category_id', $first_cat);
 
-        })->where('restaurant_id', $id)->orderBy('created_at','desc')->get();
+        })->where('restaurant_id', $id)->orderBy('created_at', 'desc')->get();
         $type = 'meals';
         if ($request->category_id) {
             $category_id = $request->category_id;
@@ -67,7 +67,6 @@ class MealsController extends Controller
 //MealsDashboardRequest
     public function store(Request $request, $id)
     {
-//        dd($request->all());
         $data = $request->all();
         $data['restaurant_id'] = $id;
         $meal = $this->objectName::create($data);
@@ -117,7 +116,7 @@ class MealsController extends Controller
         $meal_attributes = $meal->meal_attributes;
         $meal_addons_ids = $meal->meal_addons->pluck('addon_id')->toArray();
         $meal_addons = $meal->meal_addons;
-        return view($this->viewPath . 'meals.edit', compact('data','meal_addons', 'meal_attributes','meal', 'category_data', 'meal_addons_ids', 'attribute_data', 'addons_data', 'meal_attributes_ids'));
+        return view($this->viewPath . 'meals.edit', compact('data', 'meal_addons', 'meal_attributes', 'meal', 'category_data', 'meal_addons_ids', 'attribute_data', 'addons_data', 'meal_attributes_ids'));
     }
 
     public function change_status(Request $request)
@@ -130,8 +129,41 @@ class MealsController extends Controller
 
     public function update(MealsDashboardRequest $request)
     {
+
         $data = $request->validated();
         $this->objectName::findOrFail($data['id'])->update($data);
+
+        $meal = $this->objectName::findOrFail($data['id']);
+        MealAttribute::where('meal_id', $meal->id)->delete();
+        if (count($data['attributes']) > 0) {
+            foreach ($data['attributes'] as $attr) {
+                $meal_attr_data['restaurant_id'] = $meal->restaurant_id;
+                $meal_attr_data['meal_id'] = $data['id'];
+                $meal_attr_data['attribute_id'] = $attr;
+                $meal_attribute = MealAttribute::create($meal_attr_data);
+                if ($meal_attribute) {
+
+                    if ($request->attr_options_ids) {
+                        foreach ($request->attr_options_ids[$attr] as $key => $option_id) {
+                            $meal_attr_options_data['meal_id'] = $meal->id;
+                            $meal_attr_options_data['meal_attribute_id'] = $meal_attribute->id;
+                            $meal_attr_options_data['option_id'] = $option_id;
+                            $meal_attr_options_data['price'] = $request->option_prices[$option_id][0];
+                            MealAttributeOption::create($meal_attr_options_data);
+                        }
+                    }
+                }
+            }
+        }
+        MealAddon::where('meal_id', $meal->id)->delete();
+        if ($request->addons) {
+            foreach ($data['addons'] as $key => $addon) {
+                $meal_addon_data['meal_id'] = $meal->id;
+                $meal_addon_data['addon_id'] = $addon;
+                $meal_addon_data['price'] = $data['prices'][$key];
+                MealAddon::create($meal_addon_data);
+            }
+        }
         session()->flash('success', trans('lang.updatSuccess'));
         return redirect()->back();
     }

@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Api\Restaurant;
 
 use App\Http\Requests\Restaurant\ProfileRequest;
 use App\Http\Resources\RestaurantResources;
-use App\Http\Resources\RestaurantTypeResources;
-use App\Models\Restaurant;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Restaurant;
 
 
 class ProfileController extends Controller

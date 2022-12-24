@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
-use App\Http\Resources\Customer\OfferResources;
-use App\Http\Resources\Customer\SectionResources;
 use App\Http\Resources\Customer\RestaurantResources;
-use App\Models\Offer;
-use App\Models\Restaurant;
-use App\Models\RestaurantSection;
-use App\Models\Section;
-use Illuminate\Http\Request;
+use App\Http\Resources\Customer\SectionResources;
+use App\Http\Resources\Customer\OfferResources;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Models\RestaurantSection;
+use Illuminate\Http\Request;
+use App\Models\Restaurant;
+use App\Models\Section;
+use App\Models\Offer;
 
 
 class HomeController extends Controller

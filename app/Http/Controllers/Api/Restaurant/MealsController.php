@@ -9,17 +9,15 @@ use App\Http\Requests\Restaurant\Meal\MealDestroyRequest;
 use App\Http\Requests\Restaurant\Meal\MealRequest;
 use App\Http\Requests\Restaurant\Meal\SearchMealRequest;
 use App\Http\Resources\MealResources;
-use App\Models\Addon;
-use App\Models\Attribute;
-use App\Models\Meal;
 use App\Http\Controllers\Controller;
-use App\Models\MealAddon;
-use App\Models\MealAttribute;
 use App\Models\MealAttributeOption;
-use App\Models\Option;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\MealAttribute;
+use App\Models\Attribute;
+use App\Models\MealAddon;
+use App\Models\Option;
+use App\Models\Addon;
+use App\Models\Meal;
 
 class MealsController extends Controller
 {

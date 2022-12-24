@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Restaurant;
 use App\Http\Requests\Restaurant\Option\OptionDestroyRequest;
 use App\Http\Requests\Restaurant\Option\OptionRequest;
 use App\Http\Resources\OptionResources;
-use App\Models\Option;
 use App\Http\Controllers\Controller;
+use App\Models\Option;
 
 class OptionsController extends Controller
 {

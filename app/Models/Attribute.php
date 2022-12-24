@@ -9,7 +9,9 @@ class Attribute extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name_ar', 'name_en', 'restaurant_id', 'active',];
+    protected $fillable = ['name_ar', 'name_en', 'restaurant_id', 'active',];
+
+    protected $appends = ['name'];
 
     public function getNameAttribute()
     {
@@ -22,6 +24,6 @@ class Attribute extends Model
 
     public function options()
     {
-        return $this->hasMany(Option::class,'attribute_id');
+        return $this->hasMany(Option::class, 'attribute_id');
     }
 }

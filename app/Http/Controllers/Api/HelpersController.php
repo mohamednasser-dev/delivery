@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-
+use App\Http\Resources\RestaurantTypeResources;
 use App\Http\Resources\CancelReasonResources;
 use App\Http\Resources\NationalityResources;
 use App\Http\Resources\OwnerTypeResources;
-use App\Http\Resources\RestaurantTypeResources;
 use App\Http\Resources\SectionResources;
 use App\Http\Resources\SettingResources;
+use App\Http\Controllers\Controller;
+use App\Models\RestaurantType;
 use App\Models\CancelReason;
 use App\Models\Nationality;
 use App\Models\OwnerType;
-use App\Models\RestaurantType;
 use App\Models\Section;
 use App\Models\Setting;
-use App\Models\User;
 
 class HelpersController extends Controller
 {

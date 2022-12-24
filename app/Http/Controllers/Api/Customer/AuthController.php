@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
-use App\Http\Requests\Customer\ProfileRequest;
 use App\Http\Requests\Customer\Forget_password\ChangePasswordRequest;
 use App\Http\Requests\Customer\Forget_password\ForgetPasswordRequest;
 use App\Http\Requests\Customer\Forget_password\VerifyOtpRequest;
@@ -10,19 +9,16 @@ use App\Http\Requests\Customer\SendEmailCheckCodeRequest;
 use App\Http\Requests\Customer\SendPhoneCheckCodeRequest;
 use App\Http\Requests\Customer\EmailCheckCodeRequest;
 use App\Http\Requests\Customer\PhoneCheckCodeRequest;
+use App\Http\Resources\Customer\CustomerResources;
+use App\Http\Resources\RestaurantTypeResources;
 use App\Http\Requests\Customer\RegisterRequest;
 use App\Http\Requests\Customer\LoginRequest;
-use App\Http\Resources\Customer\CustomerResources;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RestaurantTypeResources;
-use App\Mail\ForgetPasswordMail;
-use App\Mail\RestaurantPasswordMail;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Teckwei1993\Otp\Otp;
+use App\Mail\ForgetPasswordMail;
+use App\Models\Customer;
 
 
 class AuthController extends Controller

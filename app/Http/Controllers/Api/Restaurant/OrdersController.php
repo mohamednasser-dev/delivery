@@ -2,27 +2,14 @@
 
 namespace App\Http\Controllers\Api\Restaurant;
 
-use App\Http\Requests\Restaurant\Meal\AddItemMealRequest;
-use App\Http\Requests\Restaurant\Meal\DeleteItemMealRequest;
-use App\Http\Requests\Restaurant\Meal\MealDestroyRequest;
-use App\Http\Requests\Restaurant\Meal\MealRequest;
+
 use App\Http\Requests\Restaurant\Order\FilterOrderRequest;
 use App\Http\Requests\Restaurant\Order\SearchOrderRequest;
-use App\Http\Resources\MealResources;
 use App\Http\Resources\OrderDetailsResources;
 use App\Http\Resources\OrderResources;
-use App\Models\Addon;
-use App\Models\Attribute;
-use App\Models\Meal;
 use App\Http\Controllers\Controller;
-use App\Models\MealAddon;
-use App\Models\MealAttribute;
-use App\Models\MealAttributeOption;
-use App\Models\Option;
 use App\Models\Order;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
 
 class OrdersController extends Controller
 {

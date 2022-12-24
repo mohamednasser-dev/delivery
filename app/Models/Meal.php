@@ -23,18 +23,32 @@ class Meal extends Model
         'restaurant_id',
     ];
 
-    protected $appends = ['name'];
+    protected $appends = ['name', 'description'];
 
-    public function restaurant(){
-        return $this->belongsTo(Restaurant::class,"restaurant_id");
+    public function category()
+    {
+        return $this->belongsTo(Category::class, "category_id");
+    }
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class, "restaurant_id");
     }
 
     public function getNameAttribute()
     {
-        if ( \app()->getLocale() == "ar") {
+        if (\app()->getLocale() == "ar") {
             return $this->name_ar;
         } else {
             return $this->name_en;
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        if (\app()->getLocale() == "ar") {
+            return $this->desc_ar;
+        } else {
+            return $this->desc_en;
         }
     }
 
@@ -59,7 +73,7 @@ class Meal extends Model
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $img_name = 'meal_'.time() . random_int(0000,9999) . '.' . $image->getClientOriginalExtension();
+            $img_name = 'meal_' . time() . random_int(0000, 9999) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/meals/'), $img_name);
             $this->attributes['image'] = $img_name;
         }
@@ -67,11 +81,11 @@ class Meal extends Model
 
     public function scopeActive($query): void
     {
-        $query->where('active',1);
+        $query->where('active', 1);
     }
 
     public function scopeAccepted($query): void
     {
-        $query->where('status','accepted');
+        $query->where('status', 'accepted');
     }
 }

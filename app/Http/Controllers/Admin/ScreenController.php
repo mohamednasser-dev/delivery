@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\GeneralController;
+use App\Http\Requests\Admin\ScreenRequest;
 use App\DataTables\ScreenDataTable;
 use App\Models\Screen;
 

@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Api\Restaurant;
 use App\Http\Requests\Restaurant\categoryDestroyRequest;
 use App\Http\Requests\Restaurant\categoryRequest;
 use App\Http\Resources\CategoryResources;
-use App\Models\Category;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class CategoriesController extends Controller
 {

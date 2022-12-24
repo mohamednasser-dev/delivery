@@ -9,11 +9,13 @@ class Option extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name_ar', 'name_en', 'attribute_id', 'active','restaurant_id'];
+    protected $fillable = ['name_ar', 'name_en', 'attribute_id', 'active', 'restaurant_id'];
+
+    protected $appends = ['name'];
 
     public function getNameAttribute()
     {
-        if ( \app()->getLocale() == "ar") {
+        if (\app()->getLocale() == "ar") {
             return $this->name_ar;
         } else {
             return $this->name_en;
@@ -22,7 +24,7 @@ class Option extends Model
 
     public function attribute()
     {
-        return $this->belongsTo(Attribute::class,'attribute_id')
-            ->select('id','name_' . app()->getLocale() . '  as name','active');
+        return $this->belongsTo(Attribute::class, 'attribute_id')
+            ->select('id', 'name_' . app()->getLocale() . '  as name', 'active');
     }
 }

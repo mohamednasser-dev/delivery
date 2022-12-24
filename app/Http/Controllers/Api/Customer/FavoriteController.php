@@ -3,18 +3,10 @@
 namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Requests\Customer\FavoriteRequest;
-use App\Http\Resources\Customer\OfferResources;
-use App\Http\Resources\Customer\SectionResources;
-use App\Http\Resources\Customer\RestaurantResources;
 use App\Http\Resources\FavoriteResources;
-use App\Models\Favorite;
-use App\Models\Offer;
-use App\Models\Restaurant;
-use App\Models\RestaurantSection;
-use App\Models\Section;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use App\Models\Favorite;
 
 
 class FavoriteController extends Controller

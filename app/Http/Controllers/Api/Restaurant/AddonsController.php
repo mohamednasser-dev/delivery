@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Restaurant;
 use App\Http\Requests\Restaurant\Addon\AddonDestroyRequest;
 use App\Http\Requests\Restaurant\Addon\AddonRequest;
 use App\Http\Resources\AddonResources;
-use App\Models\Addon;
 use App\Http\Controllers\Controller;
+use App\Models\Addon;
 
 class AddonsController extends Controller
 {

@@ -19,7 +19,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::model($data, ['route' => [$route.'.update_new', $data->id] , 'method'=>'put','files'=> true]) !!}
+            {!! Form::model($data, ['route' => [$route.'.update_new'] , 'method'=>'put','files'=> true]) !!}
+          <input type="hidden" value="{{$data->id}}" name="id" required >
             @include('admin.restaurants.dashboard.meals.form')
             {{ Form::close() }}
         </div>

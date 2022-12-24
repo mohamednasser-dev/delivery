@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Api\Customer;
 
 
-use App\Http\Requests\Customer\ProfileRequest;
 use App\Http\Resources\Customer\CustomerLocationsResources;
 use App\Http\Resources\Customer\CustomerResources;
-use App\Models\Customer;
-use App\Models\CustomerAdress;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\ProfileRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Models\CustomerAdress;
+use Illuminate\Http\Request;
+use App\Models\Customer;
 
 
 class ProfileController extends Controller

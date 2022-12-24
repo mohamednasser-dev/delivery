@@ -106,12 +106,21 @@
                             @php
                                 $meal_attr_option = \App\Models\MealAttributeOption::where('meal_id',$meal->id)->where('option_id',$row->id)->first();
                             @endphp
+                            @if($meal_attr_option)
                             <div class="col-md-6">
                                 <input type="number" min="0" max="999999999999.00" step="any" class="form-control"
                                        required
                                        name="option_prices[{{$row->id}}][]" value="{{$meal_attr_option->price}}"
                                        placeholder="{{trans('lang.price')}}">
                             </div>
+                            @else
+                                <div class="col-md-6">
+                                    <input type="number" min="0" max="999999999999.00" step="any" class="form-control"
+                                           required
+                                           name="option_prices[{{$row->id}}][]" value="0"
+                                           placeholder="{{trans('lang.price')}}">
+                                </div>
+                                @endif
                         </div>
                         <br>
                     @endforeach
@@ -146,10 +155,17 @@
                         @php
                             $meal_addon_data = \App\Models\MealAddon::where('meal_id',$meal->id)->where('addon_id',$meal_addon->addon->id)->first();
                         @endphp
+                        @if($meal_addon_data)
                         <div class="col-md-12">
                             <input required type="number" value="{{$meal_addon_data->price}}" min="0" max="999999999999.00" step="any" class="form-control" name="prices[]" placeholder="{{trans('lang.price')}}"
                             >
                         </div>
+                        @else
+                            <div class="col-md-12">
+                                <input required type="number" value="0" min="0" max="999999999999.00" step="any" class="form-control" name="prices[]" placeholder="{{trans('lang.price')}}"
+                                >
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

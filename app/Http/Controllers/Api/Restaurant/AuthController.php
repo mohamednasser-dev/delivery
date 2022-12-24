@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Restaurant;
 
-use App\Http\Requests\Restaurant\ProfileRequest;
 use App\Http\Requests\Restaurant\Forget_password\ChangePasswordRequest;
 use App\Http\Requests\Restaurant\Forget_password\ForgetPasswordRequest;
 use App\Http\Requests\Restaurant\Forget_password\VerifyOtpRequest;
@@ -11,17 +10,16 @@ use App\Http\Requests\Restaurant\SendPhoneCheckCodeRequest;
 use App\Http\Requests\Restaurant\EmailCheckCodeRequest;
 use App\Http\Requests\Restaurant\PhoneCheckCodeRequest;
 use App\Http\Requests\Restaurant\RegisterRequest;
+use App\Http\Resources\RestaurantTypeResources;
 use App\Http\Requests\Restaurant\LoginRequest;
 use App\Http\Resources\RestaurantResources;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RestaurantTypeResources;
-use App\Mail\ForgetPasswordMail;
-use App\Mail\RestaurantPasswordMail;
-use App\Models\RestaurantSection;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Restaurant;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Models\RestaurantSection;
+use App\Mail\ForgetPasswordMail;
+use App\Models\Restaurant;
 use Teckwei1993\Otp\Otp;
 
 

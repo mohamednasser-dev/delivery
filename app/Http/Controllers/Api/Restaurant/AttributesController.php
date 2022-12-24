@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Restaurant;
 use App\Http\Requests\Restaurant\Attribute\AttributeDestroyRequest;
 use App\Http\Requests\Restaurant\Attribute\AttributeRequest;
 use App\Http\Resources\AttributeResources;
-use App\Models\Attribute;
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 
 class AttributesController extends Controller
 {

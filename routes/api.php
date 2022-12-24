@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Customer\FavoriteController;
 use App\Http\Controllers\Api\Restaurant\MealsController;
 use App\Http\Controllers\Api\Restaurant\AuthController;
 use App\Http\Controllers\Api\Customer\HomeController;
+use App\Http\Controllers\Api\Customer\RestaurantController;
 use App\Http\Controllers\Api\HelpersController;
 use Illuminate\Support\Facades\Route;
 
@@ -139,6 +140,8 @@ Route::prefix('customer')->group(function () {
     Route::get('home', [HomeController::class, 'index']);
     Route::get('search-restaurants', [HomeController::class, 'searchRestaurants']);
     Route::get('search-sections', [HomeController::class, 'searchSections']);
+
+    Route::get('restaurant/meal/details', [RestaurantController::class, 'meal_details']);
 
 });
 

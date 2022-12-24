@@ -34,7 +34,9 @@ class MealsDashboardRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'desc_ar' => 'nullable|string|min:2|max:600',
             'desc_en' => 'nullable|string|min:2|max:600',
-
+            'attributes' => 'nullable|array',
+            'addons' => 'nullable|array',
+            'prices' => 'nullable|array',
             'id' => [
                 'nullable',
                 'exists:meals,id',
