@@ -38,4 +38,14 @@ class Category extends Model
             $this->attributes['image'] = $img_name;
         }
     }
+
+    public function meals()
+    {
+        return $this->HasMany(Meal::class, 'category_id');
+    }
+
+    public function acceotedActiveMeals()
+    {
+        return $this->HasMany(Meal::class, 'category_id')->accepted()->active();
+    }
 }
