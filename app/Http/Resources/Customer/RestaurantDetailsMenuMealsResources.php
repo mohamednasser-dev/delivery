@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Customer;
 
+use App\Http\Resources\custommer\CustomerCategoryResources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RestaurantDetailsMenuMealsResources extends JsonResource
@@ -27,7 +28,7 @@ class RestaurantDetailsMenuMealsResources extends JsonResource
             'longitude'=>$this->longitude,
             'address'=> !empty($this->address) ? $this->address : "",
             'full_name'=>$this->full_name,
-            'categories'=>$this->categories->load(['acceptedActiveMeals'])->paginate(2),
+            'categories'=> CustomerCategoryResources::collection($this->categories->load(['acceptedActiveMeals'])),
         ];
     }
 }
