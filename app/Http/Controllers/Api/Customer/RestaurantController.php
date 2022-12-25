@@ -21,6 +21,14 @@ class RestaurantController extends Controller
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
+    public function searchRestaurantDetailsMenuMeals(Request $request)
+    {
+//        $data = $request->validated();
+        $data = Restaurant::accepted()->active()->findOrFail(request()->restaurant_id);
+        $data =  new RestaurantDetailsMenuMealsResources($data);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+    }
+
     public function mealDetails(Request $request)
     {
 //        $data = $request->validated();
