@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Request;
 
 class RestaurantController extends Controller
 {
-    public function restaurant_menu(Request $request)
+    public function mealDetailsMenuAndMeals(Request $request)
     {
 //        $data = $request->validated();
-//        $data = Meal::accepted()->active()->findOrFail($data['meal_id']);
-//        $data =  new CustomerMealResources($data);
-//        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+        $data = Meal::accepted()->active()->findOrFail($data['meal_id']);
+        $data =  new CustomerMealResources($data);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
-    public function meal_details(Request $request)
+    public function mealDetails(Request $request)
     {
 //        $data = $request->validated();
         $data = Meal::accepted()->active()->findOrFail(request()->meal_id);

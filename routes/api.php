@@ -141,7 +141,8 @@ Route::prefix('customer')->group(function () {
     Route::get('search-restaurants', [HomeController::class, 'searchRestaurants']);
     Route::get('search-sections', [HomeController::class, 'searchSections']);
 
-    Route::get('restaurant/meal/details', [RestaurantController::class, 'meal_details']);
+    Route::get('restaurant/details-menu-meals', [RestaurantController::class, 'restaurantDetailsMenuAndMeals']);
+    Route::get('restaurant/meal-details', [RestaurantController::class, 'mealDetails']);
 
 });
 
