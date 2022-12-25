@@ -19,7 +19,7 @@ class RestaurantController extends Controller
 //        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
 
-    public function meal_details(MealDetailsRequest $request)
+    public function meal_details(Request $request)
     {
 //        $data = $request->validated();
         $data = Meal::accepted()->active()->findOrFail(request()->meal_id);
