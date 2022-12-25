@@ -28,7 +28,7 @@ class RestaurantDetailsMenuMealsResources extends JsonResource
             'longitude'=>$this->longitude,
             'address'=> !empty($this->address) ? $this->address : "",
             'full_name'=>$this->full_name,
-            'categories'=> CustomerCategoryResources::collection($this->categories->load(['acceptedActiveMeals'])),
+            'categories'=> CustomerCategoryResources::collection($this->categories),
         ];
     }
 }
