@@ -44,7 +44,7 @@ class Category extends Model
         return $this->HasMany(Meal::class, 'category_id');
     }
 
-    public function acceotedActiveMeals()
+    public function acceptedActiveMeals()
     {
         return $this->HasMany(Meal::class, 'category_id')->accepted()->active();
     }
