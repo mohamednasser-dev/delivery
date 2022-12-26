@@ -29,6 +29,7 @@ class HomeController extends Controller
             'title' => $lang  == 'ar' ? 'الكل' : 'All',
             'image' => "",
         ];
+        dd($restaurantsSections);
         array_unshift($sections, $all);
         $restaurants = Restaurant::whereIn('id',$restaurantsSections)->paginate(pagination_number());
         $response = [
