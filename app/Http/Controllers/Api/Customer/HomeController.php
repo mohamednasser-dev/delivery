@@ -29,9 +29,12 @@ class HomeController extends Controller
             'title' => $lang  == 'ar' ? 'الكل' : 'All',
             'image' => "",
         ];
-        dd($restaurantsSections);
         array_unshift($sections, $all);
-        $restaurants = Restaurant::whereIn('id',$restaurantsSections)->paginate(pagination_number());
+        if(sizeof($restaurantsSections) < 1){
+            $restaurants = Restaurant::paginate(pagination_number());
+        }else{
+            $restaurants = Restaurant::whereIn('id',$restaurantsSections)->paginate(pagination_number());
+        }
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
             'sections' => isset($sections) ? $sections  : [],
