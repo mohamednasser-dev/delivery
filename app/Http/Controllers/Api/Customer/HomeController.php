@@ -31,7 +31,7 @@ class HomeController extends Controller
         ];
         array_unshift($sections, $all);
         $restaurants = Restaurant::whereIn('id',$restaurantsSections)->paginate(pagination_number());
-        dd(sizeof($restaurants));
+//        dd(sizeof($restaurants));
         $response = [
             'offers' => isset($offers) ? OfferResources::collection($offers) : [],
             'sections' => isset($sections) ? $sections  : [],
