@@ -171,10 +171,10 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
 
 //helpers
 Route::group(['prefix' => 'helpers'], function () {
-    Route::post('owner_types', [HelpersController::class, 'owner_types']);
-    Route::post('restaurant_types', [HelpersController::class, 'restaurant_types']);
-    Route::post('nationalities', [HelpersController::class, 'nationalities']);
-    Route::post('settings', [HelpersController::class, 'settings']);
-    Route::post('sections', [HelpersController::class, 'sections']);
-    Route::post('cancel_reasons', [HelpersController::class, 'cancel_reasons']);
+    Route::get('owner_types', [HelpersController::class, 'owner_types']);
+    Route::get('restaurant_types', [HelpersController::class, 'restaurant_types']);
+    Route::get('nationalities', [HelpersController::class, 'nationalities']);
+    Route::get('settings', [HelpersController::class, 'settings']);
+    Route::get('sections', [HelpersController::class, 'sections']);
+    Route::get('cancel_reasons', [HelpersController::class, 'cancel_reasons']);
 });
