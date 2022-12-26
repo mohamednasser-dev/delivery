@@ -16,10 +16,10 @@ class CustomerCategoryResources extends JsonResource
     {
         $lang = request()->header('lang');
         return
-            [
-                'id' => $this->id,
-                'image' => $this->image,
-                'name' => $lang == 'en' ? $this->name_en : $this->name_ar ,
-            ];
+        [
+            'id' => $this->id,
+            'image' => $this->image,
+            'name' => $lang == 'en' ? $this->name_en : $this->name_ar ,
+        ];
     }
 }

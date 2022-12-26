@@ -24,14 +24,9 @@ class HomeController extends Controller
         $sections = Section::select('id','name_'.$lang .' as title','image')->get()->makeHidden('name')->toArray();
         $sestaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : Restaurant::pluck('id');
        // add all section in sections ....
-        if ($lang  == 'ar') {
-            $title = 'الكل';
-        }else{
-            $title = 'All';
-        }
         $all = [
             'id' => 0,
-            'title' => $title,
+            'title' => $lang  == 'ar' ? 'الكل' : 'All',
             'image' => "",
         ];
         array_unshift($sections, $all);
