@@ -22,7 +22,7 @@ class HomeController extends Controller
         $section_id = (array)$request->section_id;
         $offers = Offer::get();
         $sections = Section::select('id','name_'.$lang .' as title','image')->get()->makeHidden('name')->toArray();
-        $restaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::pluck('restaurant_id');
+        $restaurantsSections = isset($section_id) ? RestaurantSection::whereIn('section_id',$section_id)->pluck('restaurant_id') : RestaurantSection::where('id','>',0)->pluck('restaurant_id');
        // add all section in sections ....
         $all = [
             'id' => 0,
