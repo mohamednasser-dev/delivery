@@ -14,19 +14,16 @@ class RestaurantDetailsMenuMealsResources extends JsonResource
      */
     public function toArray($request)
     {
-
+        $lang = request()->header('lang');
         return [
             'id'=>$this->id,
             'logo'=>$this->logo,
             'cover'=>$this->cover,
             'rate' => (double)4.0,
-            'name'=>$this->name,
-            'name_ar'=>$this->name_ar,
-            'name_en'=>$this->name_en,
+            'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,
             'address'=> !empty($this->address) ? $this->address : "",
-            'full_name'=>$this->full_name,
             'categories'=>$this->categories->load(['acceptedActiveMeals']),
         ];
     }
