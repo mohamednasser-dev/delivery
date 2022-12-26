@@ -14,27 +14,16 @@ class RestaurantResources extends JsonResource
      */
     public function toArray($request)
     {
-
+        $lang = request()->header('lang');
         return [
             'id'=>$this->id,
             'logo'=>$this->logo,
             'cover'=>$this->cover,
-            'email'=>$this->email,
-            'phone'=>$this->phone,
-            'name'=>$this->name,
-            'name_ar'=>$this->name_ar,
-            'name_en'=>$this->name_en,
-            'crn'=>$this->crn,
-            'notification'=>(int)$this->notification,
-            'fcm_token'=>(string)$this->fcm_token,
+            'rate' => (double)4.0,
+            'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,
             'address'=> !empty($this->address) ? $this->address : "",
-            'full_name'=>$this->full_name,
-            'created_at'=>$this->created_at->diffForHumans(),
-//            'nationally'=>new NationalityResources($this->nationality),
-//            'owner_type'=>new OwnerTypeResources($this->owner_type),
-//            'restaurant_type'=>new RestaurantTypeResources($this->type) ,
         ];
     }
 }
