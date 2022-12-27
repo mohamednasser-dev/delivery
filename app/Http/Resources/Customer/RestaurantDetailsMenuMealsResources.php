@@ -21,6 +21,7 @@ class RestaurantDetailsMenuMealsResources extends JsonResource
             'cover'=>$this->cover,
             'rate' => (double)4.0,
             'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
+            //TODO
             'description'=> $lang == 'en' ? "وصف" : "description",
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,

@@ -64,6 +64,8 @@ class MealsController extends Controller
                         'meal_id' => $meal->id,
                         'attribute_id' => $attr['id'],
                         'active' => $attr['active'],
+                        'min_choice' => $attr['min_choice'] ,
+                        'max_choice' => $attr['max_choice'] ,
                     ]);
                     if ($mealAttribute && isset($attr['options']) && sizeof($attr['options'])>0) {
                         foreach ($attr['options'] as $attrOption){
@@ -137,6 +139,8 @@ class MealsController extends Controller
                                 ->where('meal_id', $meal->id)
                                 ->update([
                                     'active' => isset($meal_attribute['active']) ? $meal_attribute['active'] : $thisMealAttribute->active,
+                                    'min_choice' => isset($meal_attribute['min_choice']) ? $meal_attribute['min_choice'] : $thisMealAttribute->min_choice,
+                                    'max_choice' => isset($meal_attribute['max_choice']) ? $meal_attribute['max_choice'] : $thisMealAttribute->max_choice,
                                 ]);
                         } else {
                             $checkAttribute = Attribute::whereId($meal_attribute['attribute_id'])
