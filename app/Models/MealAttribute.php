@@ -13,7 +13,9 @@ class MealAttribute extends Model
         'meal_id',
         'attribute_id',
         'active',
-        'restaurant_id'
+        'restaurant_id',
+        "min_choice",
+        "max_choice",
         ];
 
     protected $appends=['name_ar', 'name_en'];
