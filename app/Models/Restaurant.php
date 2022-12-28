@@ -17,7 +17,7 @@ class Restaurant extends Authenticatable
 
     protected $guarded = [''];
     protected $hidden = ['password'];
-    protected $appends = ['name'];
+    protected $appends = ['name','description'];
 
     const STATUS_REJECTED = 'rejected';
     const STATUS_ACCEPTED = 'accepted';
@@ -28,6 +28,22 @@ class Restaurant extends Authenticatable
             return $this->name_ar;
         } else {
             return $this->name_en;
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        $section_ids = RestaurantSection::where('restaurant_id',$this->id)->pluck('section_id')->toArray();
+        if (\app()->getLocale() == "ar") {
+            if(empty($this->name_ar))
+                return implode(", ",Section::whereIn('id',$section_ids)->pluck('name_ar')->toArray());
+            else
+                return $this->name_ar;
+        } else {
+            if(empty($this->name_en))
+                return implode(", ",Section::whereIn('id',$section_ids)->pluck('name_ar')->toArray());
+            else
+                return $this->name_en;
         }
     }
 

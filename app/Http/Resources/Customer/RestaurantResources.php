@@ -21,7 +21,7 @@ class RestaurantResources extends JsonResource
             'cover'=>$this->cover,
             'rate' => (double)4.0,
             'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
-            'description'=> $lang == 'en' ? "وصف" : "description",
+            'description'=> $this->description,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,
             'address'=> !empty($this->address) ? $this->address : "",
