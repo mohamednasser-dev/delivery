@@ -33,6 +33,7 @@ class Restaurant extends Authenticatable
 
     public function getDescriptionAttribute()
     {
+        dd($this->id);
         $section_ids = RestaurantSection::where('restaurant_id',$this->id)->pluck('section_id')->toArray();
         if (\app()->getLocale() == "ar") {
             if(empty($this->desc_ar))
