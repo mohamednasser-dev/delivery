@@ -18,6 +18,8 @@ class CustomerMealAttributesResources extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>(string)$this->attribute->name,
+            'min_choice'=>(int)$this->min_choice,
+            'max_choice'=>(int)$this->max_choice,
             'options'=>CustomerAttributesOptionsResources::collection($this->meal_attribute_options),
         ];
     }
