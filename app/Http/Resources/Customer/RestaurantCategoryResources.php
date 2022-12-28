@@ -21,7 +21,7 @@ class RestaurantCategoryResources extends JsonResource
                 'id' => $this->id,
                 'image' => $this->image,
                 'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
-                'meals'=> isset($this->acceptedActiveMeals) ? (RestaurantMealsOfCategoryResources::collection($this->acceptedActiveMeals)) : null,
+//                'meals'=> isset($this->acceptedActiveMeals) ? (RestaurantMealsOfCategoryResources::collection($this->acceptedActiveMeals)) : null,
             ];
     }
 }

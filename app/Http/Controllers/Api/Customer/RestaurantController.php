@@ -6,6 +6,8 @@ use App\Http\Resources\Customer\CustomerMealResources;
 use App\Http\Requests\Customer\MealDetailsRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Customer\RestaurantDetailsMenuMealsResources;
+use App\Http\Resources\Customer\RestaurantMealsOfCategoryResources;
+use App\Models\Category;
 use App\Models\Meal;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Request;
@@ -18,7 +20,21 @@ class RestaurantController extends Controller
 //        $data = $request->validated();
         $data = Restaurant::accepted()->active()->findOrFail(request()->restaurant_id);
         $data =  new RestaurantDetailsMenuMealsResources($data);
-        return $this->sendSuccessData(__('lang.data_show_successfully'), [$data,['meals' => []]]);
+        if(request()->category_id){
+            $mealsOfFirstRestaurantCategory = Meal::where('restaurant_id',request()->restaurant_id)
+                ->where('category_id',request()->category_id)->paginate(pagination_number());
+            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
+        }else{
+            $firstCategoryId = Category::select('id')->first();
+            $mealsOfFirstRestaurantCategory = Meal::where('restaurant_id',request()->restaurant_id)
+                ->where('category_id',$firstCategoryId)->paginate(pagination_number());
+            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
+
+        }
+
+        return $this->sendSuccessData(__('lang.data_show_successfully'),
+            [$data,['meals' => $mealsOfFirstRestaurantCategory]]
+        );
 
     }
 
