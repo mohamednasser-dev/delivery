@@ -35,7 +35,7 @@ class RestaurantController extends Controller
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
 
             return $this->sendSuccessData(__('lang.data_show_successfully'),
-                [$data,['meals' => $mealsOfFirstRestaurantCategory]]
+                array_merge($data,$mealsOfFirstRestaurantCategory)
             );
         }
 
