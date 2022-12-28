@@ -35,15 +35,15 @@ class Restaurant extends Authenticatable
     {
         $section_ids = RestaurantSection::where('restaurant_id',$this->id)->pluck('section_id')->toArray();
         if (\app()->getLocale() == "ar") {
-            if(empty($this->name_ar))
+            if(empty($this->desc_ar))
                 return implode(", ",Section::whereIn('id',$section_ids)->pluck('name_ar')->toArray());
             else
-                return $this->name_ar;
+                return $this->desc_ar;
         } else {
-            if(empty($this->name_en))
+            if(empty($this->desc_en))
                 return implode(", ",Section::whereIn('id',$section_ids)->pluck('name_ar')->toArray());
             else
-                return $this->name_en;
+                return $this->desc_en;
         }
     }
 
