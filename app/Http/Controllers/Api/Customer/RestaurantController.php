@@ -33,9 +33,9 @@ class RestaurantController extends Controller
             $mealsOfFirstRestaurantCategory = Meal::where('restaurant_id',request()->restaurant_id)
                 ->where('category_id',$firstCategoryId)->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
-
+            $result = array_merge($data['categories'],$mealsOfFirstRestaurantCategory);
             return $this->sendSuccessData(__('lang.data_show_successfully'),
-                array_merge($data,$mealsOfFirstRestaurantCategory)
+                $result
             );
         }
 
