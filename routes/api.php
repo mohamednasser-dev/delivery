@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Restaurant\MealsController;
 use App\Http\Controllers\Api\Restaurant\AuthController;
 use App\Http\Controllers\Api\Customer\HomeController;
 use App\Http\Controllers\Api\Customer\RestaurantController;
+use App\Http\Controllers\Api\Customer\CopounController;
 use App\Http\Controllers\Api\HelpersController;
 use Illuminate\Support\Facades\Route;
 
@@ -143,6 +144,8 @@ Route::prefix('customer')->group(function () {
 
     Route::get('restaurant/details-menu-meals', [RestaurantController::class, 'restaurantDetailsMenuMeals']);
     Route::get('restaurant/meal-details', [RestaurantController::class, 'mealDetails']);
+
+    Route::get('check-copoun', [CopounController::class, 'checkCopoun']);
 
 });
 
