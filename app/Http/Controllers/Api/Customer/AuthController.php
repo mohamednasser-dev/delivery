@@ -14,11 +14,16 @@ use App\Http\Resources\RestaurantTypeResources;
 use App\Http\Requests\Customer\RegisterRequest;
 use App\Http\Requests\Customer\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UsersResources;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetPasswordMail;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Validator;
 
 
 class AuthController extends Controller
@@ -192,12 +197,87 @@ class AuthController extends Controller
             auth('sanctum')->user()->tokens()->delete();
             $token = $restaurant->createToken("TOKEN")->plainTextToken;
             $response = [
-                'restaurant' => new CustomerResources($restaurant),
+                'customer' => new CustomerResources($restaurant),
                 'access_token' => $token,
                 'refresh_token' => $hashedAppKey,
             ];
             return $this->sendSuccessData(__('lang.login_s'), $response, 201);
         }
         return $this->sendError(__('lang.codeError'));
+    }
+
+    public function socialLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'social_type' => 'required|in:facebook,google,apple,twitter,instagram,snapchat',
+            'social_id' => 'required',
+            'email' => 'nullable',
+        ]);
+        if (!is_array($validator) && $validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+        // 1- check phone exists
+//        $user = User::where('email', $request->email)->first();
+//        if ($user) {
+//            if ($request->social_type == 'facebook') {
+//                $user->social_id = $request->social_id;
+//            } else {
+//                $user->social_id = $request->social_id;
+//            }
+//            if (empty($user->email_verified_at)) {
+//                $user->email_verified_at = Carbon::now();
+//            }
+//            $user->email = $request->email;
+//            $user->fcm_token = $request->device_token;
+//            $user->save();
+//            $jwt_token = JWTAuth::fromUser($user);
+//            $data = (new UsersResources($user))->token($jwt_token);
+//            return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+//        }
+
+        // 2- check social id exists
+        $hashedAppKey = Hash::make(env('APP_KEY'));
+
+        $userFound = Customer::where('social_id', $request->social_id)
+            ->where('social_type', $request->social_type)
+            ->first();
+        if ($userFound) {
+//            $userFound->email = $request->email;
+            $token = $userFound->createToken("TOKEN")->plainTextToken;
+            $response = [
+                'customer' => new CustomerResources($userFound),
+                'access_token' => $token,
+                'refresh_token' => $hashedAppKey,
+            ];
+            return $this->sendSuccessData(__('lang.login_s'), $response, 201);
+        }
+
+        // 3- if not login with social before
+        try {
+
+            $user = Customer::create([
+                'social_id' => $request->social_id,
+                'fcm_token' => $request->device_token,
+                'email' => $request->email,
+                'email_verified_at' => Carbon::now(),
+                'active' => 1,
+                'social_type' => $request->social_type
+            ]);
+
+            $token = $userFound->createToken("TOKEN")->plainTextToken;
+            $response = [
+                'customer' => new CustomerResources($userFound),
+                'access_token' => $token,
+                'refresh_token' => $hashedAppKey,
+            ];
+            return $this->sendSuccessData(__('lang.login_s'), $response, 201);
+
+        }catch (\Exception $e){
+            return response()->json(msg($request, failed(), trans('lang.PhoneExists')));
+        }
+
+        $jwt_token = JWTAuth::fromUser($user);
+        $data = (new UsersResources($user))->token($jwt_token);
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 }

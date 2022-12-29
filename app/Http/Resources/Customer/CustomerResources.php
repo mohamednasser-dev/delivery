@@ -27,6 +27,8 @@ class CustomerResources extends JsonResource
             'address'=>(string)$this->address,
             'fcm_token'=>(string)$this->fcm_token,
             'created_at'=>$this->created_at->diffForHumans(),
+            'social_id'=>$this->social_id,
+            'social_type'=>$this->social_type,
         ];
     }
 }

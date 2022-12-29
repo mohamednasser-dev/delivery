@@ -128,6 +128,7 @@ Route::prefix('customer')->group(function () {
         });
         //login
         Route::post('/login', [CustomerAuthController::class, 'login']);
+        Route::post('/social-login', [CustomerAuthController::class, 'socialLogin']);
         Route::post('/refresh-token', [CustomerAuthController::class, 'refreshToken']);
         //forget_password
         Route::prefix('forget_password')->group(function () {
