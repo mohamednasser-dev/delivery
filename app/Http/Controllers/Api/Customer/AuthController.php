@@ -273,7 +273,7 @@ class AuthController extends Controller
             return $this->sendSuccessData(__('lang.login_s'), $response, 201);
 
         }catch (\Exception $e){
-            return response()->json(msg($request, failed(), trans('lang.PhoneExists')));
+            return $this->sendError(__('lang.error'));
         }
 
 //        $jwt_token = JWTAuth::fromUser($user);
