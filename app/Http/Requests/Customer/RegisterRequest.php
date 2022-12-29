@@ -26,9 +26,9 @@ class RegisterRequest extends FormRequest
     {
 
         return [
-            'image' => 'required|image',
-            'name' => 'required|string|min:2|max:255',
-            'email' => 'required|email|unique:customers,email',
+            'image' => 'sometimes|image',
+            'name' => 'sometimes|string|min:2|max:255',
+            'email' => 'sometimes|email|unique:customers,email',
             'phone' => 'required|string|unique:customers,phone',
             'password' => 'min:6',
             'fcm_token' => 'sometimes',
