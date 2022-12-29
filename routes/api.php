@@ -145,7 +145,7 @@ Route::prefix('customer')->group(function () {
     Route::get('restaurant/details-menu-meals', [RestaurantController::class, 'restaurantDetailsMenuMeals']);
     Route::get('restaurant/meal-details', [RestaurantController::class, 'mealDetails']);
 
-    Route::get('check-copoun', [CopounController::class, 'checkCopoun']);
+    Route::post('check-copoun', [CopounController::class, 'checkCopoun']);
 
 });
 
