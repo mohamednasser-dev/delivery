@@ -258,11 +258,15 @@ class AuthController extends Controller
 
             $user = Customer::create([
                 'social_id' => $request->social_id,
-                'fcm_token' => $request->device_token,
+                'social_type' => $request->social_type,
+                'fcm_token' => $request->fcm_token,
                 'email' => $request->email,
+                'phone' => $request->phone,
                 'email_verified_at' => Carbon::now(),
                 'active' => 1,
-                'social_type' => $request->social_type
+                'lat' => $request->lat,
+                'lng' => $request->lng,
+                'address' => $request->address,
             ]);
 
             $token = $userFound->createToken("TOKEN")->plainTextToken;
@@ -274,7 +278,6 @@ class AuthController extends Controller
             return $this->sendSuccessData(__('lang.login_s'), $response, 201);
 
         }catch (\Exception $e){
-            dd($e);
             return $this->sendError(__('lang.error'));
         }
 
