@@ -25,6 +25,6 @@ class CopounController extends Controller
                 return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
             }
         }
-        return $this->sendError(__('lang.invalid'));
+        return $this->sendError(__('lang.invalid_copoun'));
     }
 }

@@ -394,4 +394,5 @@ return [
     'total_price'=> 'الاجمالي',
     'sub_total'=> 'الاجمالي',
     'fee'=> 'رسوم',
+    'invalid_copoun'=> 'كوبون غير صالح',
 ];
