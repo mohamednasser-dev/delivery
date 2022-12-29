@@ -273,6 +273,7 @@ class AuthController extends Controller
             return $this->sendSuccessData(__('lang.login_s'), $response, 201);
 
         }catch (\Exception $e){
+            dd($e);
             return $this->sendError(__('lang.error'));
         }
 
