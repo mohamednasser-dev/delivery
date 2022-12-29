@@ -243,6 +243,7 @@ class AuthController extends Controller
             ->first();
         if ($userFound) {
 //            $userFound->email = $request->email;
+            $restaurant = Auth::guard('customer')->user();
             $token = $userFound->createToken("TOKEN")->plainTextToken;
             $response = [
                 'customer' => new CustomerResources($userFound),
