@@ -120,7 +120,7 @@ Route::prefix('customer')->group(function () {
     Route::prefix('auth')->group(function () {
         //register
         Route::prefix('register')->group(function () {
-            Route::post('/register', [CustomerAuthController::class, 'register']);
+            Route::post('/', [CustomerAuthController::class, 'register']);
             Route::post('/send_email_check_code', [CustomerAuthController::class, 'send_email_check_code']);
             Route::post('/verify_email', [CustomerAuthController::class, 'verify_email']);
             Route::post('/send_phone_check_code', [CustomerAuthController::class, 'send_phone_check_code']);
