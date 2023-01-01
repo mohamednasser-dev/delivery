@@ -30,7 +30,7 @@ class RestaurantController extends Controller
             );
         }else{
             $firstCategory = Category::select('id')->first();
-            $mealsOfFirstRestaurantCategory = Meal::where('restaurant_id',request()->restaurant_id)
+            $mealsOfFirstRestaurantCategory = Meal::accepted()->active()->where('restaurant_id',request()->restaurant_id)
                 ->where('category_id',$firstCategory->id)->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory));
             return $this->sendSuccessData(__('lang.data_show_successfully'),
@@ -54,8 +54,13 @@ class RestaurantController extends Controller
     {
 //        $data = $request->validated();
         $data = Meal::accepted()->active()->findOrFail(request()->meal_id);
-        $data =  new CustomerMealResources($data);
-        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+
+        if ($data){
+            $data =  new CustomerMealResources($data);
+            return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+        }
+        return $this->sendError(__('lang.error'));
+
     }
 
 }
