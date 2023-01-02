@@ -62,6 +62,11 @@ class Meal extends Model
         return $this->HasMany(MealAddon::class, 'meal_id');
     }
 
+    public function meal_categories()
+    {
+        return $this->HasMany(CategoryMeal::class,'meal_id');
+    }
+
     public function getImageAttribute($image)
     {
         if (!empty($image)) {

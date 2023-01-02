@@ -10,6 +10,7 @@ use App\Http\Requests\Restaurant\Meal\MealRequest;
 use App\Http\Requests\Restaurant\Meal\SearchMealRequest;
 use App\Http\Resources\MealResources;
 use App\Http\Controllers\Controller;
+use App\Models\CategoryMeal;
 use App\Models\MealAttributeOption;
 use Illuminate\Support\Facades\Log;
 use App\Models\MealAttribute;
@@ -32,7 +33,10 @@ class MealsController extends Controller
     public function mealsByCategory()
     {
         $category_id = request()->category_id;
-        $posts = Meal::where('restaurant_id', restaurant()->id)->where('category_id', $category_id)->paginate(pagination_number());
+        $categories_ids = CategoryMeal::where('restaurant_id', restaurant()->id)
+            ->where('category_id', $category_id)
+            ->pluck('meal_id')->toArray();
+        $posts = Meal::where('restaurant_id', restaurant()->id)->whereIn('id', $categories_ids)->paginate(pagination_number());
         $data = (MealResources::collection($posts))->response()->getData(true);
         return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
     }
@@ -49,10 +53,17 @@ class MealsController extends Controller
             'desc_en' => $request->desc_en,
             'active' => $request->active,
             'price' => $request->price,
-            'category_id' => $request->category_id,
+//            'category_id' => $request->category_id,
             'restaurant_id' => $restaurant_id,
             'status' => 'pending',
         ]);
+        foreach ((array)$request->category_id as $cat){
+            CategoryMeal::create([
+                'restaurant_id' => $restaurant_id,
+                'category_id' => $cat,
+                'meal_id' => $meal->id,
+            ]);
+        }
         if ($meal && isset($request->attributess) && sizeof($request->attributess)>0) {
             foreach ($request->attributess as $attr){
                 $checkAttribute = Attribute::whereId($attr['id'])
@@ -122,9 +133,27 @@ class MealsController extends Controller
                 'desc_en' => isset($request->desc_en) ? $request->desc_en : $meal->desc_en,
                 'active' => isset($request->active) ? $request->active : $meal->active,
                 'price' => isset($request->price) ? $request->price : $meal->price,
-                'category_id' => isset($request->category_id) ? $request->category_id : $meal->category_id,
+//                'category_id' => isset($request->category_id) ? $request->category_id : $meal->category_id,
                 'status' => 'pending',
             ]);
+            ///////////
+            CategoryMeal::where('restaurant_id' , $restaurant_id)
+                ->where('meal_id' , $request->id)
+                ->whereNotIn((array)$request->category_id)->delete();
+            foreach ((array)$request->category_id as $cat){
+                $checkCategoryMeal = CategoryMeal::where('restaurant_id' , $restaurant_id)
+                    ->where('meal_id' , $request->id)
+                    ->where('category_id' , $cat)
+                    ->first();
+                if(!$checkCategoryMeal){
+                    CategoryMeal::create([
+                        'restaurant_id' => $restaurant_id,
+                        'category_id' => $cat,
+                        'meal_id' => $meal->id,
+                    ]);
+                }
+            }
+            ///////////
             if (isset($request->meal_attributes) && sizeof($request->meal_attributes) > 0) {
                 //attributes edits
                 foreach ($request->meal_attributes as $meal_attribute) {
