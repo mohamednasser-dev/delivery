@@ -10,7 +10,7 @@ class CategoryMeal extends Model
     use HasFactory;
 
     protected $guarded = [''];
-    protected $hidden = ['created_at','updated_at',''];
+    protected $hidden = ['created_at','updated_at','restaurant_id'];
 
     protected $appends = ['category_name', 'meal_name'];
 
