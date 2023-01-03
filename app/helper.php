@@ -9,6 +9,13 @@ if (!function_exists('restaurant')) {
     }
 }
 
+if (!function_exists('new_reviews')) {
+    function new_reviews()
+    {
+        return \App\Models\RestaurantReview::where('status', 'pending')->get()->count();
+    }
+}
+
 if (!function_exists('customer')) {
     function customer()
     {
