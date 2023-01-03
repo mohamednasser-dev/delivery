@@ -135,4 +135,9 @@ class Restaurant extends Authenticatable
             $this->attributes['cover'] = 'default_category.png';
         }
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(RestaurantReview::class, 'restaurant_id')->accepted();
+    }
 }

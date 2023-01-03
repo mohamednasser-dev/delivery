@@ -23,14 +23,13 @@ class FavoriteController extends Controller
     {
         $data = $request->validated();
         $customer_id = auth('sanctum')->user()->id;
-
             //check if customer make favorite to same thing before
                 $exist_fav = Favorite::where('customer_id',$customer_id)->where('restaurant_id', $data['restaurant_id'])
                     ->first();
                 if ($exist_fav) {
                     $exist_fav->delete();
 //                    return $this->sendError(trans('lang.fav_exists_before'), 400);
-                    return $this->sendSuccess(__('lang.fav_exists_before'), 201);
+                    return $this->sendError(__('lang.fav_exists_before'), 400);
 
                 }
             //end check
