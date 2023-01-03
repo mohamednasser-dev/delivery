@@ -34,8 +34,17 @@
     <li class="menu-item @if( request()->segment(1) == 'reviews' ) menu-item-active @endif "
         aria-haspopup="true">
         <a href="{{route('reviews.index')}}" class="menu-link">
-            <i class="menu-icon fas fa-motorcycle"></i>
-            <span class="menu-text">{{trans('lang.reviews')}}</span>
+            <i class="menu-icon flaticon-star"></i>
+            <span class="menu-text">{{trans('lang.reviews')}}
+                @if(new_reviews() > 0)
+                    &nbsp;
+                    &nbsp;
+                    <span style="width: 20px;height: 20px;"
+                          href="#" class="btn btn-icon btn-danger btn-circle pulse pulse-danger">
+                                    {{new_reviews()}}
+                                </span>
+                @endif
+            </span>
         </a>
     </li>
     <li class="menu-section">
