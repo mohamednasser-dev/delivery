@@ -256,7 +256,7 @@ class AuthController extends Controller
         // 3- if not login with social before
         try {
 
-            $user = Customer::create([
+            $userFound = Customer::create([
                 'social_id' => $request->social_id,
                 'social_type' => $request->social_type,
                 'fcm_token' => $request->fcm_token,
