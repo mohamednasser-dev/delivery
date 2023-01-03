@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\CancelReasonsController;
 use App\Http\Controllers\Admin\RestaurantSettingsController;
 use App\Http\Controllers\Admin\RestaurantBalanceController;
 use App\Http\Controllers\Admin\RestaurantTransactionsController;
+use App\Http\Controllers\Admin\RestaurantReviewsController;
 use App\Http\Controllers\Admin\RestaurantOrdersController;
 
 Auth::routes();
@@ -257,6 +258,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('update/{id}', [OffersController::class, 'update'])->name('.update');
         Route::post('deletes', [OffersController::class, 'deletes'])->name('.deletes');
         Route::get('delete/{id}', [OffersController::class, 'delete'])->name('.delete');
+    });
+
+    //reviews
+    Route::group(['prefix' => 'reviews' ,'as'=>'reviews'], function () {
+        Route::get('/', [RestaurantReviewsController::class, 'index'])->name('.index');
+        Route::get('/change_status/{status}/{id}', [RestaurantReviewsController::class, 'change_status'])->name('.change_status');
+
     });
 
     //cancel_reasons

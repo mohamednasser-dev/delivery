@@ -12,6 +12,7 @@ class Page extends Model
     protected $guarded = [];
 
     protected $appends = ['type_text'];
+
     public function getTitleAttribute()
     {
         if ( \app()->getLocale() == "ar") {
@@ -20,6 +21,7 @@ class Page extends Model
             return $this->title_en;
         }
     }
+
     public function getImageAttribute($image)
     {
         if (!empty($image)) {
@@ -27,6 +29,7 @@ class Page extends Model
         }
         return asset('default-image.png');
     }
+
     public function getTypeTextAttribute()
     {
         if ($this->type == 'about') {

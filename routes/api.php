@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Restaurant\AuthController;
 use App\Http\Controllers\Api\Customer\HomeController;
 use App\Http\Controllers\Api\Customer\RestaurantController;
 use App\Http\Controllers\Api\Customer\CopounController;
+use App\Http\Controllers\Api\Customer\RestaurantReviewsController;
 use App\Http\Controllers\Api\HelpersController;
 use Illuminate\Support\Facades\Route;
 
@@ -167,10 +168,17 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
         Route::post('/create', [LocationsController::class, 'create']);
         Route::post('/update', [LocationsController::class, 'update']);
     });
-
     //favorites
-    Route::get('favorites', [FavoriteController::class, 'index']);
-    Route::post('favorites/store', [FavoriteController::class, 'store']);
+    Route::prefix('favorites')->group(function () {
+        Route::get('/', [FavoriteController::class, 'index']);
+        Route::post('/store', [FavoriteController::class, 'store']);
+    });
+
+    //reviews
+    Route::prefix('review')->group(function () {
+        Route::post('/store', [RestaurantReviewsController::class, 'store']);
+    });
+
 });
 
 //helpers

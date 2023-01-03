@@ -31,6 +31,13 @@
             <span class="menu-text">{{trans('lang.delivery_men')}}</span>
         </a>
     </li>
+    <li class="menu-item @if( request()->segment(1) == 'reviews' ) menu-item-active @endif "
+        aria-haspopup="true">
+        <a href="{{route('reviews.index')}}" class="menu-link">
+            <i class="menu-icon fas fa-motorcycle"></i>
+            <span class="menu-text">{{trans('lang.reviews')}}</span>
+        </a>
+    </li>
     <li class="menu-section">
         <h4 class="menu-text">{{trans('lang.campaign')}}</h4>
         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
