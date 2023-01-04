@@ -29,7 +29,7 @@ class FavoriteController extends Controller
                 if ($exist_fav) {
                     $exist_fav->delete();
 //                    return $this->sendError(trans('lang.fav_exists_before'), 400);
-                    return $this->sendError(__('lang.fav_exists_before'), 400);
+                    return $this->sendSuccess(__('lang.fav_exists_before'), 201);
 
                 }
             //end check
