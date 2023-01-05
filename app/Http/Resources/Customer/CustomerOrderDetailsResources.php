@@ -21,6 +21,8 @@ class CustomerOrderDetailsResources extends JsonResource
             [
                 'id' => $this->id,
                 'order_num' => $this->order_num,
+                'payment_type' => isset($this->payment_type) ? $this->payment_type : "cash",
+                'payment_status' => isset($this->payment_status) ? $this->payment_status : "",
                 'user_id' => $this->user_id,
                 'restaurant_id' => $this->restaurant_id,
                 'created_at' => $this->created_at,
