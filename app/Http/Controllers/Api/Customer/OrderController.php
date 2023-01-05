@@ -107,12 +107,13 @@ class OrderController extends Controller
 
                 }
 
+                Order::whereId($order->id)->update([
+                    'sub_total' => $cost,
+                    'total_price' => $cost,
+                ]);
             }
         }
-        Order::whereId($order->id)->update([
-            'sub_total' => $cost,
-            'total_price' => $cost,
-        ]);
+
         return $this->sendSuccess(__('lang.created_s'), 201);
     }
 
