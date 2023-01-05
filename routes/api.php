@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Customer\AuthController as CustomerAuthController;
 use App\Http\Controllers\Api\Customer\ProfileController as CustomerProfileController;
+use App\Http\Controllers\Api\Customer\OrderController as CustomerOrderController;
 use App\Http\Controllers\Api\Restaurant\CategoriesController;
 use App\Http\Controllers\Api\Restaurant\AttributesController;
 use App\Http\Controllers\Api\Restaurant\ProfileController;
@@ -177,6 +178,11 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
     //reviews
     Route::prefix('review')->group(function () {
         Route::post('/store', [RestaurantReviewsController::class, 'store']);
+    });
+
+    //order
+    Route::prefix('order')->group(function () {
+        Route::post('/store', [CustomerOrderController::class, 'store']);
     });
 
 });

@@ -9,6 +9,8 @@ class OrderMeal extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $appends = ['image'];
 
     public function getImageAttribute(){
