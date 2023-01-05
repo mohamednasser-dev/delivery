@@ -183,6 +183,7 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
     //order
     Route::prefix('order')->group(function () {
         Route::post('/store', [CustomerOrderController::class, 'store']);
+        Route::get('/get-details', [CustomerOrderController::class, 'getOrderDetails']);
     });
 
 });

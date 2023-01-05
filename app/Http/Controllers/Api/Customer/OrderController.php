@@ -6,6 +6,7 @@ use App\Http\Resources\Customer\RestaurantResources;
 use App\Http\Resources\Customer\SectionResources;
 use App\Http\Resources\Customer\OfferResources;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Customer\CustomerOrderDetailsResources;
 use App\Models\Addon;
 use App\Models\Attribute;
 use App\Models\Meal;
@@ -115,9 +116,22 @@ class OrderController extends Controller
         return $this->sendSuccess(__('lang.created_s'), 201);
     }
 
+    public function getOrderDetails(){
+        $customer_id = customer()->id;
+        $order_id = request()->order_id;
+
+        $results = Order::whereId($order_id)
+            ->where('user_id', $customer_id)
+            ->first();
+
+        $data = (new CustomerOrderDetailsResources($results))->response()->getData(true);
+        return $this->sendSuccessData(__('lang.data_show_successfully'), $data);
+    }
+
     public function createOrder($request,$customer,$cost){
         return Order::create([
             'order_num' => time().'_'.$customer->id,
+            'payment_type' => isset($request->payment_type) ? $request->payment_type : "cash" ,
             'user_id' => $customer->id,
             'restaurant_id' => $request->restaurant_id,
             'discount_price' => 0,

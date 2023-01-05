@@ -26,4 +26,8 @@ class Order extends Model
     public function getCreatedAtAttribute($value){
         return Carbon::parse($value)->format('Y-m-d H:i:s');
     }
+
+    public function restaurant(){
+        return $this->belongsTo(Restaurant::class,'restaurant_id');
+    }
 }
