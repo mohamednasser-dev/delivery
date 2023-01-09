@@ -37,7 +37,7 @@ class RestaurantController extends Controller
                 $mealsOfFirstRestaurantCategory
             );
         }else{
-            $firstCat = CategoryMeal::where('restaurant_id',$id)->first();
+            $firstCat = $data->categories->first();
             if($firstCat){
                 $meal_ids = CategoryMeal::where('restaurant_id',$id)
                     ->where('category_id',$firstCat->id)
