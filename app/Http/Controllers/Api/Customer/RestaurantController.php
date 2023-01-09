@@ -25,8 +25,9 @@ class RestaurantController extends Controller
         if(request()->category_id){
             $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
                 ->where('restaurant_id',$id)
-                ->where('category_id',request()->category_id)->paginate(pagination_number());
-            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
+                ->where('category_id',request()->category_id)
+                ->paginate(pagination_number());
+            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory));
 
             return $this->sendSuccessData(__('lang.data_show_successfully'),
                 $mealsOfFirstRestaurantCategory
