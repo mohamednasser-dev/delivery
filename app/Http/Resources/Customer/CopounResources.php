@@ -21,6 +21,7 @@ class CopounResources extends JsonResource
             'code'=> $this->code,
             'type'=>$this->type,
             'amount'=>$this->amount,
+            'description'=> isset($this->description) ? $this->description : "",
         ];
     }
 }

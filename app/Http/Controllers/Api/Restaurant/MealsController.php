@@ -139,7 +139,12 @@ class MealsController extends Controller
             ///////////
             CategoryMeal::where('restaurant_id' , $restaurant_id)
                 ->where('meal_id' , $request->id)
-                ->whereNotIn((array)$request->category_id)->delete();
+                ->where(function($q) use($request){
+                    $cat_ids = (array)$request->category_id;
+                    if(sizeof($cat_ids)>0)
+                        $q->whereNotIn($cat_ids);
+                })
+                ->delete();
             foreach ((array)$request->category_id as $cat){
                 $checkCategoryMeal = CategoryMeal::where('restaurant_id' , $restaurant_id)
                     ->where('meal_id' , $request->id)
