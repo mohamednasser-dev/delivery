@@ -179,6 +179,7 @@ return [
         'episode_id' => 'episode',
         'phone' => 'phone',
         'request_date' => 'request date',
+        'restaurant_id' => 'restaurant',
     ],
 
 ];

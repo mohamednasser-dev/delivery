@@ -184,6 +184,7 @@ return [
         'save_quran_limit' => 'ما هي قدرتك على الحفظ',
         'image' => 'الصورة',
         'logo' => 'الشعار',
+        'restaurant_id' => 'المطعم',
     ],
 
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
+use App\Http\Requests\Customer\RestaurantReviewIndexRequest;
 use App\Http\Resources\Customer\CustomerMealResources;
 use App\Http\Requests\Customer\MealDetailsRequest;
 use App\Http\Controllers\Controller;
@@ -15,14 +16,15 @@ use Illuminate\Support\Facades\Request;
 
 class RestaurantController extends Controller
 {
-    public function restaurantDetailsMenuMeals(Request $request)
+    public function restaurantDetailsMenuMeals(RestaurantReviewIndexRequest $request)
     {
-//        $data = $request->validated();
-        $data = Restaurant::accepted()->active()->findOrFail(request()->restaurant_id);
+        $data = $request->validated();
+        $id = $data['restaurant_id'];
+        $data = Restaurant::accepted()->active()->findOrFail($id);
         $data =  new RestaurantDetailsMenuMealsResources($data);
         if(request()->category_id){
             $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
-                ->where('restaurant_id',request()->restaurant_id)
+                ->where('restaurant_id',$id)
                 ->where('category_id',request()->category_id)->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
 
@@ -30,9 +32,9 @@ class RestaurantController extends Controller
                 $mealsOfFirstRestaurantCategory
             );
         }else{
-            $firstCategory = Category::where('restaurant_id',request()->restaurant_id)->select('id')->first();
+            $firstCategory = Category::where('restaurant_id',$id)->select('id')->first();
             $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
-                ->where('restaurant_id',request()->restaurant_id)
+                ->where('restaurant_id',$id)
                 ->where('category_id',$firstCategory->id)
                 ->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory));
