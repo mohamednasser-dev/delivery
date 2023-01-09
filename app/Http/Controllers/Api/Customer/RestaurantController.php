@@ -40,7 +40,7 @@ class RestaurantController extends Controller
                 ->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
             return $this->sendSuccessData(__('lang.data_show_successfully'),
-                ['restaurant' => $data , 'meals' => $mealsOfFirstRestaurantCategory]
+                ['restaurant' => $data , 'meals' => $mealsOfFirstRestaurantCategory->data]
             );
         }
     }
