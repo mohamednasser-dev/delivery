@@ -1,5 +1,6 @@
 <?php
 
+namespace Database\Seeders;
 use App\Models\Page;
 use App\Models\Screen;
 use App\Models\Setting;
@@ -8,6 +9,7 @@ use Illuminate\Database\Seeder;
 use App\Models\OwnerType;
 use App\Models\RestaurantType;
 use \App\Models\Nationality;
+
 class InsertedDataSeeder extends Seeder
 {
     /**

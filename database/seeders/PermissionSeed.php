@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -15,11 +17,11 @@ class PermissionSeed extends Seeder
     public function run()
     {
 
-        $permission = Permission::updateOrCreate([
+        Permission::updateOrCreate([
             'name' => "User settings",//can value
             'name_ar' => "اعدادات المستخدمين",//name_ar
         ]);
-        $permission = Permission::updateOrCreate([
+        Permission::updateOrCreate([
             'name' => "Managing tasks and powers",//can value
             'name_ar' => "إدارة المهام و الصلاحيات",//name_ar
         ]);

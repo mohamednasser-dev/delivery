@@ -1,9 +1,9 @@
 <?php
-namespace Database\seeds;
+
+namespace Database\Seeders;
 
 use App\Models\Addon;
 use App\Models\Restaurant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AddonSeeder extends Seeder

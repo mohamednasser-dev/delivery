@@ -1,8 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use Database\seeds\SectionSeeder;
-use Database\seeds\RestaurantSectionSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeed::class);
         $this->call(UsersTableSeeder::class);
         $this->call(InsertedDataSeeder::class);
-        $this->call(\Database\Seeders\RestaurantSeeder::class);
+        $this->call(RestaurantSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(AddonSeeder::class);
         $this->call(SectionSeeder::class);

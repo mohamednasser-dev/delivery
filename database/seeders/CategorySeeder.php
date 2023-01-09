@@ -1,10 +1,8 @@
 <?php
-
-namespace Database\seeds;
+namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Restaurant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
