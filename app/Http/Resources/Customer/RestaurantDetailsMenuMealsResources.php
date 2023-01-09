@@ -18,7 +18,7 @@ class RestaurantDetailsMenuMealsResources extends JsonResource
             'id'=>$this->id,
             'logo'=>$this->logo,
             'cover'=>$this->cover,
-            'rate' => (double)4.0,
+            'rate' => number_format((float)($this->rating), 1),
             'name'=> $this->name,
             //TODO
             'description'=> $this->description,

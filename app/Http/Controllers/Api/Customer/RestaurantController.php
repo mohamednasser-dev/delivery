@@ -30,7 +30,7 @@ class RestaurantController extends Controller
                 $mealsOfFirstRestaurantCategory
             );
         }else{
-            $firstCategory = Category::select('id')->first();
+            $firstCategory = Category::where('restaurant_id',request()->restaurant_id)->select('id')->first();
             $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
                 ->where('restaurant_id',request()->restaurant_id)
                 ->where('category_id',$firstCategory->id)
@@ -40,9 +40,6 @@ class RestaurantController extends Controller
                 ['restaurant' => $data , 'meals' => $mealsOfFirstRestaurantCategory]
             );
         }
-
-
-
     }
 
     public function searchRestaurantDetailsMenuMeals(Request $request)
