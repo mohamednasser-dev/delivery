@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Customer\RestaurantDetailsMenuMealsResources;
 use App\Http\Resources\Customer\RestaurantMealsOfCategoryResources;
 use App\Models\Category;
+use App\Models\CategoryMeal;
 use App\Models\Meal;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Request;
@@ -23,9 +24,12 @@ class RestaurantController extends Controller
         $data = Restaurant::accepted()->active()->findOrFail($id);
         $data =  new RestaurantDetailsMenuMealsResources($data);
         if(request()->category_id){
+            $cat_ids = CategoryMeal::where('restaurant_id',$id)
+                ->where('category_id',request()->category_id)
+                ->pluck('meal_id')->toArray();
             $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
                 ->where('restaurant_id',$id)
-                ->where('category_id',request()->category_id)
+                ->whereIn('id',$cat_ids)
                 ->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
 
@@ -33,10 +37,13 @@ class RestaurantController extends Controller
                 $mealsOfFirstRestaurantCategory
             );
         }else{
-            $firstCategory = Category::where('restaurant_id',$id)->select('id')->first();
+            $cat_ids = CategoryMeal::where('restaurant_id',$id)
+                ->where('category_id',request()->category_id)
+                ->take(1)
+                ->pluck('meal_id')->toArray();
             $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
                 ->where('restaurant_id',$id)
-                ->where('category_id',$firstCategory->id)
+                ->whereIn('id',$cat_ids)
                 ->paginate(pagination_number());
             $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(false);
             return $this->sendSuccessData(__('lang.data_show_successfully'),
