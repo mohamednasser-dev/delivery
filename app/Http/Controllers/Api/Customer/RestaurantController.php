@@ -37,15 +37,18 @@ class RestaurantController extends Controller
                 $mealsOfFirstRestaurantCategory
             );
         }else{
-            $meal_ids = CategoryMeal::where('restaurant_id',$id)
-                ->where('category_id',request()->category_id)
-                ->take(1)
-                ->pluck('meal_id')->toArray();
-            $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
-                ->where('restaurant_id',$id)
-//                ->whereIn('id',$meal_ids)
-                ->paginate(pagination_number());
-            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(false);
+            $firstCat = CategoryMeal::where('restaurant_id',$id)->first();
+            if($firstCat){
+                $meal_ids = CategoryMeal::where('restaurant_id',$id)
+                    ->where('category_id',$firstCat->id)
+                    ->pluck('meal_id')->toArray();
+                $mealsOfFirstRestaurantCategory = Meal::accepted()->active()
+                    ->where('restaurant_id',$id)
+                ->whereIn('id',$meal_ids)
+                    ->paginate(pagination_number());
+            }
+
+            $mealsOfFirstRestaurantCategory = isset($firstCat) ? (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(false) : [];
             return $this->sendSuccessData(__('lang.data_show_successfully'),
                 ['restaurant' => $data , 'meals' => $mealsOfFirstRestaurantCategory]
             );
