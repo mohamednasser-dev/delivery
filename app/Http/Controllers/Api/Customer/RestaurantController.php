@@ -27,8 +27,7 @@ class RestaurantController extends Controller
                 ->where('restaurant_id',$id)
                 ->where('category_id',request()->category_id)
                 ->paginate(pagination_number());
-            dd($mealsOfFirstRestaurantCategory);
-            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory));
+            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
 
             return $this->sendSuccessData(__('lang.data_show_successfully'),
                 $mealsOfFirstRestaurantCategory
@@ -39,7 +38,7 @@ class RestaurantController extends Controller
                 ->where('restaurant_id',$id)
                 ->where('category_id',$firstCategory->id)
                 ->paginate(pagination_number());
-            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory));
+            $mealsOfFirstRestaurantCategory = (RestaurantMealsOfCategoryResources::collection($mealsOfFirstRestaurantCategory))->response()->getData(true);
             return $this->sendSuccessData(__('lang.data_show_successfully'),
                 ['restaurant' => $data , 'meals' => $mealsOfFirstRestaurantCategory]
             );
