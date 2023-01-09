@@ -14,13 +14,12 @@ class RestaurantResources extends JsonResource
      */
     public function toArray($request)
     {
-        $lang = request()->header('lang');
         return [
             'id'=>$this->id,
             'logo'=>$this->logo,
             'cover'=>$this->cover,
             'rate' => number_format((float)($this->rating), 1),
-            'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
+            'name'=> $this->name ,
             'description'=> $this->description,
             'latitude'=>$this->latitude,
             'longitude'=>$this->longitude,

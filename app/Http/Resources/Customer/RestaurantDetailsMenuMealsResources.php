@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Customer;
 
-use App\Http\Resources\Customer\RestaurantCategoryResources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RestaurantDetailsMenuMealsResources extends JsonResource
@@ -15,13 +14,12 @@ class RestaurantDetailsMenuMealsResources extends JsonResource
      */
     public function toArray($request)
     {
-        $lang = request()->header('lang');
         return [
             'id'=>$this->id,
             'logo'=>$this->logo,
             'cover'=>$this->cover,
             'rate' => (double)4.0,
-            'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
+            'name'=> $this->name,
             //TODO
             'description'=> $this->description,
             'latitude'=>$this->latitude,

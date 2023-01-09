@@ -19,7 +19,7 @@ class CustomerCategoryResources extends JsonResource
         [
             'id' => $this->id,
             'image' => $this->image,
-            'name' => $lang == 'en' ? $this->name_en : $this->name_ar ,
+            'name' => $this->name ,
         ];
     }
 }

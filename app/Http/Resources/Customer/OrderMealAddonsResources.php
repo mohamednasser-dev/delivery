@@ -22,7 +22,7 @@ class OrderMealAddonsResources extends JsonResource
             'order_meal_id'=>$this->order_meal_id,
             'order_meal_attribute_id'=>$this->order_meal_attribute_id,
             'addon_id'=>$this->addon_id,
-            'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
+            'name'=> $this->name,
             'qty'=> $this->qty,
             'price' => isset($this->price) ? $this->price : 0,
             'total_price' => isset($this->total_price) ? $this->total_price : 0,

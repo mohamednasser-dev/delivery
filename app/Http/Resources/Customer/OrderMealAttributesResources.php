@@ -14,14 +14,12 @@ class OrderMealAttributesResources extends JsonResource
      */
     public function toArray($request)
     {
-        $lang = request()->header('lang');
-
         return [
             'id'=>$this->id,
             'meal_id'=>$this->meal_id,
             'order_meal_id'=>$this->order_meal_id,
             'attribute_id'=>$this->attribute_id,
-            'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
+            'name'=> $this->name,
             'meal_attribute_options'=>isset($this->orderMealAttributeOptions) ? (OrderMealAttributeOptionsResources::collection($this->orderMealAttributeOptions)) : [],
         ];
     }

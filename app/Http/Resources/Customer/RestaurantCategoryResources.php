@@ -15,12 +15,11 @@ class RestaurantCategoryResources extends JsonResource
     public function toArray($request)
     {
         //represent Category Model
-        $lang = request()->header('lang');
         return
             [
                 'id' => $this->id,
                 'image' => $this->image,
-                'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
+                'name'=>  $this->name,
 //                'meals'=> isset($this->acceptedActiveMeals) ? (RestaurantMealsOfCategoryResources::collection($this->acceptedActiveMeals)) : null,
             ];
     }

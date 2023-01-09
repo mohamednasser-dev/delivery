@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Customer;
 
-use App\Http\Resources\Customer\OrderMealsResources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use mysql_xdevapi\Collection;
 
