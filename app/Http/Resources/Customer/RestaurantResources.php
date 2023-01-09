@@ -19,7 +19,7 @@ class RestaurantResources extends JsonResource
             'id'=>$this->id,
             'logo'=>$this->logo,
             'cover'=>$this->cover,
-            'rate' => (double)4.0,
+            'rate' => number_format((float)($this->rating), 1),
             'name'=> $lang == 'en' ? $this->name_en : $this->name_ar,
             'description'=> $this->description,
             'latitude'=>$this->latitude,

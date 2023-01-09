@@ -140,4 +140,8 @@ class Restaurant extends Authenticatable
     {
         return $this->hasMany(RestaurantReview::class, 'restaurant_id')->accepted();
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'restaurant_id');
+    }
 }

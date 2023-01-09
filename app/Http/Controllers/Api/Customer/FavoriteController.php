@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Requests\Customer\FavoriteRequest;
-use App\Http\Resources\FavoriteResources;
+use App\Http\Resources\Customer\FavoriteResources;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Favorite;

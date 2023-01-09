@@ -32,8 +32,9 @@
                             <tr>
                                 <th style="text-align: center;" title="Field #2">المطعم</th>
                                 <th style="text-align: center;" title="Field #2">المستخدم</th>
-                                <th style="text-align: center;" title="Field #2">التاريخ</th>
+                                <th style="text-align: center;" title="Field #2">التعليق</th>
                                 <th style="text-align: center;" title="Field #2">التقييم</th>
+                                <th style="text-align: center;" title="Field #2">التاريخ</th>
                                 <th style="text-align: center;" title="Field #2">حالة الطلب</th>
                                 <th style="text-align: center;" title="Field #7">الموافقة</th>
                             </tr>
@@ -48,6 +49,7 @@
                                         </a>
                                     </td>
                                     <td style="text-align: center;"> {{$row->customer->name}}</td>
+                                    <td style="text-align: center;"> {{$row->comment}}</td>
                                     <td style="text-align: center;">{{$row->created_at->format('Y-m-d')}}</td>
                                     <td style="text-align: center;">
                                         <div>
@@ -80,8 +82,7 @@
                                                     <a href="{{route('reviews.change_status',['status'=>'rejected','id'=>$row->id])}}"
                                                        class="btn btn-danger">
                                                         رفض
-
-                                                        <i class="fa fa-solid fa-circle-xmark"></i>
+                                                        <i class=" flaticon2-delete"></i>
                                                     </a>
                                                 </div>
                                             @endif

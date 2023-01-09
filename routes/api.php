@@ -177,6 +177,7 @@ Route::middleware(['auth:sanctum'])->prefix('customer')->group(function () {
 
     //reviews
     Route::prefix('review')->group(function () {
+        Route::get('/', [RestaurantReviewsController::class, 'index']);
         Route::post('/store', [RestaurantReviewsController::class, 'store']);
     });
 
