@@ -142,7 +142,7 @@ class MealsController extends Controller
                 ->where(function($q) use($request){
                     $cat_ids = (array)$request->category_id;
                     if(sizeof($cat_ids)>0)
-                        $q->whereNotIn($cat_ids);
+                        $q->whereNotIn('category_id',$cat_ids);
                 })
                 ->delete();
             foreach ((array)$request->category_id as $cat){
