@@ -100,9 +100,9 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
+                                           href="{{route('meal.change_approval',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
                                         <a class="dropdown-item"
-                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
+                                           href="{{route('meal.change_approval',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
                                     </div>
                                 @elseif($row->status == 'accepted')
                                     <button type="button" class="btn btn-success dropdown-toggle"
@@ -112,7 +112,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
+                                           href="{{route('meal.change_approval',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
                                     </div>
                                 @elseif($row->status == 'rejected')
                                     <button type="button" class="btn btn-danger dropdown-toggle"
@@ -122,7 +122,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
+                                           href="{{route('meals.change_approval',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
                                     </div>
                                 @endif
                             </div>
