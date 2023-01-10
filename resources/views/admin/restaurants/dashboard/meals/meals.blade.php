@@ -154,9 +154,9 @@
     <script type="text/javascript">
         function update_active(el) {
             if (el.checked) {
-                var status = 1;
+                var status = 'accepted';
             } else {
-                var status = 0;
+                var status = 'rejected';
             }
             $.post('{{ route('meals.change_status') }}', {
                 _token: '{{ csrf_token() }}',
