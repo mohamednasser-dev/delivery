@@ -64,6 +64,7 @@
                     <th class="center">{{trans('lang.name_ar')}}</th>
                     <th class="center">{{trans('lang.name_en')}}</th>
                     <th class="center">{{trans('lang.show')}}</th>
+                    <th class="center">{{trans('lang.approval')}}</th>
                     <th class="center" style="min-width: 160px">{{trans('lang.options')}}</th>
                 </tr>
                 </thead>
@@ -88,6 +89,43 @@
                                     <span></span>
                                 </label>
                             </span>
+                        </td>
+                        <td class="center">
+                            <div class="btn-group">
+                                @if($row->status == 'pending')
+                                    <button type="button" class="btn btn-warning dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        {{trans('s_admin.new')}}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
+                                        <a class="dropdown-item"
+                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
+                                    </div>
+                                @elseif($row->status == 'accepted')
+                                    <button type="button" class="btn btn-success dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        {{trans('s_admin.accepted')}}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'rejected'])}}">{{trans('s_admin.reject')}}</a>
+                                    </div>
+                                @elseif($row->status == 'rejected')
+                                    <button type="button" class="btn btn-danger dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        {{trans('s_admin.rejected')}}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                           href="{{route('restaurants.change_approval',['id'=>$row->id,'status'=>'accepted'])}}">{{trans('s_admin.accept')}}</a>
+                                    </div>
+                                @endif
+                            </div>
                         </td>
                         <td class="center">
                             <a class="btn btn-icon btn-primary btn-circle btn-sm mr-2"
@@ -154,9 +192,9 @@
     <script type="text/javascript">
         function update_active(el) {
             if (el.checked) {
-                var status = 'accepted';
+                var status = 1;
             } else {
-                var status = 'rejected';
+                var status = 0;
             }
             $.post('{{ route('meals.change_status') }}', {
                 _token: '{{ csrf_token() }}',

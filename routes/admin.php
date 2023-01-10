@@ -172,6 +172,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::post('/store/{id}', [MealsController::class, 'store'])->name('.store');
         Route::get('/edit/{id}', [MealsController::class, 'edit'])->name('.edit');
         Route::post('change_status', [MealsController::class, 'change_status'])->name('.change_status');
+        Route::get('/change_status/{id}/{status}', [MealsController::class, 'change_approval'])->name('.change_approval');
+
         Route::put('update_new', [MealsController::class, 'update'])->name('.update_new');
         Route::get('delete/{id}', [MealsController::class, 'destroy'])->name('.delete');
         Route::get('attribute/data', [MealsController::class, 'attribute_data'])->name('.attribute.data');

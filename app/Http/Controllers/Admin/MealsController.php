@@ -193,4 +193,14 @@ class MealsController extends Controller
         $addon = Addon::find($request->addon_id);
         return view('admin.restaurants.dashboard.parts.meal_addons', compact('addon'));
     }
+
+    public function change_approval($id, $status)
+    {
+        $meal = $this->objectName::findOrFail($id);
+
+        $meal->update(['status' => $status]);
+
+        session()->flash('success', trans('lang.updatSuccess'));
+        return redirect()->route($this->route . '.index');
+    }
 }
