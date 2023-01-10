@@ -201,6 +201,6 @@ class MealsController extends Controller
         $meal->update(['status' => $status]);
 
         session()->flash('success', trans('lang.updatSuccess'));
-        return redirect()->route($this->route . '.index');
+        return redirect()->back();
     }
 }
